@@ -2,6 +2,25 @@ import product1 from "@/assets/product-1.jpg";
 import product2 from "@/assets/product-2.jpg";
 import product3 from "@/assets/product-3.jpg";
 import product4 from "@/assets/product-4.jpg";
+import rivalLime from "@/assets/rival-bar-lime.jpg.asset.json";
+import rivalCola from "@/assets/rival-bar-cola.png.asset.json";
+import rivalLongJin from "@/assets/rival-bar-long-jin-tea.png.asset.json";
+import rivalGrape from "@/assets/rival-bar-grape.jpg.asset.json";
+import alibarbarSCW from "@/assets/alibarbar-strawberry-coconut-watermelon.jpg.asset.json";
+import vapehubTobacco from "@/assets/vapehub-classic-tobacco.jpg.asset.json";
+import fiscoXpro from "@/assets/fisco-xpro-device.jpg.asset.json";
+import fiscoApple from "@/assets/fisco-xpod-apple-shisha.png.asset.json";
+
+const IMG = {
+  rivalLime: rivalLime.url,
+  rivalCola: rivalCola.url,
+  rivalLongJin: rivalLongJin.url,
+  rivalGrape: rivalGrape.url,
+  alibarbarSCW: alibarbarSCW.url,
+  vapehubTobacco: vapehubTobacco.url,
+  fiscoXpro: fiscoXpro.url,
+  fiscoApple: fiscoApple.url,
+};
 
 export type Product = {
   slug: string;
@@ -341,7 +360,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Fisco Xpod",
     price: 32.95,
-    image: product2,
+    image: IMG.fiscoApple,
     flavour: "Double Apple",
     puffs: "8000",
     nicotine: "20 mg/mL",
@@ -353,7 +372,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Fisco Xpod",
     price: 24.95,
-    image: product3,
+    image: IMG.fiscoApple,
     flavour: "Spearmint",
     puffs: "8000",
     nicotine: "20 mg/mL",
@@ -401,7 +420,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Rival Bar 8000",
     price: 32.95,
-    image: product3,
+    image: IMG.rivalLongJin,
     flavour: "Long Jin Green Tea",
     puffs: "8000",
     nicotine: "20 mg/mL",
@@ -413,7 +432,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Rival Bar 8000",
     price: 32.95,
-    image: product4,
+    image: IMG.rivalLime,
     flavour: "Lime",
     puffs: "8000",
     nicotine: "20 mg/mL",
@@ -425,11 +444,56 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Rival Bar 8000",
     price: 32.95,
-    image: product1,
+    image: IMG.rivalCola,
     flavour: "Cola",
     puffs: "8000",
     nicotine: "20 mg/mL",
     description: "Fizzy cola classic.",
+  },
+  {
+    slug: "rival-bar-grape-8000",
+    name: "Rival Bar Grape",
+    category: "disposables",
+    categoryLabel: "Rival Bar 8000",
+    price: 32.95,
+    image: IMG.rivalGrape,
+    flavour: "Grape",
+    puffs: "8000",
+    nicotine: "20 mg/mL",
+    description: "Deep, juicy grape with an icy finish.",
+  },
+  {
+    slug: "alibarbar-ingot-strawberry-coconut-watermelon-9000",
+    name: "Alibarbar Ingot Strawberry Coconut Watermelon",
+    category: "disposables",
+    categoryLabel: "Alibarbar 9000",
+    price: 34.95,
+    image: IMG.alibarbarSCW,
+    flavour: "Strawberry · Coconut · Watermelon",
+    puffs: "9000",
+    nicotine: "20 mg/mL",
+    description: "Ripe strawberry, creamy coconut and crisp watermelon in the gold Alibarbar Ingot chassis.",
+  },
+  {
+    slug: "vapehub-classic-tobacco-20000",
+    name: "Vapehub Classic Tobacco",
+    category: "disposables",
+    categoryLabel: "Vapehub 20000",
+    price: 44.95,
+    image: IMG.vapehubTobacco,
+    flavour: "Classic Tobacco",
+    puffs: "20000",
+    nicotine: "20 mg/mL",
+    description: "Rich, cured tobacco profile in a 20,000-puff Vapehub disposable.",
+  },
+  {
+    slug: "fisco-x-pro-device-8000",
+    name: "Fisco X-Pro Device",
+    category: "devices",
+    categoryLabel: "Fisco Device",
+    price: 49.95,
+    image: IMG.fiscoXpro,
+    description: "Rechargeable Fisco X-Pro pod device — 8000 puff capacity with LED coil window. Pairs with Fisco Xpod refills.",
   },
 ];
 
