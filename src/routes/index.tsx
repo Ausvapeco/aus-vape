@@ -9,6 +9,10 @@ import { ProductCard } from "@/components/ausvape/ProductCard";
 import { bestsellers, categories } from "@/lib/products";
 import heroDevice from "@/assets/hero-device.jpg";
 import brandStory from "@/assets/brand-story.jpg";
+import product1 from "@/assets/product-1.jpg";
+import product2 from "@/assets/product-2.jpg";
+import product3 from "@/assets/product-3.jpg";
+import rivalGrape from "@/assets/rival-bar-grape.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -93,10 +97,10 @@ function TrustStrip() {
 
 function CategoryGrid() {
   const tiles = [
-    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined." },
-    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens." },
-    { slug: "accessories", label: "Accessories", blurb: "Coils, chargers, cases." },
-    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved." },
+    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: rivalGrape.url },
+    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: product1 },
+    { slug: "accessories", label: "Accessories", blurb: "Coils, chargers, cases.", image: product2 },
+    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: product3 },
   ];
   return (
     <section className="py-24 px-4 md:px-8">
@@ -113,6 +117,13 @@ function CategoryGrid() {
               params={t.slug === "best-sellers" ? {} : { slug: t.slug }}
               className="group relative aspect-[4/5] bg-[#18181B] border border-[#A9791F]/15 rounded-lg overflow-hidden hover:border-[#F0CD6E]/60 transition-all"
             >
+              <img
+                src={t.image}
+                alt={t.label}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-[#0A0A0C]/70 to-transparent" />
               <div className="absolute inset-0 flex flex-col justify-end p-6">
                 <div className="text-[10px] tracking-[0.35em] uppercase text-gold">{t.blurb}</div>
                 <div className="mt-2 font-display font-bold text-2xl group-hover:text-gold transition-colors">{t.label}</div>
@@ -120,7 +131,6 @@ function CategoryGrid() {
                   Explore →
                 </div>
               </div>
-              <div className="absolute inset-x-6 top-6 h-40 bg-gradient-to-b from-[#F0CD6E]/10 to-transparent rounded" />
             </Link>
           ))}
         </div>
