@@ -4,6 +4,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --color-gold-light: #F0CD6E;
+  --color-gold-dark: #A9791F;
+  --color-void: #0A0A0C;
+  --color-charcoal: #18181B;
+  --color-platinum: #F4F4F2;
+  --color-smoke: #96969B;
+}
+
 /*
  * Design system definition.
  *
@@ -63,38 +75,44 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  /* AUSVAPE CO — dark luxury by default */
+  --background: #0A0A0C;
+  --foreground: #F4F4F2;
+  --card: #18181B;
+  --card-foreground: #F4F4F2;
+  --popover: #18181B;
+  --popover-foreground: #F4F4F2;
+  --primary: #F0CD6E;
+  --primary-foreground: #0A0A0C;
+  --secondary: #18181B;
+  --secondary-foreground: #F4F4F2;
+  --muted: #18181B;
+  --muted-foreground: #96969B;
+  --accent: #A9791F;
+  --accent-foreground: #F4F4F2;
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --destructive-foreground: #F4F4F2;
+  --border: rgba(240, 205, 110, 0.14);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #A9791F;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --sidebar: #0A0A0C;
+  --sidebar-foreground: #F4F4F2;
+  --sidebar-primary: #F0CD6E;
+  --sidebar-primary-foreground: #0A0A0C;
+  --sidebar-accent: #18181B;
+  --sidebar-accent-foreground: #F4F4F2;
+  --sidebar-border: rgba(240, 205, 110, 0.14);
+  --sidebar-ring: #A9791F;
+
+  --gradient-gold: linear-gradient(135deg, #F0CD6E 0%, #A9791F 100%);
+  --gradient-gold-text: linear-gradient(180deg, #F0CD6E 0%, #A9791F 100%);
+  --shadow-gold: 0 12px 40px -12px rgba(240, 205, 110, 0.35);
+  --shadow-gold-soft: 0 0 24px rgba(240, 205, 110, 0.18);
 }
 
 .dark {
@@ -140,5 +158,71 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    background-color: var(--color-background);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility text-gold {
+  background-image: var(--gradient-gold-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility bg-gold {
+  background-image: var(--gradient-gold);
+}
+
+@utility border-gold {
+  border-image: var(--gradient-gold) 1;
+}
+
+@utility font-spec {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+@utility hairline-gold {
+  background: linear-gradient(90deg, transparent 0%, #A9791F 50%, transparent 100%);
+  height: 1px;
+  width: 100%;
+}
+
+@keyframes drift-wisp {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  50% { transform: translate(20px, -30px) scale(1.05); opacity: 0.55; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+}
+
+@keyframes drift-wisp-alt {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+  50% { transform: translate(-30px, -20px) scale(1.08); opacity: 0.5; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.25; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility animate-wisp {
+  animation: drift-wisp 12s ease-in-out infinite;
+}
+@utility animate-wisp-slow {
+  animation: drift-wisp-alt 16s ease-in-out infinite;
+}
+@utility animate-fade-up {
+  animation: fade-up 0.8s ease-out both;
   }
 }
