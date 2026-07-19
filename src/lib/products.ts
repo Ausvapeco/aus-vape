@@ -2,6 +2,25 @@ import product1 from "@/assets/product-1.jpg";
 import product2 from "@/assets/product-2.jpg";
 import product3 from "@/assets/product-3.jpg";
 import product4 from "@/assets/product-4.jpg";
+import rivalLime from "@/assets/rival-bar-lime.jpg.asset.json";
+import rivalCola from "@/assets/rival-bar-cola.png.asset.json";
+import rivalLongJin from "@/assets/rival-bar-long-jin-tea.png.asset.json";
+import rivalGrape from "@/assets/rival-bar-grape.jpg.asset.json";
+import alibarbarSCW from "@/assets/alibarbar-strawberry-coconut-watermelon.jpg.asset.json";
+import vapehubTobacco from "@/assets/vapehub-classic-tobacco.jpg.asset.json";
+import fiscoXpro from "@/assets/fisco-xpro-device.jpg.asset.json";
+import fiscoApple from "@/assets/fisco-xpod-apple-shisha.png.asset.json";
+
+const IMG = {
+  rivalLime: rivalLime.url,
+  rivalCola: rivalCola.url,
+  rivalLongJin: rivalLongJin.url,
+  rivalGrape: rivalGrape.url,
+  alibarbarSCW: alibarbarSCW.url,
+  vapehubTobacco: vapehubTobacco.url,
+  fiscoXpro: fiscoXpro.url,
+  fiscoApple: fiscoApple.url,
+};
 
 export type Product = {
   slug: string;
