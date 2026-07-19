@@ -87,7 +87,7 @@ function ProductPage() {
                 <div className="mt-6">
                   <div className="text-[10px] tracking-[0.35em] uppercase text-gold mb-2">Finish</div>
                   <div className="flex gap-2">
-                    {product.colors.map(c => (
+                    {product.colors.map((c: { name: string; hex: string }) => (
                       <button
                         key={c.name}
                         onClick={() => setVariant(c.name)}

@@ -82,7 +82,7 @@ function LegalPage() {
           <Eyebrow>{page.eyebrow}</Eyebrow>
           <h1 className="mt-6 font-display font-black text-4xl md:text-5xl">{page.title}</h1>
           <div className="mt-12 space-y-8">
-            {page.body.map((b, i) => (
+            {page.body.map((b: { h?: string; p: string }, i: number) => (
               <div key={i}>
                 {b.h && <h2 className="font-display font-bold text-xl text-gold mb-3">{b.h}</h2>}
                 <p className="text-[color:var(--color-smoke)] leading-relaxed">{b.p}</p>
