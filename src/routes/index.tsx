@@ -110,8 +110,7 @@ function CategoryGrid() {
             <Link
               key={t.slug}
               to={t.slug === "best-sellers" ? "/shop" : "/category/$slug"}
-              params={t.slug === "best-sellers" ? undefined : { slug: t.slug }}
-              search={t.slug === "best-sellers" ? { sort: "bestsellers" as const } : undefined}
+              params={t.slug === "best-sellers" ? {} : { slug: t.slug }}
               className="group relative aspect-[4/5] bg-[#18181B] border border-[#A9791F]/15 rounded-lg overflow-hidden hover:border-[#F0CD6E]/60 transition-all"
             >
               <div className="absolute inset-0 flex flex-col justify-end p-6">
