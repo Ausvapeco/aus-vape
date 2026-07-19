@@ -82,17 +82,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "AUSVAPE CO is Australia's premium vapour retailer. Authentic devices and pods, dispatched fast from Australia. Strictly 18+." },
       { name: "author", content: "AUSVAPE CO" },
       { property: "og:title", content: "AUSVAPE CO — Premium Vapour, Delivered" },
-      { property: "og:description", content: "Authentic devices, curated flavours, dispatched from Australia. Strictly 18+." },
+      { property: "og:description", content: "AUSVAPE CO is Australia's premium vapour retailer. Authentic devices and pods, dispatched fast from Australia. Strictly 18+." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "AUSVAPE CO" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "AUSVAPE CO — Premium Vapour, Delivered" },
+      { name: "twitter:description", content: "AUSVAPE CO is Australia's premium vapour retailer. Authentic devices and pods, dispatched fast from Australia. Strictly 18+." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/2d908741-5b34-448f-baa6-b2fe1397501d" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/2d908741-5b34-448f-baa6-b2fe1397501d" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
