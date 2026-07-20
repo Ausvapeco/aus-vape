@@ -10,6 +10,35 @@ import alibarbarSCW from "@/assets/alibarbar-strawberry-coconut-watermelon.jpg.a
 import vapehubTobacco from "@/assets/vapehub-classic-tobacco.jpg.asset.json";
 import fiscoXpro from "@/assets/fisco-xpro-device.jpg.asset.json";
 import fiscoApple from "@/assets/fisco-xpod-apple-shisha.png.asset.json";
+import gen_alibarbar_grapefruit_guava_lemon from "@/assets/gen/alibarbar-grapefruit-guava-lemon.jpg.asset.json";
+import gen_alibarbar_miami_mint from "@/assets/gen/alibarbar-miami-mint.jpg.asset.json";
+import gen_alibarbar_ribena from "@/assets/gen/alibarbar-ribena.jpg.asset.json";
+import gen_alibarbar_strawberry_lollipop from "@/assets/gen/alibarbar-strawberry-lollipop.jpg.asset.json";
+import gen_aureus_carry_case from "@/assets/gen/aureus-carry-case.jpg.asset.json";
+import gen_aureus_pen_24 from "@/assets/gen/aureus-pen-24.jpg.asset.json";
+import gen_calibarn_lemon_mint from "@/assets/gen/calibarn-lemon-mint.jpg.asset.json";
+import gen_calibarn_peach_watermelon from "@/assets/gen/calibarn-peach-watermelon.jpg.asset.json";
+import gen_dh_hype_3pack from "@/assets/gen/dh-hype-3pack.jpg.asset.json";
+import gen_dh_hype_blackberry from "@/assets/gen/dh-hype-blackberry.jpg.asset.json";
+import gen_dh_hype_blueberry_raspberry from "@/assets/gen/dh-hype-blueberry-raspberry.jpg.asset.json";
+import gen_dh_hype_cherry_pomegranate from "@/assets/gen/dh-hype-cherry-pomegranate.jpg.asset.json";
+import gen_dh_hype_cool_mint from "@/assets/gen/dh-hype-cool-mint.jpg.asset.json";
+import gen_dh_hype_double_happiness from "@/assets/gen/dh-hype-double-happiness.jpg.asset.json";
+import gen_dh_hype_flat_white from "@/assets/gen/dh-hype-flat-white.jpg.asset.json";
+import gen_dh_hype_greek_yogurt from "@/assets/gen/dh-hype-greek-yogurt.jpg.asset.json";
+import gen_dh_hype_love_66 from "@/assets/gen/dh-hype-love-66.jpg.asset.json";
+import gen_dh_hype_strawberry_lollipop from "@/assets/gen/dh-hype-strawberry-lollipop.jpg.asset.json";
+import gen_dh_hype_strawberry_raspberry from "@/assets/gen/dh-hype-strawberry-raspberry.jpg.asset.json";
+import gen_dh_hype_strawberry_watermelon from "@/assets/gen/dh-hype-strawberry-watermelon.jpg.asset.json";
+import gen_ember_charger from "@/assets/gen/ember-charger.jpg.asset.json";
+import gen_ember_slim_500 from "@/assets/gen/ember-slim-500.jpg.asset.json";
+import gen_fisco_xpod_spearmint from "@/assets/gen/fisco-xpod-spearmint.jpg.asset.json";
+import gen_jnr_cruiser_pfml from "@/assets/gen/jnr-cruiser-pfml.jpg.asset.json";
+import gen_monolith_coil_pack from "@/assets/gen/monolith-coil-pack.jpg.asset.json";
+import gen_monolith_mod_450 from "@/assets/gen/monolith-mod-450.jpg.asset.json";
+import gen_obsidian_pod_x1 from "@/assets/gen/obsidian-pod-x1.jpg.asset.json";
+import gen_obsidian_pod_x2 from "@/assets/gen/obsidian-pod-x2.jpg.asset.json";
+import gen_rival_bar_lychee from "@/assets/gen/rival-bar-lychee.jpg.asset.json";
 
 const IMG = {
   rivalLime: rivalLime.url,
@@ -49,7 +78,7 @@ export const products: Product[] = [
     categoryLabel: "Disposable",
     price: 34.95,
     salePrice: 29.95,
-    image: product1,
+    image: gen_obsidian_pod_x1.url,
     flavour: "Iced Mango",
     puffs: "6000",
     battery: "650 mAh",
@@ -68,7 +97,7 @@ export const products: Product[] = [
     category: "devices",
     categoryLabel: "Device",
     price: 129.0,
-    image: product2,
+    image: gen_monolith_mod_450.url,
     battery: "3000 mAh",
     capacity: "5 mL",
     colors: [
@@ -84,7 +113,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Disposable",
     price: 24.95,
-    image: product3,
+    image: gen_ember_slim_500.url,
     flavour: "Tobacco Reserve",
     puffs: "3500",
     battery: "500 mAh",
@@ -101,7 +130,7 @@ export const products: Product[] = [
     categoryLabel: "Device",
     price: 89.0,
     salePrice: 74.0,
-    image: product4,
+    image: gen_aureus_pen_24.url,
     battery: "1500 mAh",
     capacity: "3 mL",
     colors: [{ name: "Gold", hex: "#F0CD6E" }, { name: "Void", hex: "#0A0A0C" }],
@@ -114,7 +143,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Disposable",
     price: 36.95,
-    image: product1,
+    image: gen_obsidian_pod_x2.url,
     flavour: "Winter Mint",
     puffs: "6000",
     battery: "650 mAh",
@@ -128,7 +157,7 @@ export const products: Product[] = [
     category: "accessories",
     categoryLabel: "Accessory",
     price: 19.95,
-    image: product2,
+    image: gen_monolith_coil_pack.url,
     description: "Five-pack of 0.4Ω mesh coils calibrated for the Monolith Mod 450.",
   },
   {
@@ -137,7 +166,7 @@ export const products: Product[] = [
     category: "accessories",
     categoryLabel: "Accessory",
     price: 24.95,
-    image: product3,
+    image: gen_ember_charger.url,
     description: "USB-C fast charger with pass-through protection.",
   },
   {
@@ -146,7 +175,7 @@ export const products: Product[] = [
     category: "accessories",
     categoryLabel: "Accessory",
     price: 39.0,
-    image: product4,
+    image: gen_aureus_carry_case.url,
     description: "Structured leather-effect case with a gold-stitched interior lining.",
   },
   // ——— Extended catalogue ———
@@ -156,7 +185,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "JNR Cruiser 12000",
     price: 39.95,
-    image: product1,
+    image: gen_jnr_cruiser_pfml.url,
     flavour: "Passion Fruit · Mango · Lime",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -168,7 +197,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product2,
+    image: gen_dh_hype_flat_white.url,
     flavour: "Flat White",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -180,7 +209,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product3,
+    image: gen_dh_hype_greek_yogurt.url,
     flavour: "Greek Yogurt",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -192,7 +221,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product4,
+    image: gen_dh_hype_strawberry_raspberry.url,
     flavour: "Strawberry · Raspberry",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -204,7 +233,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product1,
+    image: gen_dh_hype_strawberry_watermelon.url,
     flavour: "Strawberry · Watermelon",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -216,7 +245,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product2,
+    image: gen_dh_hype_love_66.url,
     flavour: "Love 66",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -228,7 +257,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product3,
+    image: gen_dh_hype_cool_mint.url,
     flavour: "Cool Mint",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -240,7 +269,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product4,
+    image: gen_dh_hype_double_happiness.url,
     flavour: "Double Happiness",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -252,7 +281,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product1,
+    image: gen_dh_hype_blueberry_raspberry.url,
     flavour: "Blueberry · Raspberry",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -265,7 +294,7 @@ export const products: Product[] = [
     categoryLabel: "DH Hype 12000",
     price: 109.95,
     salePrice: 99.95,
-    image: product2,
+    image: gen_dh_hype_3pack.url,
     puffs: "12000 x 3",
     nicotine: "20 mg/mL",
     description: "Three-pack bundle of DH Hype 12000 disposables. Mix flavours at checkout.",
@@ -276,7 +305,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product3,
+    image: gen_dh_hype_strawberry_lollipop.url,
     flavour: "Strawberry Lollipop",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -288,7 +317,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product4,
+    image: gen_dh_hype_cherry_pomegranate.url,
     flavour: "Cherry · Pomegranate",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -300,7 +329,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "DH Hype 12000",
     price: 39.95,
-    image: product1,
+    image: gen_dh_hype_blackberry.url,
     flavour: "Blackberry",
     puffs: "12000",
     nicotine: "20 mg/mL",
@@ -312,7 +341,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Alibarbar 9000",
     price: 34.95,
-    image: product2,
+    image: gen_alibarbar_strawberry_lollipop.url,
     flavour: "Strawberry Lollipop",
     puffs: "9000",
     nicotine: "20 mg/mL",
@@ -324,7 +353,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Alibarbar 9000",
     price: 34.95,
-    image: product3,
+    image: gen_alibarbar_grapefruit_guava_lemon.url,
     flavour: "Grapefruit · Guava · Lemon Ice",
     puffs: "9000",
     nicotine: "20 mg/mL",
@@ -336,7 +365,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Alibarbar 9000",
     price: 34.95,
-    image: product4,
+    image: gen_alibarbar_ribena.url,
     flavour: "Ribena Blackcurrant",
     puffs: "9000",
     nicotine: "20 mg/mL",
@@ -348,7 +377,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Alibarbar 9000",
     price: 34.95,
-    image: product1,
+    image: gen_alibarbar_miami_mint.url,
     flavour: "Miami Mint",
     puffs: "9000",
     nicotine: "20 mg/mL",
@@ -372,7 +401,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Fisco Xpod",
     price: 24.95,
-    image: IMG.fiscoApple,
+    image: gen_fisco_xpod_spearmint.url,
     flavour: "Spearmint",
     puffs: "8000",
     nicotine: "20 mg/mL",
@@ -384,7 +413,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Calibarn 6000",
     price: 27.95,
-    image: product4,
+    image: gen_calibarn_peach_watermelon.url,
     flavour: "Peach · Watermelon",
     puffs: "6000",
     nicotine: "20 mg/mL",
@@ -396,7 +425,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Calibarn 6000",
     price: 27.95,
-    image: product1,
+    image: gen_calibarn_lemon_mint.url,
     flavour: "Lemon · Mint",
     puffs: "6000",
     nicotine: "20 mg/mL",
@@ -408,7 +437,7 @@ export const products: Product[] = [
     category: "disposables",
     categoryLabel: "Rival Bar 8000",
     price: 32.95,
-    image: product2,
+    image: gen_rival_bar_lychee.url,
     flavour: "Lychee",
     puffs: "8000",
     nicotine: "20 mg/mL",
