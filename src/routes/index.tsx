@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { bestsellers, categories } from "@/lib/products";
+import { getProduct } from "@/lib/products";
 import heroDevice from "@/assets/hero-device.jpg";
 import brandStory from "@/assets/brand-story.jpg";
 import product1 from "@/assets/product-1.jpg";
@@ -22,6 +23,7 @@ function Index() {
   return (
     <SiteLayout>
       <Hero />
+      <FeaturedBanner />
       <TrustStrip />
       <CategoryGrid />
       <Bestsellers />
@@ -68,6 +70,86 @@ function Hero() {
               Our Story
             </Link>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedBanner() {
+  const slugs = [
+    "alibarbar-ingot-strawberry-coconut-watermelon-9000",
+    "rival-bar-cola-8000",
+    "vapehub-classic-tobacco-20000",
+  ];
+  const items = slugs.map(s => getProduct(s)).filter(Boolean) as NonNullable<ReturnType<typeof getProduct>>[];
+  return (
+    <section className="relative py-24 px-4 md:px-8 bg-[#0A0A0C] overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 opacity-40">
+        <SmokeWisp className="absolute -top-20 left-1/2 -translate-x-1/2 w-[1400px] h-[600px]" />
+      </div>
+      <div className="relative max-w-7xl mx-auto">
+        <div className="text-center">
+          <Eyebrow>Featured Trio</Eyebrow>
+          <h2 className="mt-6 font-display font-bold text-4xl md:text-5xl">
+            This week's <span className="text-gold">signature picks.</span>
+          </h2>
+          <p className="mt-4 text-[color:var(--color-smoke)] max-w-xl mx-auto">
+            Three devices, hand-selected from our floor. Limited quantities, dispatched same day.
+          </p>
+        </div>
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {items.map((p, i) => {
+            const onSale = p.salePrice != null;
+            return (
+              <Link
+                key={p.slug}
+                to="/product/$slug"
+                params={{ slug: p.slug }}
+                className="group relative bg-gradient-to-b from-[#18181B] to-[#0A0A0C] border border-[#A9791F]/25 rounded-xl overflow-hidden hover:border-[#F0CD6E]/70 hover:shadow-[0_0_50px_rgba(240,205,110,0.15)] transition-all duration-500"
+              >
+                <div className="absolute top-5 left-5 z-10 text-[10px] tracking-[0.35em] uppercase text-gold border border-[#A9791F]/50 px-3 py-1 bg-[#0A0A0C]/70 backdrop-blur">
+                  N° 0{i + 1}
+                </div>
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-radial from-[#A9791F]/20 via-transparent to-transparent" />
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0A0A0C] to-transparent" />
+                </div>
+                <div className="relative p-7 border-t border-[#A9791F]/20">
+                  <div className="text-[10px] tracking-[0.3em] uppercase text-[color:var(--color-smoke)]">
+                    {p.categoryLabel}
+                  </div>
+                  <h3 className="mt-2 font-display font-bold text-2xl group-hover:text-gold transition-colors">
+                    {p.name}
+                  </h3>
+                  {p.flavour && (
+                    <div className="font-spec text-xs text-[color:var(--color-smoke)] mt-1">{p.flavour}</div>
+                  )}
+                  <div className="mt-6 flex items-end justify-between">
+                    <div className="flex items-baseline gap-2">
+                      {onSale ? (
+                        <>
+                          <span className="font-spec text-2xl text-gold">${p.salePrice!.toFixed(2)}</span>
+                          <span className="font-spec text-xs text-[color:var(--color-smoke)] line-through">${p.price.toFixed(2)}</span>
+                        </>
+                      ) : (
+                        <span className="font-spec text-2xl text-gold">${p.price.toFixed(2)}</span>
+                      )}
+                    </div>
+                    <span className="text-[10px] tracking-[0.3em] uppercase text-gold group-hover:tracking-[0.4em] transition-all">
+                      Shop →
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>
