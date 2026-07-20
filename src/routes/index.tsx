@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { bestsellers, categories } from "@/lib/products";
+import { getProduct } from "@/lib/products";
 import heroDevice from "@/assets/hero-device.jpg";
 import brandStory from "@/assets/brand-story.jpg";
 import product1 from "@/assets/product-1.jpg";
@@ -22,6 +23,7 @@ function Index() {
   return (
     <SiteLayout>
       <Hero />
+      <FeaturedBanner />
       <TrustStrip />
       <CategoryGrid />
       <Bestsellers />
