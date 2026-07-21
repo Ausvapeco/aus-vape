@@ -13,7 +13,10 @@ import brandStory from "@/assets/brand-story.jpg";
 import product1 from "@/assets/product-1.jpg";
 import product2 from "@/assets/product-2.jpg";
 import product3 from "@/assets/product-3.jpg";
-import rivalGrape from "@/assets/rival-bar-grape.jpg.asset.json";
+import catDisposables from "@/assets/gen/cat-disposables.jpg";
+import catDevices from "@/assets/gen/cat-devices.jpg";
+import catAccessories from "@/assets/gen/cat-accessories.jpg";
+import catBestsellers from "@/assets/gen/cat-bestsellers.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -179,10 +182,10 @@ function TrustStrip() {
 
 function CategoryGrid() {
   const tiles = [
-    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: rivalGrape.url },
-    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: product1 },
-    { slug: "accessories", label: "Accessories", blurb: "Coils, chargers, cases.", image: product2 },
-    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: product3 },
+    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: catDisposables },
+    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: catDevices },
+    { slug: "accessories", label: "Accessories", blurb: "Coils, chargers, cases.", image: catAccessories },
+    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: catBestsellers },
   ];
   return (
     <section className="py-24 px-4 md:px-8">
