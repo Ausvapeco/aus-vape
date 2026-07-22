@@ -48,6 +48,7 @@ import hqdMangoHoneydew from "@/assets/gen/hqd-slick-mango-honeydew.webp.asset.j
 import hqdRaspberryGrape from "@/assets/gen/hqd-slick-raspberry-grape.webp.asset.json";
 import igetLycheeIce from "@/assets/gen/iget-lychee-ice.webp.asset.json";
 import calibarnLemon from "@/assets/gen/calibarn-lemon.webp.asset.json";
+import calibarnPeachWatermelonPhoto from "@/assets/gen/calibarn-lemon.webp.asset.json";
 
 const IMG = {
   rivalLime: rivalLime.url,
