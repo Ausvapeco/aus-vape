@@ -39,6 +39,8 @@ import gen_monolith_mod_450 from "@/assets/gen/monolith-mod-450.jpg.asset.json";
 import gen_obsidian_pod_x1 from "@/assets/gen/obsidian-pod-x1.jpg.asset.json";
 import gen_obsidian_pod_x2 from "@/assets/gen/obsidian-pod-x2.jpg.asset.json";
 import gen_rival_bar_lychee from "@/assets/gen/rival-bar-lychee.jpg.asset.json";
+import igetStrawberryWatermelonIce from "@/assets/gen/iget-bar-pro-strawberry-watermelon-ice.webp.asset.json";
+import igetBlueberryIce from "@/assets/gen/iget-bar-pro-blueberry-ice.webp.asset.json";
 
 const IMG = {
   rivalLime: rivalLime.url,
@@ -523,6 +525,28 @@ export const products: Product[] = [
     price: 49.95,
     image: IMG.fiscoXpro,
     description: "Rechargeable Fisco X-Pro pod device — 8000 puff capacity with LED coil window. Pairs with Fisco Xpod refills.",
+  },
+  {
+    slug: "iget-bar-pro-strawberry-watermelon-ice-10000",
+    name: "IGET Bar Pro 10000",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetStrawberryWatermelonIce.url,
+    flavour: "Strawberry Watermelon Ice",
+    puffs: "10000",
+    description: "IGET Bar Pro delivers up to 10,000 puffs of chilled strawberry watermelon with a mesh coil and rechargeable battery.",
+  },
+  {
+    slug: "iget-bar-pro-blueberry-ice-10000",
+    name: "IGET Bar Pro 10000",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetBlueberryIce.url,
+    flavour: "Blueberry Ice",
+    puffs: "10000",
+    description: "IGET Bar Pro delivers up to 10,000 puffs of iced blueberry with a mesh coil and rechargeable battery.",
   },
 ];
 
