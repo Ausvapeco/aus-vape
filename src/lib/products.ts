@@ -41,6 +41,13 @@ import gen_obsidian_pod_x2 from "@/assets/gen/obsidian-pod-x2.jpg.asset.json";
 import gen_rival_bar_lychee from "@/assets/gen/rival-bar-lychee.jpg.asset.json";
 import igetStrawberryWatermelonIce from "@/assets/gen/iget-bar-pro-strawberry-watermelon-ice.webp.asset.json";
 import igetBlueberryIce from "@/assets/gen/iget-bar-pro-blueberry-ice.webp.asset.json";
+import jnrFrozenApple from "@/assets/gen/jnr-frozen-apple.webp.asset.json";
+import pandaPeachLemonade from "@/assets/gen/panda-peach-lemonade.webp.asset.json";
+import pandaLemonCola from "@/assets/gen/panda-lemon-cola.webp.asset.json";
+import hqdMangoHoneydew from "@/assets/gen/hqd-slick-mango-honeydew.webp.asset.json";
+import hqdRaspberryGrape from "@/assets/gen/hqd-slick-raspberry-grape.webp.asset.json";
+import igetLycheeIce from "@/assets/gen/iget-lychee-ice.webp.asset.json";
+import calibarnLemon from "@/assets/gen/calibarn-lemon.webp.asset.json";
 
 const IMG = {
   rivalLime: rivalLime.url,
@@ -416,6 +423,7 @@ export const products: Product[] = [
     categoryLabel: "Calibarn 6000",
     price: 27.95,
     image: gen_calibarn_peach_watermelon.url,
+    // (photo swap handled below)
     flavour: "Peach · Watermelon",
     puffs: "6000",
     nicotine: "20 mg/mL",
