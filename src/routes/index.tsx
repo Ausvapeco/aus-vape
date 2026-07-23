@@ -10,10 +10,10 @@ import { bestsellers, categories } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 import heroDevice from "@/assets/hero-device.jpg";
 import brandStory from "@/assets/brand-story.jpg";
-import catDisposables from "@/assets/gen/cat-disposables.jpg";
-import catDevices from "@/assets/gen/cat-devices.jpg";
-import catAccessories from "@/assets/gen/cat-accessories.jpg";
-import catBestsellers from "@/assets/gen/cat-bestsellers.jpg";
+import catDisposables from "@/assets/gen/alibarbar-scw.jpg.asset.json";
+import catDevices from "@/assets/gen/fisco-xpro.jpg.asset.json";
+import catBestsellers from "@/assets/gen/rival-cola.jpg.asset.json";
+import xmasBanner from "@/assets/gen/xmas-banner.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -24,6 +24,7 @@ function Index() {
     <SiteLayout>
       <Hero />
       <FeaturedBanner />
+      <XmasBanner />
       <TrustStrip />
       <CategoryGrid />
       <Bestsellers />
@@ -179,10 +180,9 @@ function TrustStrip() {
 
 function CategoryGrid() {
   const tiles = [
-    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: catDisposables },
-    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: catDevices },
-    { slug: "accessories", label: "Accessories", blurb: "Coils, chargers, cases.", image: catAccessories },
-    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: catBestsellers },
+    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: catDisposables.url },
+    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: catDevices.url },
+    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: catBestsellers.url },
   ];
   return (
     <section className="py-24 px-4 md:px-8">
@@ -191,7 +191,7 @@ function CategoryGrid() {
         <h2 className="mt-6 text-center font-display font-bold text-4xl md:text-5xl">
           Curated <span className="text-gold">collections.</span>
         </h2>
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {tiles.map(t => (
             <Link
               key={t.slug}
