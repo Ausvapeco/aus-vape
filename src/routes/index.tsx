@@ -10,10 +10,10 @@ import { bestsellers, categories } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 import heroDevice from "@/assets/hero-device.jpg";
 import brandStory from "@/assets/brand-story.jpg";
-import catDisposables from "@/assets/gen/cat-disposables.jpg";
-import catDevices from "@/assets/gen/cat-devices.jpg";
-import catAccessories from "@/assets/gen/cat-accessories.jpg";
-import catBestsellers from "@/assets/gen/cat-bestsellers.jpg";
+import catDisposables from "@/assets/gen/alibarbar-scw.jpg.asset.json";
+import catDevices from "@/assets/gen/fisco-xpro.jpg.asset.json";
+import catBestsellers from "@/assets/gen/rival-cola.jpg.asset.json";
+import xmasBanner from "@/assets/gen/xmas-banner.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -24,6 +24,7 @@ function Index() {
     <SiteLayout>
       <Hero />
       <FeaturedBanner />
+      <XmasBanner />
       <TrustStrip />
       <CategoryGrid />
       <Bestsellers />
@@ -156,6 +157,39 @@ function FeaturedBanner() {
   );
 }
 
+function XmasBanner() {
+  return (
+    <section className="px-4 md:px-8 py-16 bg-[#0A0A0C]">
+      <div className="max-w-7xl mx-auto relative rounded-2xl overflow-hidden border border-[#A9791F]/30 group">
+        <img
+          src={xmasBanner.url}
+          alt="Holiday vape gift box"
+          className="w-full h-[320px] md:h-[420px] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/70 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="p-8 md:p-14 max-w-lg">
+            <Eyebrow>Holiday Edition</Eyebrow>
+            <h2 className="mt-5 font-display font-black text-4xl md:text-5xl leading-tight">
+              The <span className="text-gold">Christmas</span> Vape Box.
+            </h2>
+            <p className="mt-4 text-[color:var(--color-smoke)]">
+              A hand-curated selection of our best-selling disposables — wrapped, ribboned, and ready to gift.
+            </p>
+            <Link
+              to="/shop"
+              className="mt-8 inline-block bg-gold text-[#0A0A0C] font-semibold px-8 py-4 rounded-md hover:shadow-[0_0_28px_rgba(240,205,110,0.45)] transition-shadow"
+            >
+              Shop the Box
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function TrustStrip() {
   const items = [
     { icon: BadgeCheck, label: "Authentic Stock" },
@@ -179,10 +213,9 @@ function TrustStrip() {
 
 function CategoryGrid() {
   const tiles = [
-    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: catDisposables },
-    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: catDevices },
-    { slug: "accessories", label: "Accessories", blurb: "Coils, chargers, cases.", image: catAccessories },
-    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: catBestsellers },
+    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: catDisposables.url },
+    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: catDevices.url },
+    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: catBestsellers.url },
   ];
   return (
     <section className="py-24 px-4 md:px-8">
@@ -191,7 +224,7 @@ function CategoryGrid() {
         <h2 className="mt-6 text-center font-display font-bold text-4xl md:text-5xl">
           Curated <span className="text-gold">collections.</span>
         </h2>
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {tiles.map(t => (
             <Link
               key={t.slug}
