@@ -193,6 +193,91 @@ function XmasBanner() {
   );
 }
 
+function PremiumBanner() {
+  return (
+    <section className="px-4 md:px-8 py-20 bg-[#0A0A0C]">
+      <div className="max-w-7xl mx-auto relative rounded-2xl overflow-hidden border border-[#A9791F]/40 shadow-[0_0_60px_rgba(240,205,110,0.08)]">
+        <img
+          src={premiumBanner.url}
+          alt="AUSVAPE CO — premium collection"
+          className="w-full h-[380px] md:h-[520px] object-cover"
+          loading="lazy"
+          width={1920}
+          height={1088}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/60 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="p-8 md:p-16 max-w-xl">
+            <Eyebrow>The Signature Range</Eyebrow>
+            <h2 className="mt-5 font-display font-black text-4xl md:text-6xl leading-[1.05]">
+              Poured in <span className="text-gold">gold.</span><br />Finished in silence.
+            </h2>
+            <p className="mt-5 text-[color:var(--color-smoke)] leading-relaxed">
+              Every device on our floor is hand-verified, batch-checked, and dispatched from Melbourne within hours. This is vapour, considered.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/shop"
+                className="bg-gold text-[#0A0A0C] font-semibold px-8 py-4 rounded-md hover:shadow-[0_0_28px_rgba(240,205,110,0.45)] transition-shadow"
+              >
+                Shop the Range
+              </Link>
+              <Link
+                to="/about"
+                className="border border-[#F0CD6E]/40 text-[color:var(--color-platinum)] px-8 py-4 rounded-md hover:border-[#F0CD6E] hover:text-gold transition-colors"
+              >
+                Our Standard
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BrandCollections() {
+  // Group all products by their brand (categoryLabel), preserving order of first appearance.
+  const groups = new Map<string, typeof products>();
+  for (const p of products) {
+    const list = groups.get(p.categoryLabel) ?? [];
+    list.push(p);
+    groups.set(p.categoryLabel, list);
+  }
+  const entries = Array.from(groups.entries());
+  return (
+    <section className="py-24 px-4 md:px-8 bg-[#0A0A0C] relative">
+      <div className="max-w-7xl mx-auto">
+        <Eyebrow>The Full Collection</Eyebrow>
+        <h2 className="mt-6 text-center font-display font-bold text-4xl md:text-5xl">
+          Every brand, <span className="text-gold">every flavour.</span>
+        </h2>
+        <p className="mt-4 text-center text-[color:var(--color-smoke)] max-w-2xl mx-auto">
+          Our complete floor — organised by house. Tap any device for specs, batch code, and same-day dispatch.
+        </p>
+        <div className="mt-16 space-y-20">
+          {entries.map(([brand, list]) => (
+            <div key={brand}>
+              <div className="flex items-end justify-between mb-8 border-b border-[#A9791F]/20 pb-4">
+                <div>
+                  <div className="text-[10px] tracking-[0.35em] uppercase text-gold">House</div>
+                  <h3 className="mt-2 font-display font-bold text-2xl md:text-3xl">{brand}</h3>
+                </div>
+                <div className="text-xs tracking-[0.25em] uppercase text-[color:var(--color-smoke)]">
+                  {list.length} {list.length === 1 ? "device" : "devices"}
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {list.map(p => <ProductCard key={p.slug} product={p} />)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function TrustStrip() {
   const items = [
     { icon: BadgeCheck, label: "Authentic Stock" },
