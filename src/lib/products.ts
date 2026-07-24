@@ -20,7 +20,6 @@ import pandaWatermelonIce from "@/assets/gen/panda-watermelon-ice.webp.asset.jso
 import pandaStrawberryCake from "@/assets/gen/panda-strawberry-cake.webp.asset.json";
 import dhStrawberryLollipop from "@/assets/gen/dh-hype-strawberry-lollipop.jpg.asset.json";
 import dhStrawberryRaspberry from "@/assets/gen/dh-hype-strawberry-raspberry.jpg.asset.json";
-import dhStrawberryWatermelon from "@/assets/gen/dh-hype-strawberry-watermelon.jpg.asset.json";
 import dhLove66 from "@/assets/gen/dh-hype-love-66.jpg.asset.json";
 import dhGreekYogurt from "@/assets/gen/dh-hype-greek-yogurt.jpg.asset.json";
 import dhBlueberryRaspberry from "@/assets/gen/dh-hype-blueberry-raspberry.jpg.asset.json";
@@ -28,6 +27,16 @@ import dhDoubleHappiness from "@/assets/gen/dh-hype-double-happiness.png.asset.j
 import dhFlatWhite from "@/assets/gen/dh-hype-flat-white.png.asset.json";
 import jnrCruiserPFML from "@/assets/gen/jnr-cruiser-pfml.jpg.asset.json";
 import alibarbarKiwiPineapple from "@/assets/gen/alibarbar-kiwi-pineapple.jpg.asset.json";
+import dhBlackberry from "@/assets/gen/dh-hype-blackberry.jpg.asset.json";
+import igetFruitySkittles from "@/assets/gen/iget-bar-pro-fruity-skittles.jpg.asset.json";
+import igetChupaGrape from "@/assets/gen/iget-bar-pro-chupa-chups-grape.jpg.asset.json";
+import igetRaspberryPom from "@/assets/gen/iget-bar-pro-raspberry-pomegranate-ice.jpg.asset.json";
+import igetStrawberryWhitePeach from "@/assets/gen/iget-bar-pro-strawberry-white-peach-ice.jpg.asset.json";
+import igetChupaStrawberry from "@/assets/gen/iget-bar-pro-chupa-chups-strawberry.jpg.asset.json";
+import igetDynamicMint from "@/assets/gen/iget-bar-pro-dynamic-mint.jpg.asset.json";
+import jnrCruiserMagicMango from "@/assets/gen/jnr-cruiser-magic-mango.jpg.asset.json";
+import jnrCruiserBananaBuzz from "@/assets/gen/jnr-cruiser-banana-buzz.jpg.asset.json";
+import jnrCruiserStrawberryLychee from "@/assets/gen/jnr-cruiser-strawberry-lychee.jpg.asset.json";
 
 export type Product = {
   slug: string;
@@ -314,18 +323,6 @@ export const products: Product[] = [
     description: "Sweet, juicy, perfectly balanced — 18ml, mesh coil, 650mAh.",
   },
   {
-    slug: "dh-hype-strawberry-watermelon-12000",
-    name: "Double Happiness Hype Strawberry Watermelon",
-    category: "disposables",
-    categoryLabel: "Double Happiness Hype 12000",
-    price: 42.95,
-    image: dhStrawberryWatermelon.url,
-    flavour: "Strawberry · Watermelon",
-    puffs: "12000",
-    nicotine: "20 mg/mL",
-    description: "Crisp watermelon meets ripe strawberry — 18ml, mesh coil.",
-  },
-  {
     slug: "dh-hype-love-66-12000",
     name: "Double Happiness Hype Love 66",
     category: "disposables",
@@ -410,6 +407,126 @@ export const products: Product[] = [
     puffs: "9000",
     nicotine: "20 mg/mL",
     description: "Tart kiwi and sun-ripened pineapple in the gold Alibarbar Ingot chassis.",
+  },
+  {
+    slug: "dh-hype-blackberry-12000",
+    name: "Double Happiness Hype Blackberry",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhBlackberry.url,
+    flavour: "Blackberry",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Deep, juicy blackberry — 18ml, 650mAh, mesh coil.",
+  },
+  {
+    slug: "iget-bar-pro-fruity-skittles-10000",
+    name: "IGET Bar Pro Fruity Skittles",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetFruitySkittles.url,
+    flavour: "Fruity Skittles",
+    puffs: "10000",
+    nicotine: "20 mg/mL",
+    description: "A rainbow of candy-fruit flavour in the IGET Bar Pro.",
+  },
+  {
+    slug: "iget-bar-pro-chupa-chups-grape-10000",
+    name: "IGET Bar Pro Chupa Chups Grape",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetChupaGrape.url,
+    flavour: "Chupa Chups Grape",
+    puffs: "10000",
+    nicotine: "20 mg/mL",
+    description: "Sweet grape lollipop in a 10,000-puff Bar Pro.",
+  },
+  {
+    slug: "iget-bar-pro-raspberry-pomegranate-ice-10000",
+    name: "IGET Bar Pro Raspberry Pomegranate Ice Blast",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetRaspberryPom.url,
+    flavour: "Raspberry · Pomegranate · Ice",
+    puffs: "10000",
+    nicotine: "20 mg/mL",
+    description: "Tart raspberry and pomegranate with a cold blast finish.",
+  },
+  {
+    slug: "iget-bar-pro-strawberry-white-peach-ice-10000",
+    name: "IGET Bar Pro Strawberry White Peach Ice Mist",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetStrawberryWhitePeach.url,
+    flavour: "Strawberry · White Peach · Ice",
+    puffs: "10000",
+    nicotine: "20 mg/mL",
+    description: "Ripe strawberry and delicate white peach on a cool mist.",
+  },
+  {
+    slug: "iget-bar-pro-chupa-chups-strawberry-10000",
+    name: "IGET Bar Pro Chupa Chups Strawberry",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetChupaStrawberry.url,
+    flavour: "Chupa Chups Strawberry",
+    puffs: "10000",
+    nicotine: "20 mg/mL",
+    description: "Sweet strawberry lollipop in the IGET Bar Pro.",
+  },
+  {
+    slug: "iget-bar-pro-dynamic-mint-10000",
+    name: "IGET Bar Pro Dynamic Mint",
+    category: "disposables",
+    categoryLabel: "IGET Bar Pro",
+    price: 39.95,
+    image: igetDynamicMint.url,
+    flavour: "Dynamic Mint",
+    puffs: "10000",
+    nicotine: "20 mg/mL",
+    description: "Crisp, cooling mint — clean and unwavering.",
+  },
+  {
+    slug: "jnr-cruiser-magic-mango-12000",
+    name: "JNR Cruiser Magic Mango",
+    category: "disposables",
+    categoryLabel: "JNR Cruiser 12000",
+    price: 44.95,
+    image: jnrCruiserMagicMango.url,
+    flavour: "Magic Mango",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Ripe, tropical mango in the gold JNR Cruiser chassis.",
+  },
+  {
+    slug: "jnr-cruiser-banana-buzz-12000",
+    name: "JNR Cruiser Banana Buzz",
+    category: "disposables",
+    categoryLabel: "JNR Cruiser 12000",
+    price: 44.95,
+    image: jnrCruiserBananaBuzz.url,
+    flavour: "Banana Buzz",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Creamy ripe banana with a smooth cool finish.",
+  },
+  {
+    slug: "jnr-cruiser-strawberry-lychee-12000",
+    name: "JNR Cruiser Strawberry Lychee",
+    category: "disposables",
+    categoryLabel: "JNR Cruiser 12000",
+    price: 44.95,
+    image: jnrCruiserStrawberryLychee.url,
+    flavour: "Strawberry · Lychee",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Juicy strawberry and floral lychee on ice.",
   },
 ];
 
