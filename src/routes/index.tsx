@@ -6,7 +6,7 @@ import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
-import { bestsellers, categories } from "@/lib/products";
+import { bestsellers, products } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 import heroDevice from "@/assets/hero-device.jpg";
 import brandStory from "@/assets/brand-story.jpg";
@@ -14,6 +14,7 @@ import catDisposables from "@/assets/gen/alibarbar-scw.jpg.asset.json";
 import catDevices from "@/assets/gen/fisco-xpro.jpg.asset.json";
 import catBestsellers from "@/assets/gen/rival-cola.jpg.asset.json";
 import xmasBanner from "@/assets/gen/xmas-banner.jpg.asset.json";
+import premiumBanner from "@/assets/gen/premium-banner-bg.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -24,10 +25,12 @@ function Index() {
     <SiteLayout>
       <Hero />
       <FeaturedBanner />
+      <PremiumBanner />
       <XmasBanner />
       <TrustStrip />
       <CategoryGrid />
       <Bestsellers />
+      <BrandCollections />
       <BrandStory />
       <Testimonials />
       <Newsletter />
