@@ -18,6 +18,16 @@ import calibarnLemon from "@/assets/gen/calibarn-lemon.webp.asset.json";
 import calibarnPeachWatermelonPhoto from "@/assets/gen/calibarn-peach-watermelon-photo.webp.asset.json";
 import pandaWatermelonIce from "@/assets/gen/panda-watermelon-ice.webp.asset.json";
 import pandaStrawberryCake from "@/assets/gen/panda-strawberry-cake.webp.asset.json";
+import dhStrawberryLollipop from "@/assets/gen/dh-hype-strawberry-lollipop.jpg.asset.json";
+import dhStrawberryRaspberry from "@/assets/gen/dh-hype-strawberry-raspberry.jpg.asset.json";
+import dhStrawberryWatermelon from "@/assets/gen/dh-hype-strawberry-watermelon.jpg.asset.json";
+import dhLove66 from "@/assets/gen/dh-hype-love-66.jpg.asset.json";
+import dhGreekYogurt from "@/assets/gen/dh-hype-greek-yogurt.jpg.asset.json";
+import dhBlueberryRaspberry from "@/assets/gen/dh-hype-blueberry-raspberry.jpg.asset.json";
+import dhDoubleHappiness from "@/assets/gen/dh-hype-double-happiness.png.asset.json";
+import dhFlatWhite from "@/assets/gen/dh-hype-flat-white.png.asset.json";
+import jnrCruiserPFML from "@/assets/gen/jnr-cruiser-pfml.jpg.asset.json";
+import alibarbarKiwiPineapple from "@/assets/gen/alibarbar-kiwi-pineapple.jpg.asset.json";
 
 export type Product = {
   slug: string;
@@ -277,6 +287,129 @@ export const products: Product[] = [
     flavour: "Blueberry Ice",
     puffs: "10000",
     description: "IGET Bar Pro delivers up to 10,000 puffs of iced blueberry with a mesh coil and rechargeable battery.",
+  },
+  {
+    slug: "dh-hype-strawberry-lollipop-12000",
+    name: "Double Happiness Hype Strawberry Lollipop",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhStrawberryLollipop.url,
+    flavour: "Strawberry Lollipop",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Sweet strawberry lollipop — 18ml, mesh coil, 650mAh, USB-C.",
+    bestseller: true,
+  },
+  {
+    slug: "dh-hype-strawberry-raspberry-12000",
+    name: "Double Happiness Hype Strawberry Raspberry",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhStrawberryRaspberry.url,
+    flavour: "Strawberry · Raspberry",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Sweet, juicy, perfectly balanced — 18ml, mesh coil, 650mAh.",
+  },
+  {
+    slug: "dh-hype-strawberry-watermelon-12000",
+    name: "Double Happiness Hype Strawberry Watermelon",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhStrawberryWatermelon.url,
+    flavour: "Strawberry · Watermelon",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Crisp watermelon meets ripe strawberry — 18ml, mesh coil.",
+  },
+  {
+    slug: "dh-hype-love-66-12000",
+    name: "Double Happiness Hype Love 66",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhLove66.url,
+    flavour: "Love 66",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "The signature Love 66 blend — sweet, smooth, pure love.",
+    bestseller: true,
+  },
+  {
+    slug: "dh-hype-double-happiness-12000",
+    name: "Double Happiness Hype Signature",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhDoubleHappiness.url,
+    flavour: "Double Happiness",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "The house blend — smooth, sweet, pure happiness.",
+  },
+  {
+    slug: "dh-hype-greek-yogurt-12000",
+    name: "Double Happiness Hype Greek Yogurt",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhGreekYogurt.url,
+    flavour: "Greek Yogurt",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Smooth, creamy, naturally delicious — a Mediterranean-inspired blend.",
+  },
+  {
+    slug: "dh-hype-blueberry-raspberry-12000",
+    name: "Double Happiness Hype Blueberry Raspberry",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhBlueberryRaspberry.url,
+    flavour: "Blueberry · Raspberry",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Sweet, tangy, refreshing berry duo — 18ml, mesh coil.",
+  },
+  {
+    slug: "dh-hype-flat-white-12000",
+    name: "Double Happiness Hype Flat White",
+    category: "disposables",
+    categoryLabel: "Double Happiness Hype 12000",
+    price: 42.95,
+    image: dhFlatWhite.url,
+    flavour: "Flat White",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Smooth, creamy espresso and steamed milk — perfectly balanced.",
+  },
+  {
+    slug: "jnr-cruiser-passion-fruit-mango-lime-12000",
+    name: "JNR Cruiser Passion Fruit Mango Lime",
+    category: "disposables",
+    categoryLabel: "JNR Cruiser 12000",
+    price: 44.95,
+    image: jnrCruiserPFML.url,
+    flavour: "Passion Fruit · Mango · Lime",
+    puffs: "12000",
+    nicotine: "20 mg/mL",
+    description: "Tropical passion fruit, ripe mango, and zesty lime in the JNR Cruiser chassis.",
+    bestseller: true,
+  },
+  {
+    slug: "alibarbar-ingot-kiwi-pineapple-9000",
+    name: "Alibarbar Ingot Kiwi Pineapple",
+    category: "disposables",
+    categoryLabel: "Alibarbar 9000",
+    price: 34.95,
+    image: alibarbarKiwiPineapple.url,
+    flavour: "Kiwi · Pineapple",
+    puffs: "9000",
+    nicotine: "20 mg/mL",
+    description: "Tart kiwi and sun-ripened pineapple in the gold Alibarbar Ingot chassis.",
   },
 ];
 
