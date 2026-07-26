@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
-import brandStory from "@/assets/brand-story.jpg";
-import hero from "@/assets/hero-device.jpg";
-import p2 from "@/assets/product-2.jpg";
+import brandStory from "@/assets/gen/calibarn-lemon.webp.asset.json";
+import hero from "@/assets/gen/panda-watermelon-ice.webp.asset.json";
+import p2 from "@/assets/gen/iget-bar-pro-blueberry-ice.webp.asset.json";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({ meta: [{ title: "Journal — AUSVAPE CO" }, { name: "description", content: "Notes on craft, care, and considered vapour from AUSVAPE CO." }] }),
@@ -11,9 +11,9 @@ export const Route = createFileRoute("/blog")({
 });
 
 const posts = [
-  { title: "The case for the refillable device", excerpt: "Why we quietly prefer a good mod over a fifth disposable this month.", img: brandStory, date: "12 July 2026", tag: "Craft" },
-  { title: "How to spot a counterfeit pod", excerpt: "Six tells we look for before a product enters our range.", img: p2, date: "28 June 2026", tag: "Guides" },
-  { title: "A quieter Melbourne warehouse tour", excerpt: "Inside the small operation behind every AUSVAPE order.", img: hero, date: "14 June 2026", tag: "Studio" },
+  { title: "The case for the refillable device", excerpt: "Why we quietly prefer a good mod over a fifth disposable this month.", img: brandStory.url, date: "12 July 2026", tag: "Craft" },
+  { title: "How to spot a counterfeit pod", excerpt: "Six tells we look for before a product enters our range.", img: p2.url, date: "28 June 2026", tag: "Guides" },
+  { title: "A quieter Melbourne warehouse tour", excerpt: "Inside the small operation behind every AUSVAPE order.", img: hero.url, date: "14 June 2026", tag: "Studio" },
 ];
 
 function Blog() {

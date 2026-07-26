@@ -8,13 +8,15 @@ import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { bestsellers, products } from "@/lib/products";
 import { getProduct } from "@/lib/products";
-import heroDevice from "@/assets/hero-device.jpg";
-import brandStory from "@/assets/brand-story.jpg";
 import catDisposables from "@/assets/gen/alibarbar-scw.jpg.asset.json";
 import catDevices from "@/assets/gen/fisco-xpro.jpg.asset.json";
 import catBestsellers from "@/assets/gen/rival-cola.jpg.asset.json";
 import xmasBanner from "@/assets/gen/xmas-banner.jpg.asset.json";
-import premiumBanner from "@/assets/gen/premium-banner-bg.jpg.asset.json";
+import heroPhoto from "@/assets/gen/dh-hype-flat-white.png.asset.json";
+import storyPhoto from "@/assets/gen/hqd-slick-mango-honeydew.webp.asset.json";
+import bannerA from "@/assets/gen/iget-bar-pro-strawberry-watermelon-ice.webp.asset.json";
+import bannerB from "@/assets/gen/jnr-cruiser-pfml.jpg.asset.json";
+import bannerC from "@/assets/gen/alibarbar-kiwi-pineapple.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -47,7 +49,7 @@ function Hero() {
       </div>
       <div
         className="absolute inset-0 opacity-30 mix-blend-luminosity"
-        style={{ backgroundImage: `url(${heroDevice})`, backgroundSize: "cover", backgroundPosition: "center right" }}
+        style={{ backgroundImage: `url(${heroPhoto.url})`, backgroundSize: "cover", backgroundPosition: "center right" }}
         aria-hidden
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/70 to-transparent" />
@@ -197,15 +199,18 @@ function PremiumBanner() {
   return (
     <section className="px-4 md:px-8 py-20 bg-[#0A0A0C]">
       <div className="max-w-7xl mx-auto relative rounded-2xl overflow-hidden border border-[#A9791F]/40 shadow-[0_0_60px_rgba(240,205,110,0.08)]">
-        <img
-          src={premiumBanner.url}
-          alt="AUSVAPE CO — premium collection"
-          className="w-full h-[380px] md:h-[520px] object-cover"
-          loading="lazy"
-          width={1920}
-          height={1088}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/60 to-transparent" />
+        <div className="grid grid-cols-3 h-[380px] md:h-[520px] bg-[#0A0A0C]">
+          {[bannerA, bannerB, bannerC].map((img, i) => (
+            <img
+              key={i}
+              src={img.url}
+              alt="AUSVAPE CO premium disposable vape"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          ))}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/75 to-[#0A0A0C]/30" />
         <div className="absolute inset-0 flex items-center">
           <div className="p-8 md:p-16 max-w-xl">
             <Eyebrow>The Signature Range</Eyebrow>
@@ -365,7 +370,7 @@ function BrandStory() {
     <section className="py-24 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-          <img src={brandStory} alt="Craftsmanship" className="w-full h-full object-cover" loading="lazy" />
+          <img src={storyPhoto.url} alt="Craftsmanship" className="w-full h-full object-cover" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C]/60 to-transparent" />
         </div>
         <div>
