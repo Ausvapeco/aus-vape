@@ -15,7 +15,7 @@ export const Route = createFileRoute("/shop")({
 function Shop() {
   const [cat, setCat] = useState<string>("all");
   const [sort, setSort] = useState<string>("featured");
-  const [maxPrice, setMaxPrice] = useState<number>(200);
+  const [maxPrice, setMaxPrice] = useState<number>(2000);
 
   const filtered = useMemo(() => {
     let list = products.filter(p => (cat === "all" || p.category === cat) && (p.salePrice ?? p.price) <= maxPrice);
@@ -97,15 +97,15 @@ function Filters({ cat, setCat, maxPrice, setMaxPrice }: { cat: string; setCat: 
       </div>
       <div>
         <div className="text-[10px] tracking-[0.35em] uppercase text-gold mb-3">Max Price</div>
-        <input type="range" min={20} max={200} step={5} value={maxPrice} onChange={e => setMaxPrice(Number(e.target.value))} className="w-full accent-[#F0CD6E]" />
+        <input type="range" min={20} max={2000} step={10} value={maxPrice} onChange={e => setMaxPrice(Number(e.target.value))} className="w-full accent-[#F0CD6E]" />
         <div className="font-spec text-sm text-[color:var(--color-smoke)] mt-2">Up to ${maxPrice}</div>
       </div>
       <div>
         <div className="text-[10px] tracking-[0.35em] uppercase text-gold mb-3">Flavour</div>
         <ul className="space-y-2 text-sm text-[color:var(--color-platinum)]/75">
-          <li>Iced Mango</li>
-          <li>Tobacco Reserve</li>
-          <li>Winter Mint</li>
+          <li>Passion Fruit Mango Lime</li>
+          <li>Flat White</li>
+          <li>Strawberry Watermelon</li>
         </ul>
       </div>
     </div>
