@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
-import brandStory from "@/assets/brand-story.jpg";
-import heroDevice from "@/assets/hero-device.jpg";
+import brandStory from "@/assets/gen/hqd-slick-raspberry-grape.webp.asset.json";
+import heroDevice from "@/assets/gen/dh-hype-love-66.jpg.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [{ title: "About — AUSVAPE CO" }, { name: "description", content: "The AUSVAPE CO story: authentic vapour, curated in Australia." }] }),
@@ -13,7 +13,7 @@ function About() {
   return (
     <SiteLayout>
       <section className="relative h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden">
-        <img src={brandStory} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+        <img src={brandStory.url} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/60 via-[#0A0A0C]/40 to-[#0A0A0C]" />
         <div className="relative text-center px-4">
           <Eyebrow>Our Story</Eyebrow>
@@ -43,7 +43,7 @@ function About() {
       </section>
       <section className="px-4 md:px-8 pb-24">
         <div className="max-w-6xl mx-auto rounded-lg overflow-hidden aspect-[16/7]">
-          <img src={heroDevice} alt="" className="w-full h-full object-cover" />
+          <img src={heroDevice.url} alt="" className="w-full h-full object-cover" />
         </div>
       </section>
     </SiteLayout>
