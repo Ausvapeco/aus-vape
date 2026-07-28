@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
-import brandStory from "@/assets/gen/calibarn-lemon.webp.asset.json";
-import hero from "@/assets/gen/panda-watermelon-ice.webp.asset.json";
-import p2 from "@/assets/gen/iget-bar-pro-blueberry-ice.webp.asset.json";
+const brandStory = { url: "/products/calibarn-lemon-mint-6000-puffs.jpg" };
+const hero = { url: "/products/panda-watermelon-ice-2500-puffs.webp" };
+const p2 = { url: "/products/iget-bar-pro-blueberry-ice-10000-puffs.jpg" };
 
 export const Route = createFileRoute("/blog")({
   head: () => ({ meta: [{ title: "Journal — AUSVAPE CO" }, { name: "description", content: "Notes on craft, care, and considered vapour from AUSVAPE CO." }] }),

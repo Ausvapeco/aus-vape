@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
-import brandStory from "@/assets/gen/hqd-slick-raspberry-grape.webp.asset.json";
-import heroDevice from "@/assets/gen/dh-hype-love-66.jpg.asset.json";
+const brandStory = { url: "/products/hqd-slick-raspberry-grape-6000-puffs.jpg" };
+const heroDevice = { url: "/products/double-happiness-hype-love-66-12000-puffs.png" };
 
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [{ title: "About — AUSVAPE CO" }, { name: "description", content: "The AUSVAPE CO story: authentic vapour, curated in Australia." }] }),

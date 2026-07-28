@@ -8,14 +8,11 @@ import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { bestsellers, products } from "@/lib/products";
 import { getProduct } from "@/lib/products";
-import catDisposables from "@/assets/gen/alibarbar-scw.jpg.asset.json";
-import catDevices from "@/assets/gen/fisco-xpro.jpg.asset.json";
-import catBestsellers from "@/assets/gen/rival-cola.jpg.asset.json";
-import heroPhoto from "@/assets/gen/dh-hype-flat-white.png.asset.json";
-import storyPhoto from "@/assets/gen/hqd-slick-mango-honeydew.webp.asset.json";
-import bannerA from "@/assets/gen/iget-bar-pro-strawberry-watermelon-ice.webp.asset.json";
-import bannerB from "@/assets/gen/jnr-cruiser-pfml.jpg.asset.json";
-import bannerC from "@/assets/gen/alibarbar-kiwi-pineapple.jpg.asset.json";
+const heroPhoto = { url: "/products/double-happiness-hype-flat-white-12000-puffs.png" };
+const storyPhoto = { url: "/products/hqd-slick-mango-honeydew-ice-6000-puffs.jpg" };
+const bannerA = { url: "/products/iget-bar-pro-strawberry-watermelon-ice-10000-puffs.jpg" };
+const bannerB = { url: "/products/jnr-cruiser-passion-fruit-mango-lime-12000-puffs.webp" };
+const bannerC = { url: "/products/alibarbar-ingot-kiwi-pineapple-9000-puffs.jpg" };
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -305,9 +302,9 @@ function TrustStrip() {
 
 function CategoryGrid() {
   const tiles = [
-    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: catDisposables.url },
-    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: catDevices.url },
-    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: catBestsellers.url },
+    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: "/products/alibarbar-ingot-blueberry-blast-9000-puffs.jpg" },
+    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: "/products/fisco-xpod-8000-puffs-device-only.jpg" },
+    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: "/products/rival-bar-cola-8000-puffs-2.png" },
   ];
   return (
     <section className="py-24 px-4 md:px-8">
