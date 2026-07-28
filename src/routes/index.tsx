@@ -11,7 +11,6 @@ import { getProduct } from "@/lib/products";
 import catDisposables from "@/assets/gen/alibarbar-scw.jpg.asset.json";
 import catDevices from "@/assets/gen/fisco-xpro.jpg.asset.json";
 import catBestsellers from "@/assets/gen/rival-cola.jpg.asset.json";
-import xmasBanner from "@/assets/gen/xmas-banner.jpg.asset.json";
 import heroPhoto from "@/assets/gen/dh-hype-flat-white.png.asset.json";
 import storyPhoto from "@/assets/gen/hqd-slick-mango-honeydew.webp.asset.json";
 import bannerA from "@/assets/gen/iget-bar-pro-strawberry-watermelon-ice.webp.asset.json";
@@ -167,7 +166,7 @@ function XmasBanner() {
     <section className="px-4 md:px-8 py-16 bg-[#0A0A0C]">
       <div className="max-w-7xl mx-auto relative rounded-2xl overflow-hidden border border-[#A9791F]/30 group">
         <img
-          src={xmasBanner.url}
+          src="/products/xmas-banner.jpg"
           alt="Holiday vape gift box"
           className="w-full h-[320px] md:h-[420px] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           loading="lazy"
