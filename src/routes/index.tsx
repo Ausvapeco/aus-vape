@@ -159,16 +159,13 @@ function PremiumBanner() {
   return (
     <section className="px-4 md:px-8 py-20 bg-[#0A0A0C]">
       <div className="max-w-7xl mx-auto relative rounded-2xl overflow-hidden border border-[#A9791F]/40 shadow-[0_0_60px_rgba(240,205,110,0.08)]">
-        <div className="grid grid-cols-3 h-[380px] md:h-[520px] bg-[#0A0A0C]">
-          {[bannerA, bannerB, bannerC].map((img, i) => (
-            <img
-              key={i}
-              src={img.url}
-              alt="AUSVAPE CO premium disposable vape"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-          ))}
+        <div className="h-[380px] md:h-[520px] bg-[#0A0A0C]">
+          <img
+            src={signatureBanner.url}
+            alt="Alibarbar Ingot 9000 disposable vapes in gold studio lighting"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/75 to-[#0A0A0C]/30" />
         <div className="absolute inset-0 flex items-center">
