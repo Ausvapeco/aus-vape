@@ -8,8 +8,8 @@ import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { bestsellers, products } from "@/lib/products";
 import { getProduct } from "@/lib/products";
-const heroPhoto = { url: "/products/double-happiness-hype-flat-white-12000-puffs.png" };
-const storyPhoto = { url: "/products/hqd-slick-mango-honeydew-ice-6000-puffs.jpg" };
+const heroPhoto = { url: "/products-opt/double-happiness-hype-flat-white-12000-puffs.webp" };
+const storyPhoto = { url: "/products-opt/hqd-slick-mango-honeydew-ice-6000-puffs.webp" };
 const signatureBanner = { url: "/banners/alibarbar-signature-banner.jpg" };
 
 export const Route = createFileRoute("/")({
@@ -263,9 +263,9 @@ function TrustStrip() {
 
 function CategoryGrid() {
   const tiles = [
-    { slug: "disposables", label: "Shop Alibarbar Ingot", blurb: "Pocket-ready, refined.", image: "/products/alibarbar-ingot-blueberry-blast-9000-puffs.jpg" },
-    { slug: "devices", label: "Shop IGET Bar Pro", blurb: "10,000 puff icon.", image: "/products/iget-bar-pro-blueberry-ice-10000-puffs.jpg" },
-    { slug: "best-sellers", label: "Shop Rival Bar", blurb: "This month's most loved.", image: "/products/rival-bar-cola-8000-puffs-2.png" },
+    { slug: "disposables", label: "Shop Alibarbar Ingot", blurb: "Pocket-ready, refined.", image: "/products-opt/alibarbar-ingot-blueberry-blast-9000-puffs.webp" },
+    { slug: "devices", label: "Shop IGET Bar Pro", blurb: "10,000 puff icon.", image: "/products-opt/iget-bar-pro-blueberry-ice-10000-puffs.webp" },
+    { slug: "best-sellers", label: "Shop Rival Bar", blurb: "This month's most loved.", image: "/products-opt/rival-bar-cola-8000-puffs-2.webp" },
   ];
   return (
     <section className="py-24 px-4 md:px-8">

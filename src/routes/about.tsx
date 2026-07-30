@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
-const brandStory = { url: "/products/hqd-slick-raspberry-grape-6000-puffs.jpg" };
-const heroDevice = { url: "/products/double-happiness-hype-love-66-12000-puffs.png" };
+const brandStory = { url: "/products-opt/hqd-slick-raspberry-grape-6000-puffs.webp" };
+const heroDevice = { url: "/products-opt/double-happiness-hype-love-66-12000-puffs.webp" };
 
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [{ title: "About — AUSVAPE CO" }, { name: "description", content: "The AUSVAPE CO story: authentic vapour, curated in Australia." }] }),
