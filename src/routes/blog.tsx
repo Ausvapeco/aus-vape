@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
+import { SmartImage } from "@/components/ausvape/SmartImage";
 const brandStory = { url: "/products-opt/calibarn-lemon-mint-6000-puffs.webp" };
 const hero = { url: "/products-opt/panda-watermelon-ice-2500-puffs.webp" };
 const p2 = { url: "/products-opt/iget-bar-pro-blueberry-ice-10000-puffs.webp" };
@@ -30,7 +31,7 @@ function Blog() {
           {posts.map(p => (
             <article key={p.title} className="group bg-[#18181B] border border-[#A9791F]/15 rounded-lg overflow-hidden hover:border-[#A9791F]/50 transition-colors">
               <div className="aspect-[4/3] overflow-hidden">
-                <img src={p.img} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <SmartImage src={p.img} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-gold">

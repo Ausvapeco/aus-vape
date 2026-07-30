@@ -3,6 +3,7 @@ import { Lock, ShieldCheck } from "lucide-react";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { useCart } from "@/lib/cart";
+import { SmartImage } from "@/components/ausvape/SmartImage";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Checkout — AUSVAPE CO" }] }),
@@ -60,7 +61,7 @@ function Checkout() {
                 {items.map(i => (
                   <li key={i.product.slug} className="flex gap-3 text-sm">
                     <div className="w-12 h-12 bg-[#0A0A0C] rounded overflow-hidden shrink-0">
-                      <img src={i.product.image} alt="" className="w-full h-full object-cover" />
+                      <SmartImage src={i.product.image} alt="" sizes="80px" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="truncate">{i.product.name}</div>

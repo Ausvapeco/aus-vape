@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
+import { SmartImage } from "@/components/ausvape/SmartImage";
 const brandStory = { url: "/products-opt/hqd-slick-raspberry-grape-6000-puffs.webp" };
 const heroDevice = { url: "/products-opt/double-happiness-hype-love-66-12000-puffs.webp" };
 
@@ -13,7 +14,7 @@ function About() {
   return (
     <SiteLayout>
       <section className="relative h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden">
-        <img src={brandStory.url} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+        <SmartImage src={brandStory.url} alt="" sizes="100vw" className="absolute inset-0 w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/60 via-[#0A0A0C]/40 to-[#0A0A0C]" />
         <div className="relative text-center px-4">
           <Eyebrow>Our Story</Eyebrow>
@@ -43,7 +44,7 @@ function About() {
       </section>
       <section className="px-4 md:px-8 pb-24">
         <div className="max-w-6xl mx-auto rounded-lg overflow-hidden aspect-[16/7]">
-          <img src={heroDevice.url} alt="" className="w-full h-full object-cover" />
+          <SmartImage src={heroDevice.url} alt="" sizes="(max-width: 768px) 100vw, 50vw" className="w-full h-full object-cover" />
         </div>
       </section>
     </SiteLayout>
