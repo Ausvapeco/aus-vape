@@ -6,14 +6,23 @@ import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
+import { SmartImage } from "@/components/ausvape/SmartImage";
 import { bestsellers, products } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 const heroPhoto = { url: "/products-opt/double-happiness-hype-flat-white-12000-puffs.webp" };
 const storyPhoto = { url: "/products-opt/hqd-slick-mango-honeydew-ice-6000-puffs.webp" };
-const signatureBanner = { url: "/banners/alibarbar-signature-banner.jpg" };
+const signatureBanner = {
+  url: "/banners/alibarbar-signature-banner.webp",
+  small: "/banners/alibarbar-signature-banner@1000.webp",
+};
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    links: [
+      { rel: "preload", as: "image", href: heroPhoto.url, fetchpriority: "high" },
+    ],
+  }),
 });
 
 function Index() {
@@ -112,10 +121,10 @@ function FeaturedBanner() {
                 </div>
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-radial from-[#A9791F]/20 via-transparent to-transparent" />
-                  <img
+                  <SmartImage
                     src={p.image}
                     alt={p.name}
-                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0A0A0C] to-transparent" />
@@ -162,9 +171,12 @@ function PremiumBanner() {
         <div className="h-[380px] md:h-[520px] bg-[#0A0A0C]">
           <img
             src={signatureBanner.url}
+            srcSet={`${signatureBanner.small} 1000w, ${signatureBanner.url} 1920w`}
+            sizes="100vw"
             alt="Alibarbar Ingot 9000 disposable vapes in gold studio lighting"
             className="w-full h-full object-cover"
             loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/75 to-[#0A0A0C]/30" />
@@ -282,10 +294,10 @@ function CategoryGrid() {
               params={t.slug === "best-sellers" ? {} : { slug: t.slug }}
               className="group relative aspect-[4/5] bg-[#18181B] border border-[#A9791F]/15 rounded-lg overflow-hidden hover:border-[#F0CD6E]/60 transition-all"
             >
-              <img
+              <SmartImage
                 src={t.image}
                 alt={t.label}
-                loading="lazy"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-[#0A0A0C]/70 to-transparent" />
