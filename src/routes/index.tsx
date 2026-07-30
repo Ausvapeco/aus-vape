@@ -164,25 +164,25 @@ function XmasBanner() {
       <div className="max-w-7xl mx-auto relative rounded-2xl overflow-hidden border border-[#A9791F]/30 group">
         <img
           src="/products/xmas-banner.jpg"
-          alt="Holiday vape gift box"
+          alt="VAPEHUB holiday vape gift box"
           className="w-full h-[320px] md:h-[420px] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/70 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="p-8 md:p-14 max-w-lg">
-            <Eyebrow>Holiday Edition</Eyebrow>
+            <Eyebrow>Vapehub Edition</Eyebrow>
             <h2 className="mt-5 font-display font-black text-4xl md:text-5xl leading-tight">
-              The <span className="text-gold">Christmas</span> Vape Box.
+              The <span className="text-gold">VAPEHUB</span> Vape Box.
             </h2>
             <p className="mt-4 text-[color:var(--color-smoke)]">
-              A hand-curated selection of our best-selling disposables — wrapped, ribboned, and ready to gift.
+              A hand-curated selection of best-selling VAPEHUB disposables — boxed, sealed, and ready to gift.
             </p>
             <Link
               to="/shop"
               className="mt-8 inline-block bg-gold text-[#0A0A0C] font-semibold px-8 py-4 rounded-md hover:shadow-[0_0_28px_rgba(240,205,110,0.45)] transition-shadow"
             >
-              Shop the Box
+              Shop VAPEHUB
             </Link>
           </div>
         </div>
