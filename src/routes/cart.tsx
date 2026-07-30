@@ -3,6 +3,7 @@ import { Minus, Plus, X } from "lucide-react";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { useCart } from "@/lib/cart";
+import { SmartImage } from "@/components/ausvape/SmartImage";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({ meta: [{ title: "Bag — AUSVAPE CO" }] }),
@@ -27,7 +28,7 @@ function CartPage() {
                 {items.map(i => (
                   <li key={i.product.slug} className="py-6 flex gap-5">
                     <div className="w-24 h-24 bg-[#18181B] rounded overflow-hidden shrink-0">
-                      <img src={i.product.image} alt="" className="w-full h-full object-cover" />
+                      <SmartImage src={i.product.image} alt="" sizes="96px" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between gap-2">

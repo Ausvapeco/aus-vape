@@ -2,6 +2,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { useCart } from "@/lib/cart";
 import { Link } from "@tanstack/react-router";
 import { Minus, Plus, X } from "lucide-react";
+import { SmartImage } from "@/components/ausvape/SmartImage";
 
 export function CartDrawer() {
   const { items, drawerOpen, setDrawerOpen, setQty, remove, subtotal } = useCart();
@@ -21,7 +22,7 @@ export function CartDrawer() {
               {items.map(i => (
                 <li key={i.product.slug + (i.variant ?? "")} className="p-5 flex gap-4">
                   <div className="w-20 h-20 bg-[#18181B] rounded overflow-hidden shrink-0">
-                    <img src={i.product.image} alt="" className="w-full h-full object-cover" />
+                    <SmartImage src={i.product.image} alt="" sizes="80px" className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between gap-2">

@@ -7,6 +7,7 @@ import { useCart } from "@/lib/cart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
+import { SmartImage } from "@/components/ausvape/SmartImage";
 
 export const Route = createFileRoute("/product/$slug")({
   loader: ({ params }) => {
@@ -55,12 +56,12 @@ function ProductPage() {
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-3">
               <div className="aspect-square bg-[#18181B] rounded-lg overflow-hidden">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                <SmartImage src={product.image} alt={product.name} priority sizes="(max-width: 1024px) 100vw, 600px" className="w-full h-full object-cover" />
               </div>
               <div className="grid grid-cols-4 gap-3">
                 {[product.image, product.image, product.image, product.image].map((src, i) => (
                   <div key={i} className="aspect-square bg-[#18181B] rounded overflow-hidden border border-[#A9791F]/10">
-                    <img src={src} alt="" className="w-full h-full object-cover opacity-80" />
+                    <SmartImage src={src} alt="" sizes="120px" className="w-full h-full object-cover opacity-80" />
                   </div>
                 ))}
               </div>
