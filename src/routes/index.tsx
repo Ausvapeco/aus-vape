@@ -302,9 +302,9 @@ function TrustStrip() {
 
 function CategoryGrid() {
   const tiles = [
-    { slug: "disposables", label: "Disposables", blurb: "Pocket-ready, refined.", image: "/products/alibarbar-ingot-blueberry-blast-9000-puffs.jpg" },
-    { slug: "devices", label: "Devices", blurb: "Refillable mods & pens.", image: "/products/fisco-xpod-8000-puffs-device-only.jpg" },
-    { slug: "best-sellers", label: "Best Sellers", blurb: "This month's most loved.", image: "/products/rival-bar-cola-8000-puffs-2.png" },
+    { slug: "disposables", label: "Shop Alibarbar Ingot", blurb: "Pocket-ready, refined.", image: "/products/alibarbar-ingot-blueberry-blast-9000-puffs.jpg" },
+    { slug: "devices", label: "Shop IGET Bar Pro", blurb: "10,000 puff icon.", image: "/products/iget-bar-pro-blueberry-ice-10000-puffs.jpg" },
+    { slug: "best-sellers", label: "Shop Rival Bar", blurb: "This month's most loved.", image: "/products/rival-bar-cola-8000-puffs-2.png" },
   ];
   return (
     <section className="py-24 px-4 md:px-8">
