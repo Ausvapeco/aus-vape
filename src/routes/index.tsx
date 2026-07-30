@@ -10,9 +10,7 @@ import { bestsellers, products } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 const heroPhoto = { url: "/products/double-happiness-hype-flat-white-12000-puffs.png" };
 const storyPhoto = { url: "/products/hqd-slick-mango-honeydew-ice-6000-puffs.jpg" };
-const bannerA = { url: "/products/iget-bar-pro-strawberry-watermelon-ice-10000-puffs.jpg" };
-const bannerB = { url: "/products/jnr-cruiser-passion-fruit-mango-lime-12000-puffs.webp" };
-const bannerC = { url: "/products/alibarbar-ingot-california-sunset-9000-puffs.jpg" };
+const signatureBanner = { url: "/banners/alibarbar-signature-banner.jpg" };
 
 export const Route = createFileRoute("/")({
   component: Index,
