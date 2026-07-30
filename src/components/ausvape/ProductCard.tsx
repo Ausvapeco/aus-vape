@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { useCart } from "@/lib/cart";
+import { SmartImage } from "./SmartImage";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
@@ -13,10 +14,10 @@ export function ProductCard({ product }: { product: Product }) {
         params={{ slug: product.slug }}
         className="block aspect-square overflow-hidden bg-[#0A0A0C] relative"
       >
-        <img
+        <SmartImage
           src={product.image}
           alt={product.name}
-          loading="lazy"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         {onSale && (
