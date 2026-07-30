@@ -24,7 +24,6 @@ function Index() {
       <Hero />
       <FeaturedBanner />
       <PremiumBanner />
-      <XmasBanner />
       <TrustStrip />
       <CategoryGrid />
       <Bestsellers />
@@ -152,39 +151,6 @@ function FeaturedBanner() {
               </Link>
             );
           })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function XmasBanner() {
-  return (
-    <section className="px-4 md:px-8 py-16 bg-[#0A0A0C]">
-      <div className="max-w-7xl mx-auto relative rounded-2xl overflow-hidden border border-[#A9791F]/30 group">
-        <img
-          src="/products/xmas-banner.jpg"
-          alt="VAPEHUB holiday vape gift box"
-          className="w-full h-[320px] md:h-[420px] object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/70 to-transparent" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="p-8 md:p-14 max-w-lg">
-            <Eyebrow>Vapehub Edition</Eyebrow>
-            <h2 className="mt-5 font-display font-black text-4xl md:text-5xl leading-tight">
-              The <span className="text-gold">VAPEHUB</span> Vape Box.
-            </h2>
-            <p className="mt-4 text-[color:var(--color-smoke)]">
-              A hand-curated selection of best-selling VAPEHUB disposables — boxed, sealed, and ready to gift.
-            </p>
-            <Link
-              to="/shop"
-              className="mt-8 inline-block bg-gold text-[#0A0A0C] font-semibold px-8 py-4 rounded-md hover:shadow-[0_0_28px_rgba(240,205,110,0.45)] transition-shadow"
-            >
-              Shop VAPEHUB
-            </Link>
-          </div>
         </div>
       </div>
     </section>
