@@ -231,7 +231,7 @@ export const products: Product[] = [
   {
     slug: "fisco-xpod-double-apple-8000-puffs",
     name: "Fisco Xpod Double Apple",
-    category: "disposables",
+    category: "accessories",
     categoryLabel: "Fisco Xpod",
     price: 59.95,
     image: "/products-opt/fisco-xpod-double-apple-8000-puffs.webp",
