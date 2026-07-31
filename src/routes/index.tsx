@@ -7,7 +7,7 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { SmartImage } from "@/components/ausvape/SmartImage";
-import { bestsellers, products, brandSlug, byBrand } from "@/lib/products";
+import { products, brandSlug, byBrand } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 const heroPhoto = { url: "/products-opt/double-happiness-hype-flat-white-12000-puffs.webp" };
 const storyPhoto = { url: "/products-opt/hqd-slick-mango-honeydew-ice-6000-puffs.webp" };
@@ -33,7 +33,6 @@ function Index() {
       <PremiumBanner />
       <TrustStrip />
       <CategoryGrid />
-      <Bestsellers />
       <BrandCollections />
       <BrandStory />
       <Testimonials />
@@ -323,23 +322,6 @@ function CategoryGrid() {
   );
 }
 
-function Bestsellers() {
-  const list = bestsellers();
-  return (
-    <section className="py-24 px-4 md:px-8 bg-[#18181B] relative">
-      <WispDivider className="absolute top-0 left-0" />
-      <div className="max-w-7xl mx-auto">
-        <Eyebrow>Best Sellers</Eyebrow>
-        <h2 className="mt-6 text-center font-display font-bold text-4xl md:text-5xl">
-          The most <span className="text-gold">requested.</span>
-        </h2>
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {list.map(p => <ProductCard key={p.slug} product={p} />)}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function BrandStory() {
   return (
