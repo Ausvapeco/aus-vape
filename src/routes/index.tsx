@@ -7,7 +7,7 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { SmartImage } from "@/components/ausvape/SmartImage";
-import { bestsellers, products } from "@/lib/products";
+import { bestsellers, products, brandSlug, byBrand } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 const heroPhoto = { url: "/products-opt/double-happiness-hype-flat-white-12000-puffs.webp" };
 const storyPhoto = { url: "/products-opt/hqd-slick-mango-honeydew-ice-6000-puffs.webp" };
@@ -210,10 +210,12 @@ function PremiumBanner() {
   );
 }
 
+const HOME_BRANDS = ["alibarbar-9000", "iget-one-12000-puffs", "iget-bar-pro", "vapehub"];
+
 function BrandCollections() {
   // Group all products by their brand (categoryLabel), preserving order of first appearance.
   const groups = new Map<string, typeof products>();
-  for (const p of products) {
+  for (const p of products.filter(x => HOME_BRANDS.includes(brandSlug(x)))) {
     const list = groups.get(p.categoryLabel) ?? [];
     list.push(p);
     groups.set(p.categoryLabel, list);
@@ -274,11 +276,16 @@ function TrustStrip() {
 }
 
 function CategoryGrid() {
-  const tiles = [
-    { slug: "disposables", label: "Shop Alibarbar Ingot", blurb: "Pocket-ready, refined.", image: "/products-opt/alibarbar-ingot-blueberry-blast-9000-puffs.webp" },
-    { slug: "devices", label: "Shop IGET Bar Pro", blurb: "10,000 puff icon.", image: "/products-opt/iget-bar-pro-blueberry-ice-10000-puffs.webp" },
-    { slug: "best-sellers", label: "Shop Rival Bar", blurb: "This month's most loved.", image: "/products-opt/rival-bar-cola-8000-puffs-2.webp" },
-  ];
+  const blurbs: Record<string, string> = {
+    "alibarbar-9000": "Pocket-ready, refined.",
+    "iget-one-12000-puffs": "12,000 puff flagship.",
+    "iget-bar-pro": "10,000 puff icon.",
+    "vapehub": "Long-haul, classic profiles.",
+  };
+  const tiles = HOME_BRANDS.map(slug => {
+    const list = byBrand(slug);
+    return { slug, label: `Shop ${list[0]?.categoryLabel ?? slug}`, blurb: blurbs[slug] ?? "", image: list[0]?.image ?? "" };
+  }).filter(t => t.image);
   return (
     <section className="py-24 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
@@ -286,12 +293,12 @@ function CategoryGrid() {
         <h2 className="mt-6 text-center font-display font-bold text-4xl md:text-5xl">
           Curated <span className="text-gold">collections.</span>
         </h2>
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {tiles.map(t => (
             <Link
               key={t.slug}
-              to={t.slug === "best-sellers" ? "/shop" : "/category/$slug"}
-              params={t.slug === "best-sellers" ? {} : { slug: t.slug }}
+              to="/category/$slug"
+              params={{ slug: t.slug }}
               className="group relative aspect-[4/5] bg-[#18181B] border border-[#A9791F]/15 rounded-lg overflow-hidden hover:border-[#F0CD6E]/60 transition-all"
             >
               <SmartImage
