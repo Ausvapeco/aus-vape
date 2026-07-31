@@ -7,7 +7,7 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmokeWisp, WispDivider } from "@/components/ausvape/SmokeWisp";
 import { ProductCard } from "@/components/ausvape/ProductCard";
 import { SmartImage } from "@/components/ausvape/SmartImage";
-import { bestsellers, products } from "@/lib/products";
+import { bestsellers, products, brandSlug, byBrand } from "@/lib/products";
 import { getProduct } from "@/lib/products";
 const heroPhoto = { url: "/products-opt/double-happiness-hype-flat-white-12000-puffs.webp" };
 const storyPhoto = { url: "/products-opt/hqd-slick-mango-honeydew-ice-6000-puffs.webp" };
