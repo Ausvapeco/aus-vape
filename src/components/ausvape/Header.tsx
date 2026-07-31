@@ -6,9 +6,9 @@ import { Logo } from "./Logo";
 
 const nav = [
   { to: "/shop", label: "Shop" },
-  { to: "/category/disposables", label: "Disposables" },
-  { to: "/category/devices", label: "Devices" },
-  { to: "/category/accessories", label: "Accessories" },
+  { to: "/category/$slug", params: { slug: "disposables" }, label: "Disposables" },
+  { to: "/category/$slug", params: { slug: "devices" }, label: "Devices" },
+  { to: "/category/$slug", params: { slug: "accessories" }, label: "Accessories" },
   { to: "/about", label: "About" },
   { to: "/blog", label: "Journal" },
   { to: "/contact", label: "Contact" },
@@ -47,8 +47,9 @@ export function Header() {
         <nav className="hidden lg:flex items-center gap-8 text-sm">
           {nav.map(n => (
             <Link
-              key={n.to}
+              key={n.label}
               to={n.to}
+              params={"params" in n ? (n.params as never) : undefined}
               className="text-[color:var(--color-platinum)]/80 hover:text-[color:var(--color-platinum)] transition-colors tracking-wide"
               activeProps={{ className: "text-gold" }}
             >
@@ -86,8 +87,9 @@ export function Header() {
           <nav className="px-4 py-4 flex flex-col gap-1">
             {nav.map(n => (
               <Link
-                key={n.to}
+                key={n.label}
                 to={n.to}
+                params={"params" in n ? (n.params as never) : undefined}
                 onClick={() => setMobileOpen(false)}
                 className="py-3 px-2 border-b border-[#A9791F]/10 text-[color:var(--color-platinum)]/90 hover:text-gold"
               >
