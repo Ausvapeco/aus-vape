@@ -1291,10 +1291,32 @@ export const products: Product[] = [
 
 export const getProduct = (slug: string) => products.find(p => p.slug === slug);
 export const bestsellers = () => products.filter(p => p.bestseller);
-export const byCategory = (c: string) => products.filter(p => p.category === c);
+export const toSlug = (s: string) =>
+  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+export const brandSlug = (p: Product) => toSlug(p.categoryLabel);
+
+export const brands = Array.from(
+  products.reduce((m, p) => {
+    const slug = brandSlug(p);
+    if (!m.has(slug)) m.set(slug, { slug, label: p.categoryLabel, image: p.image, count: 0 });
+    m.get(slug)!.count += 1;
+    return m;
+  }, new Map<string, { slug: string; label: string; image: string; count: number }>()).values()
+);
+
+export const byBrand = (slug: string) => products.filter(p => brandSlug(p) === slug);
+
+export const byCategory = (c: string) => {
+  if (c === "best-sellers") return bestsellers();
+  const brandList = byBrand(c);
+  if (brandList.length) return brandList;
+  return products.filter(p => p.category === c);
+};
 
 export const categories = [
   { slug: "disposables", label: "Disposables", blurb: "Pocket-ready pods, no refills." },
   { slug: "devices", label: "Devices", blurb: "Refillable mods and pens." },
   { slug: "best-sellers", label: "Best Sellers", blurb: "This month's top rated." },
+  ...brands.map(b => ({ slug: b.slug, label: b.label, blurb: `The complete ${b.label} range.` })),
 ];
