@@ -1317,6 +1317,7 @@ export const byCategory = (c: string) => {
 export const categories = [
   { slug: "disposables", label: "Disposables", blurb: "Pocket-ready pods, no refills." },
   { slug: "devices", label: "Devices", blurb: "Refillable mods and pens." },
+  { slug: "accessories", label: "Accessories", blurb: "Replacement pods and add-ons." },
   { slug: "best-sellers", label: "Best Sellers", blurb: "This month's top rated." },
   ...brands.map(b => ({ slug: b.slug, label: b.label, blurb: `The complete ${b.label} range.` })),
 ];
