@@ -5,7 +5,7 @@ import { SmartImage } from "@/components/ausvape/SmartImage";
 import { byBrand, brandSlug, products } from "@/lib/products";
 
 const URL = "https://aus-vape.lovable.app/blog/iget-authenticity-guide";
-const TITLE = "IGET Vape Authenticity Guide: How to Spot a Fake | AUSVAPE CO";
+const TITLE = "IGET Vape Authenticity Guide: Spotting Fakes | AUSVAPE CO";
 const DESC =
   "How to check an IGET vape is authentic: batch code and scratch-panel verification, packaging tells, hardware checks and what to do if yours fails the test.";
 const HERO = "/products-opt/iget-bar-pro-blueberry-ice-10000-puffs.webp";

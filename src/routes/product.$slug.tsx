@@ -17,7 +17,9 @@ export const Route = createFileRoute("/product/$slug")({
   },
   head: ({ params, loaderData }) => {
     const p = loaderData?.product;
-    const title = p ? `${p.name} — AUSVAPE CO` : "Product — AUSVAPE CO";
+    const title = p
+      ? `${p.name.slice(0, 46)} — AUSVAPE CO`
+      : "Product — AUSVAPE CO";
     const description = p
       ? `${p.description} Authentic ${p.categoryLabel}, dispatched same day from Melbourne. Strictly 18+.`.slice(0, 158)
       : "Authentic vapour products from AUSVAPE CO.";
