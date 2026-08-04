@@ -73,9 +73,9 @@ function Contact() {
             </form>
           </div>
           <aside className="space-y-6">
-            <Card icon={<Mail className="w-4 h-4" />} title="Email" body={<a href="mailto:support@ausvape.co" className="text-gold">support@ausvape.co</a>} />
-            <Card icon={<MessageCircle className="w-4 h-4" />} title="WhatsApp" body={<a href="#" className="text-gold">+61 400 000 000</a>} />
-            <Card icon={<MapPin className="w-4 h-4" />} title="Melbourne Counter" body={<span className="text-[color:var(--color-smoke)]">Level 3, 100 Flinders Ln<br />Melbourne VIC 3000<br />Mon–Fri 10am–5pm</span>} />
+            <Card icon={<Mail className="w-4 h-4" aria-hidden="true" />} title="Email" body={<a href="mailto:support@ausvape.co" aria-label="Email AUSVAPE CO support at support@ausvape.co" className="text-gold">support@ausvape.co</a>} />
+            <Card icon={<MessageCircle className="w-4 h-4" aria-hidden="true" />} title="WhatsApp" body={<a href="#" aria-label="Message AUSVAPE CO on WhatsApp at +61 400 000 000" className="text-gold">+61 400 000 000</a>} />
+            <Card icon={<MapPin className="w-4 h-4" aria-hidden="true" />} title="Melbourne Counter" body={<span className="text-[color:var(--color-smoke)]">Level 3, 100 Flinders Ln<br />Melbourne VIC 3000<br />Mon–Fri 10am–5pm</span>} />
           </aside>
         </div>
         <div className="max-w-6xl mx-auto mt-10 rounded-lg overflow-hidden border border-[#A9791F]/15 aspect-[16/6]">
