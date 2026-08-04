@@ -2,10 +2,11 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 
-const pages: Record<string, { title: string; eyebrow: string; body: { h?: string; p: string }[] }> = {
+const pages: Record<string, { title: string; eyebrow: string; description: string; body: { h?: string; p: string }[] }> = {
   "age-policy": {
     title: "Age-Restricted Sales Policy",
     eyebrow: "Legal",
+    description: "How AUSVAPE CO verifies age on every order: mandatory 18+ gate, photo ID checks at checkout and adult signature on delivery across Australia.",
     body: [
       { p: "AUSVAPE CO sells vapour and nicotine-containing products intended strictly for adults aged 18 years or older. It is unlawful in Australia to sell these products to anyone under 18." },
       { h: "Verification", p: "We operate a mandatory age gate on every visit to this site and may request government-issued photo ID at checkout or on delivery. Our couriers are instructed to obtain a signature from a person of legal age at the delivery address." },
@@ -16,6 +17,7 @@ const pages: Record<string, { title: string; eyebrow: string; body: { h?: string
   "privacy": {
     title: "Privacy Policy",
     eyebrow: "Legal",
+    description: "What personal information AUSVAPE CO collects at checkout, how we use and share it with couriers and payment providers, and how to request access or deletion.",
     body: [
       { p: "This policy describes how AUSVAPE CO collects, uses, and safeguards your personal information when you use ausvape.co." },
       { h: "Information we collect", p: "Contact and shipping details you provide at checkout; order history; and technical data such as IP address and browser type collected via cookies for site performance and fraud prevention." },
@@ -27,6 +29,7 @@ const pages: Record<string, { title: string; eyebrow: string; body: { h?: string
   "shipping": {
     title: "Shipping & Returns",
     eyebrow: "Legal",
+    description: "AUSVAPE CO dispatch times, Australia Post Express delivery estimates, free shipping over $80, adult signature requirements and our 14-day returns process.",
     body: [
       { h: "Dispatch", p: "Orders placed before 3pm AEST on business days are dispatched the same day from our Melbourne warehouse." },
       { h: "Delivery times", p: "Metro Australia typically arrives next business day via Australia Post Express. Regional delivery is 2–4 business days. Free express shipping on orders over $80." },
@@ -38,6 +41,7 @@ const pages: Record<string, { title: string; eyebrow: string; body: { h?: string
   "terms": {
     title: "Terms of Service",
     eyebrow: "Legal",
+    description: "The terms covering purchases from AUSVAPE CO: eligibility for adults 18 and over, pricing and availability, liability limits and governing Victorian law.",
     body: [
       { p: "By using ausvape.co you agree to these terms. If you do not agree, please do not use this site." },
       { h: "Eligibility", p: "You must be 18 years or older and legally permitted to purchase vapour and nicotine products in your jurisdiction." },
@@ -55,7 +59,14 @@ export const Route = createFileRoute("/legal/$page")({
     return { page };
   },
   head: ({ loaderData }) => ({
-    meta: [{ title: `${loaderData?.page.title ?? "Legal"} — AUSVAPE CO` }],
+    meta: [
+      { title: `${loaderData?.page.title ?? "Legal"} — AUSVAPE CO` },
+      { name: "description", content: loaderData?.page.description ?? "AUSVAPE CO legal policies." },
+      { property: "og:title", content: `${loaderData?.page.title ?? "Legal"} — AUSVAPE CO` },
+      { property: "og:description", content: loaderData?.page.description ?? "AUSVAPE CO legal policies." },
+      { property: "og:url", content: `https://aus-vape.lovable.app/legal/${params.page}` },
+    ],
+    links: [{ rel: "canonical", href: `https://aus-vape.lovable.app/legal/${params.page}` }],
   }),
   component: LegalPage,
   notFoundComponent: () => (
