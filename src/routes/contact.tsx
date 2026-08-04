@@ -64,8 +64,8 @@ function Contact() {
               <Field label="Email" name="email" type="email" />
               <Field label="Subject" name="subject" className="sm:col-span-2" />
               <div className="sm:col-span-2">
-                <label className="text-[10px] tracking-[0.35em] uppercase text-gold">Message</label>
-                <textarea rows={5} className="mt-2 w-full bg-[#0A0A0C] border border-[#A9791F]/25 rounded p-3 focus:border-[#F0CD6E] outline-none" />
+                <label htmlFor="contact-message" className="text-[10px] tracking-[0.35em] uppercase text-gold">Message</label>
+                <textarea id="contact-message" name="message" rows={5} className="mt-2 w-full bg-[#0A0A0C] border border-[#A9791F]/25 rounded p-3 focus:border-[#F0CD6E] outline-none" />
               </div>
               <button className="sm:col-span-2 bg-gold text-[#0A0A0C] font-semibold py-3 rounded hover:shadow-[0_0_24px_rgba(240,205,110,0.4)] transition-shadow">
                 Send Message
@@ -94,8 +94,8 @@ function Contact() {
 function Field({ label, name, type = "text", className = "" }: { label: string; name: string; type?: string; className?: string }) {
   return (
     <div className={className}>
-      <label className="text-[10px] tracking-[0.35em] uppercase text-gold">{label}</label>
-      <input name={name} type={type} className="mt-2 w-full bg-[#0A0A0C] border border-[#A9791F]/25 rounded p-3 focus:border-[#F0CD6E] outline-none" />
+      <label htmlFor={`contact-${name}`} className="text-[10px] tracking-[0.35em] uppercase text-gold">{label}</label>
+      <input id={`contact-${name}`} name={name} type={type} className="mt-2 w-full bg-[#0A0A0C] border border-[#A9791F]/25 rounded p-3 focus:border-[#F0CD6E] outline-none" />
     </div>
   );
 }

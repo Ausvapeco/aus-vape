@@ -96,7 +96,12 @@ function ProductPage() {
               <div className="grid grid-cols-4 gap-3">
                 {[product.image, product.image, product.image, product.image].map((src, i) => (
                   <div key={i} className="aspect-square bg-[#18181B] rounded overflow-hidden border border-[#A9791F]/10">
-                    <SmartImage src={src} alt="" sizes="120px" className="w-full h-full object-cover opacity-80" />
+                    <SmartImage
+                      src={src}
+                      alt={`${product.name}${variant ? ` in ${variant}` : ""} — view ${i + 1}`}
+                      sizes="120px"
+                      className="w-full h-full object-cover opacity-80"
+                    />
                   </div>
                 ))}
               </div>
@@ -220,7 +225,13 @@ function MobileStickyBar({ productPrice, onAdd }: { productPrice: number; onAdd:
       <button onClick={onAdd} className="flex-1 bg-gold text-[#0A0A0C] font-semibold py-3 rounded">
         Add to Bag · ${productPrice.toFixed(2)}
       </button>
-      <a href="#" aria-label="Chat" className="w-12 grid place-items-center border border-[#A9791F]/30 rounded text-gold">💬</a>
+      <a
+        href="#"
+        aria-label="Chat with AUSVAPE CO support"
+        className="w-12 grid place-items-center border border-[#A9791F]/30 rounded text-gold"
+      >
+        <span aria-hidden="true">💬</span>
+      </a>
     </div>
   );
 }

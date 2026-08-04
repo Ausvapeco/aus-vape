@@ -71,7 +71,7 @@ function Checkout() {
                 {items.map(i => (
                   <li key={i.product.slug} className="flex gap-3 text-sm">
                     <div className="w-12 h-12 bg-[#0A0A0C] rounded overflow-hidden shrink-0">
-                      <SmartImage src={i.product.image} alt="" sizes="80px" className="w-full h-full object-cover" />
+                      <SmartImage src={i.product.image} alt={i.product.name} sizes="80px" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="truncate">{i.product.name}</div>
@@ -110,10 +110,11 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 function Field({ label, type = "text", className = "" }: { label: string; type?: string; className?: string }) {
+  const id = `checkout-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
     <div className={className}>
-      <label className="text-xs text-[color:var(--color-smoke)]">{label}</label>
-      <input type={type} className="mt-1.5 w-full bg-[#0A0A0C] border border-[#A9791F]/25 rounded p-3 focus:border-[#F0CD6E] outline-none" />
+      <label htmlFor={id} className="text-xs text-[color:var(--color-smoke)]">{label}</label>
+      <input id={id} name={id} type={type} className="mt-1.5 w-full bg-[#0A0A0C] border border-[#A9791F]/25 rounded p-3 focus:border-[#F0CD6E] outline-none" />
     </div>
   );
 }
