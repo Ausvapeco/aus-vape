@@ -144,7 +144,7 @@ function FeaturedBanner() {
                   <div className="absolute inset-0 bg-gradient-radial from-[#A9791F]/20 via-transparent to-transparent" />
                   <SmartImage
                     src={p.image}
-                    alt={p.name}
+                    alt={`${p.name} — featured ${p.categoryLabel} vape at AUSVAPE CO`}
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
