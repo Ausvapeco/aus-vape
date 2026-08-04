@@ -19,8 +19,30 @@ const signatureBanner = {
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
+    meta: [
+      { title: "AUSVAPE CO — Premium Vapes Delivered Across Australia" },
+      { name: "description", content: "Shop authentic disposable vapes, devices and pods at AUSVAPE CO. Same-day dispatch from Melbourne, free express shipping over $80. Strictly 18+." },
+      { property: "og:title", content: "AUSVAPE CO — Premium Vapes Delivered Across Australia" },
+      { property: "og:description", content: "Authentic disposables, devices and pods, curated in Melbourne and dispatched same day across Australia." },
+      { property: "og:url", content: "https://aus-vape.lovable.app/" },
+    ],
     links: [
       { rel: "preload", as: "image", href: heroPhoto.url, fetchpriority: "high" },
+      { rel: "canonical", href: "https://aus-vape.lovable.app/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
     ],
   }),
 });
@@ -394,9 +416,9 @@ function Newsletter() {
         <div className="relative grid md:grid-cols-2 gap-8 items-center">
           <div>
             <Eyebrow>Members</Eyebrow>
-            <h3 className="mt-4 font-display font-bold text-3xl md:text-4xl">
+            <h2 className="mt-4 font-display font-bold text-3xl md:text-4xl">
               Early access to <span className="text-gold">new drops.</span>
-            </h3>
+            </h2>
             <p className="mt-3 text-sm text-[color:var(--color-smoke)]">One email a fortnight. New arrivals, restocks, and a 10% welcome credit.</p>
           </div>
           <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-2">
