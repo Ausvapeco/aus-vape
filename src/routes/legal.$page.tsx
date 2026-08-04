@@ -58,7 +58,7 @@ export const Route = createFileRoute("/legal/$page")({
     if (!page) throw notFound();
     return { page };
   },
-  head: ({ loaderData }) => ({
+  head: ({ params, loaderData }) => ({
     meta: [
       { title: `${loaderData?.page.title ?? "Legal"} — AUSVAPE CO` },
       { name: "description", content: loaderData?.page.description ?? "AUSVAPE CO legal policies." },
