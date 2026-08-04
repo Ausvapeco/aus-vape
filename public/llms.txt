@@ -1,0 +1,21 @@
+# AUSVAPE CO
+
+> Australia's premium vapour retailer — authentic disposables, devices and pods, dispatched same day from Melbourne. Strictly 18+.
+
+## Pages
+
+- [Home](/): Featured ranges, signature banner and FAQs.
+- [Shop](/shop): The full catalogue with category, price and sort filters.
+- [Disposables](/category/disposables): Pocket-ready disposable vapes.
+- [Devices](/category/devices): Refillable devices and mods.
+- [Accessories](/category/accessories): Replacement pods and add-ons.
+- [About](/about): The AUSVAPE CO story and sourcing standards.
+- [Journal](/blog): Notes on craft, care and considered vapour.
+- [Contact](/contact): Email, WhatsApp and the Melbourne counter.
+
+## Optional
+
+- [Shipping & Returns](/legal/shipping): Dispatch times, delivery and returns.
+- [Age Policy](/legal/age-policy): 18+ verification requirements.
+- [Privacy Policy](/legal/privacy): How customer data is handled.
+- [Terms of Service](/legal/terms): Conditions of sale.
