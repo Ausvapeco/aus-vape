@@ -8,7 +8,16 @@ import { products } from "@/lib/products";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
 
 export const Route = createFileRoute("/shop")({
-  head: () => ({ meta: [{ title: "Shop — AUSVAPE CO" }, { name: "description", content: "The full AUSVAPE CO range: disposables, devices and accessories." }] }),
+  head: () => ({
+    meta: [
+      { title: "Shop All Vapes — Disposables, Devices & Pods | AUSVAPE CO" },
+      { name: "description", content: "Browse the full AUSVAPE CO range of authentic disposables, refillable devices and replacement pods. Filter by category and price, shipped from Melbourne." },
+      { property: "og:title", content: "Shop All Vapes — Disposables, Devices & Pods | AUSVAPE CO" },
+      { property: "og:description", content: "The complete AUSVAPE CO catalogue: disposables, devices and pods, dispatched same day from Melbourne." },
+      { property: "og:url", content: "https://aus-vape.lovable.app/shop" },
+    ],
+    links: [{ rel: "canonical", href: "https://aus-vape.lovable.app/shop" }],
+  }),
   component: Shop,
 });
 
@@ -42,7 +51,7 @@ function Shop() {
               <div className="text-sm text-[color:var(--color-smoke)]">{filtered.length} products</div>
               <div className="flex items-center gap-3">
                 <Sheet>
-                  <SheetTrigger className="lg:hidden inline-flex items-center gap-2 border border-[#A9791F]/25 px-3 py-2 rounded text-sm">
+                  <SheetTrigger aria-label="Open product filters" className="lg:hidden inline-flex items-center gap-2 border border-[#A9791F]/25 px-3 py-2 rounded text-sm">
                     <SlidersHorizontal className="w-4 h-4" /> Filter
                   </SheetTrigger>
                   <SheetContent side="left" className="bg-[#0A0A0C] text-[color:var(--color-platinum)] border-[#A9791F]/25">
