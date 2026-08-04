@@ -103,6 +103,35 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: "AUSVAPE CO",
+              url: "https://aus-vape.lovable.app/",
+              email: "support@ausvape.co",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Level 3, 100 Flinders Ln",
+                addressLocality: "Melbourne",
+                addressRegion: "VIC",
+                postalCode: "3000",
+                addressCountry: "AU",
+              },
+            },
+            {
+              "@type": "WebSite",
+              name: "AUSVAPE CO",
+              url: "https://aus-vape.lovable.app/",
+            },
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
