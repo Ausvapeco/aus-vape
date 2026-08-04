@@ -81,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "AUSVAPE CO — Premium Vapour, Delivered" },
       { name: "description", content: "AUSVAPE CO is Australia's premium vapour retailer. Authentic devices and pods, dispatched fast from Australia. Strictly 18+." },
       { name: "author", content: "AUSVAPE CO" },
+      { name: "google-site-verification", content: "Uwa_7-n7huCY_MEOfJoAzy1Wx4jt0o4zXU69k9ow97s" },
       { property: "og:title", content: "AUSVAPE CO — Premium Vapour, Delivered" },
       { property: "og:description", content: "AUSVAPE CO is Australia's premium vapour retailer. Authentic devices and pods, dispatched fast from Australia. Strictly 18+." },
       { property: "og:type", content: "website" },
