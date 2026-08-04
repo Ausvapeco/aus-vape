@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
       >
         <SmartImage
           src={product.image}
-          alt={product.name}
+          alt={`${product.name}${product.flavour ? ` ${product.flavour}` : ""} — ${product.categoryLabel} vape`}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
@@ -30,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
           onClick={(e) => { e.preventDefault(); add(product, 1); }}
           className="absolute bottom-3 right-3 h-10 w-10 grid place-items-center bg-gold text-[#0A0A0C] rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-[0_0_20px_rgba(240,205,110,0.4)]"
         >
-          <Plus className="w-4 h-4" strokeWidth={2.5} />
+          <Plus className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
         </button>
       </Link>
       <div className="p-5">

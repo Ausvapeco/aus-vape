@@ -38,7 +38,7 @@ function CartPage() {
                 {items.map(i => (
                   <li key={i.product.slug} className="py-6 flex gap-5">
                     <div className="w-24 h-24 bg-[#18181B] rounded overflow-hidden shrink-0">
-                      <SmartImage src={i.product.image} alt="" sizes="96px" className="w-full h-full object-cover" />
+                      <SmartImage src={i.product.image} alt={`${i.product.name} — ${i.product.categoryLabel} vape in your cart`} sizes="96px" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between gap-2">

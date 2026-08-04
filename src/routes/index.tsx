@@ -80,7 +80,7 @@ function Hero() {
         <div className="max-w-3xl animate-fade-up">
           <Eyebrow>Australia · Premium Vapour</Eyebrow>
           <h1 className="mt-8 font-display font-black text-5xl sm:text-6xl md:text-8xl leading-[0.9] tracking-tight">
-            The art of the <span className="text-gold">exhale.</span>
+            Premium vapes <span className="text-gold">delivered</span> across Australia.
           </h1>
           <p className="mt-6 max-w-xl text-base md:text-lg text-[color:var(--color-smoke)] leading-relaxed">
             Authentic devices, quiet craftsmanship, and a curated flavour library — shipped fast from Australia to your door.
@@ -144,7 +144,7 @@ function FeaturedBanner() {
                   <div className="absolute inset-0 bg-gradient-radial from-[#A9791F]/20 via-transparent to-transparent" />
                   <SmartImage
                     src={p.image}
-                    alt={p.name}
+                    alt={`${p.name} — featured ${p.categoryLabel} vape at AUSVAPE CO`}
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -305,7 +305,14 @@ function CategoryGrid() {
   };
   const tiles = HOME_BRANDS.map(slug => {
     const list = byBrand(slug);
-    return { slug, label: `Shop ${list[0]?.categoryLabel ?? slug}`, blurb: blurbs[slug] ?? "", image: list[0]?.image ?? "" };
+    const brand = list[0]?.categoryLabel ?? slug;
+    return {
+      slug,
+      label: `Shop ${brand}`,
+      blurb: blurbs[slug] ?? "",
+      image: list[0]?.image ?? "",
+      alt: list[0] ? `${list[0].name} — ${brand} disposable vape available at AUSVAPE CO` : `${brand} vapes`,
+    };
   }).filter(t => t.image);
   return (
     <section className="py-24 px-4 md:px-8">
@@ -324,7 +331,7 @@ function CategoryGrid() {
             >
               <SmartImage
                 src={t.image}
-                alt={t.label}
+                alt={t.alt}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
               />
