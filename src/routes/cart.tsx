@@ -6,7 +6,17 @@ import { useCart } from "@/lib/cart";
 import { SmartImage } from "@/components/ausvape/SmartImage";
 
 export const Route = createFileRoute("/cart")({
-  head: () => ({ meta: [{ title: "Bag — AUSVAPE CO" }] }),
+  head: () => ({
+    meta: [
+      { title: "Your Bag — AUSVAPE CO" },
+      { name: "description", content: "Review the items in your AUSVAPE CO bag, adjust quantities and check your subtotal before secure checkout with free express shipping over $80." },
+      { property: "og:title", content: "Your Bag — AUSVAPE CO" },
+      { property: "og:description", content: "Review your AUSVAPE CO order before secure checkout." },
+      { property: "og:url", content: "https://aus-vape.lovable.app/cart" },
+      { name: "robots", content: "noindex" },
+    ],
+    links: [{ rel: "canonical", href: "https://aus-vape.lovable.app/cart" }],
+  }),
   component: CartPage,
 });
 

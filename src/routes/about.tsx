@@ -6,7 +6,16 @@ const brandStory = { url: "/products-opt/hqd-slick-raspberry-grape-6000-puffs.we
 const heroDevice = { url: "/products-opt/double-happiness-hype-love-66-12000-puffs.webp" };
 
 export const Route = createFileRoute("/about")({
-  head: () => ({ meta: [{ title: "About — AUSVAPE CO" }, { name: "description", content: "The AUSVAPE CO story: authentic vapour, curated in Australia." }] }),
+  head: () => ({
+    meta: [
+      { title: "About AUSVAPE CO — Authentic Vapour, Curated in Melbourne" },
+      { name: "description", content: "How AUSVAPE CO began: a Melbourne team sourcing only manufacturer-verified vapour products, shipped discreetly and answered by real people." },
+      { property: "og:title", content: "About AUSVAPE CO — Authentic Vapour, Curated in Melbourne" },
+      { property: "og:description", content: "Our sourcing standards, our Melbourne warehouse, and why we keep the range deliberately small." },
+      { property: "og:url", content: "https://aus-vape.lovable.app/about" },
+    ],
+    links: [{ rel: "canonical", href: "https://aus-vape.lovable.app/about" }],
+  }),
   component: About,
 });
 
@@ -14,7 +23,7 @@ function About() {
   return (
     <SiteLayout>
       <section className="relative h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden">
-        <SmartImage src={brandStory.url} alt="" sizes="100vw" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+        <SmartImage src={brandStory.url} alt="HQD Slick Raspberry Grape disposable vape from the AUSVAPE CO range" sizes="100vw" className="absolute inset-0 w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/60 via-[#0A0A0C]/40 to-[#0A0A0C]" />
         <div className="relative text-center px-4">
           <Eyebrow>Our Story</Eyebrow>
@@ -44,7 +53,7 @@ function About() {
       </section>
       <section className="px-4 md:px-8 pb-24">
         <div className="max-w-6xl mx-auto rounded-lg overflow-hidden aspect-[16/7]">
-          <SmartImage src={heroDevice.url} alt="" sizes="(max-width: 768px) 100vw, 50vw" className="w-full h-full object-cover" />
+          <SmartImage src={heroDevice.url} alt="Double Happiness Hype Love 66 12000-puff device stocked by AUSVAPE CO" sizes="(max-width: 768px) 100vw, 50vw" className="w-full h-full object-cover" />
         </div>
       </section>
     </SiteLayout>

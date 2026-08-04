@@ -4,7 +4,45 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { MessageCircle, Mail, MapPin } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({ meta: [{ title: "Contact — AUSVAPE CO" }, { name: "description", content: "Get in touch with the AUSVAPE CO team." }] }),
+  head: () => ({
+    meta: [
+      { title: "Contact AUSVAPE CO — Support, WhatsApp & Melbourne Counter" },
+      { name: "description", content: "Reach the AUSVAPE CO team by email or WhatsApp for order, shipping and returns help, or visit our Melbourne CBD counter Mon–Fri 10am–5pm." },
+      { property: "og:title", content: "Contact AUSVAPE CO — Support, WhatsApp & Melbourne Counter" },
+      { property: "og:description", content: "Order, shipping and returns support with replies within one business day, plus our Melbourne CBD pickup counter." },
+      { property: "og:url", content: "https://aus-vape.lovable.app/contact" },
+    ],
+    links: [{ rel: "canonical", href: "https://aus-vape.lovable.app/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "AUSVAPE CO",
+          url: "https://aus-vape.lovable.app/contact",
+          email: "support@ausvape.co",
+          telephone: "+61400000000",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Level 3, 100 Flinders Ln",
+            addressLocality: "Melbourne",
+            addressRegion: "VIC",
+            postalCode: "3000",
+            addressCountry: "AU",
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "10:00",
+              closes: "17:00",
+            },
+          ],
+        }),
+      },
+    ],
+  }),
   component: Contact,
 });
 

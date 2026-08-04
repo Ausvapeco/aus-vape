@@ -15,12 +15,47 @@ export const Route = createFileRoute("/product/$slug")({
     if (!product) throw notFound();
     return { product };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: loaderData ? `${loaderData.product.name} — AUSVAPE CO` : "Product — AUSVAPE CO" },
-      { name: "description", content: loaderData?.product.description ?? "" },
-    ],
-  }),
+  head: ({ params, loaderData }) => {
+    const p = loaderData?.product;
+    const title = p ? `${p.name} — AUSVAPE CO` : "Product — AUSVAPE CO";
+    const description = p
+      ? `${p.description} Authentic ${p.categoryLabel}, dispatched same day from Melbourne. Strictly 18+.`.slice(0, 158)
+      : "Authentic vapour products from AUSVAPE CO.";
+    const url = `https://aus-vape.lovable.app/product/${params.slug}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: url },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: p
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                name: p.name,
+                image: `https://aus-vape.lovable.app${p.image}`,
+                description: p.description,
+                brand: { "@type": "Brand", name: p.categoryLabel },
+                offers: {
+                  "@type": "Offer",
+                  url,
+                  priceCurrency: "AUD",
+                  price: (p.salePrice ?? p.price).toFixed(2),
+                  availability: "https://schema.org/InStock",
+                },
+              }),
+            },
+          ]
+        : [],
+    };
+  },
   component: ProductPage,
   notFoundComponent: () => (
     <SiteLayout>

@@ -10,12 +10,22 @@ export const Route = createFileRoute("/category/$slug")({
     if (!cat) throw notFound();
     return { cat };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData?.cat.label ?? "Category"} — AUSVAPE CO` },
-      { name: "description", content: loaderData?.cat.blurb ?? "" },
-    ],
-  }),
+  head: ({ params, loaderData }) => {
+    const label = loaderData?.cat.label ?? "Category";
+    const title = `${label} — Shop the Range | AUSVAPE CO`;
+    const description = `${loaderData?.cat.blurb ?? ""} Shop authentic ${label} at AUSVAPE CO with same-day dispatch from Melbourne and free express shipping over $80.`.trim().slice(0, 158);
+    const url = `https://aus-vape.lovable.app/category/${params.slug}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+      ],
+      links: [{ rel: "canonical", href: url }],
+    };
+  },
   component: CategoryPage,
   notFoundComponent: () => (
     <SiteLayout>
