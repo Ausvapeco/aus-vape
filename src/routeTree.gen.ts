@@ -21,6 +21,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as LegalPageRouteImport } from './routes/legal.$page'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as BlogIgetAuthenticityGuideRouteImport } from './routes/blog.iget-authenticity-guide'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -82,6 +83,12 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIgetAuthenticityGuideRoute =
+  BlogIgetAuthenticityGuideRouteImport.update({
+    id: '/iget-authenticity-guide',
+    path: '/iget-authenticity-guide',
+    getParentRoute: () => BlogRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/iget-authenticity-guide': typeof BlogIgetAuthenticityGuideRoute
   '/category/$slug': typeof CategorySlugRoute
   '/legal/$page': typeof LegalPageRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -105,6 +113,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/iget-authenticity-guide': typeof BlogIgetAuthenticityGuideRoute
   '/category/$slug': typeof CategorySlugRoute
   '/legal/$page': typeof LegalPageRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -120,6 +129,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/iget-authenticity-guide': typeof BlogIgetAuthenticityGuideRoute
   '/category/$slug': typeof CategorySlugRoute
   '/legal/$page': typeof LegalPageRoute
   '/product/$slug': typeof ProductSlugRoute
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/shop'
     | '/sitemap.xml'
+    | '/blog/iget-authenticity-guide'
     | '/category/$slug'
     | '/legal/$page'
     | '/product/$slug'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/shop'
     | '/sitemap.xml'
+    | '/blog/iget-authenticity-guide'
     | '/category/$slug'
     | '/legal/$page'
     | '/product/$slug'
@@ -163,6 +175,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/shop'
     | '/sitemap.xml'
+    | '/blog/iget-authenticity-guide'
     | '/category/$slug'
     | '/legal/$page'
     | '/product/$slug'
@@ -269,14 +282,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/iget-authenticity-guide': {
+      id: '/blog/iget-authenticity-guide'
+      path: '/iget-authenticity-guide'
+      fullPath: '/blog/iget-authenticity-guide'
+      preLoaderRoute: typeof BlogIgetAuthenticityGuideRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
 
 interface BlogRouteChildren {
+  BlogIgetAuthenticityGuideRoute: typeof BlogIgetAuthenticityGuideRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
+  BlogIgetAuthenticityGuideRoute: BlogIgetAuthenticityGuideRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 
