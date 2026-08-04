@@ -41,12 +41,13 @@ export function Footer() {
         <div>© {new Date().getFullYear()} AUSVAPE CO. Nicotine is addictive. Sold to 18+ only in Australia.</div>
         <div>Melbourne, Australia · support@ausvape.co</div>
       </div>
-      <button
-        aria-label="Open live chat with AUSVAPE CO support"
+      <a
+        href="mailto:support@ausvape.co"
+        aria-label="Email AUSVAPE CO support at support@ausvape.co"
         className="fixed bottom-5 right-5 z-40 h-12 w-12 rounded-full bg-gold text-[#0A0A0C] grid place-items-center shadow-[0_10px_30px_rgba(240,205,110,0.35)] hover:scale-105 transition-transform"
       >
         <MessageCircle className="w-5 h-5" aria-hidden="true" />
-      </button>
+      </a>
     </footer>
   );
 }
