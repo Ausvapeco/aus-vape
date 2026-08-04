@@ -350,7 +350,7 @@ function BrandStory() {
     <section className="py-24 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-          <img src={storyPhoto.url} alt="Craftsmanship" className="w-full h-full object-cover" loading="lazy" />
+          <img src={storyPhoto.url} alt="Close-up of an AUSVAPE CO disposable vape device showing its finish and craftsmanship detail" className="w-full h-full object-cover" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C]/60 to-transparent" />
         </div>
         <div>
@@ -425,6 +425,8 @@ function Newsletter() {
             <input
               type="email"
               required
+              id="newsletter-email"
+              aria-label="Email address for newsletter"
               placeholder="your@email.com"
               className="flex-1 bg-[#0A0A0C] border border-[#A9791F]/25 rounded-md px-4 py-3 text-[color:var(--color-platinum)] focus:border-[#F0CD6E] outline-none placeholder:text-[color:var(--color-smoke)]/60"
             />

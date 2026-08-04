@@ -58,15 +58,15 @@ export function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <button aria-label="Search" className="p-2 text-[color:var(--color-platinum)]/70 hover:text-gold transition-colors">
-            <Search className="w-5 h-5" />
+          <button aria-label="Search products" className="p-2 text-[color:var(--color-platinum)]/70 hover:text-gold transition-colors">
+            <Search className="w-5 h-5" aria-hidden="true" />
           </button>
           <button
-            aria-label="Cart"
+            aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}
             onClick={() => setDrawerOpen(true)}
             className="relative p-2 text-[color:var(--color-platinum)]/80 hover:text-gold transition-colors"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <ShoppingBag className="w-5 h-5" aria-hidden="true" />
             {count > 0 && (
               <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 bg-gold rounded-full text-[10px] font-bold text-[#0A0A0C] grid place-items-center">
                 {count}
@@ -75,10 +75,11 @@ export function Header() {
           </button>
           <button
             className="lg:hidden p-2 text-[color:var(--color-platinum)]"
-            aria-label="Menu"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
             onClick={() => setMobileOpen(v => !v)}
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
           </button>
         </div>
       </div>
