@@ -29,6 +29,7 @@ export function Footer() {
           <FooterLink to="/about">About</FooterLink>
           <FooterLink to="/blog">Journal</FooterLink>
           <FooterLink to="/contact">Contact</FooterLink>
+          <FooterLink to="/track">Track my order</FooterLink>
         </FooterCol>
         <FooterCol title="Legal">
           <FooterLink to="/legal/age-policy">Age-Restricted Sales Policy</FooterLink>

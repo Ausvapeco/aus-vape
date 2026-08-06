@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { Lock, ShieldCheck, CheckCircle2, Copy, Check, Loader2, Landmark, AlertTriangle } from "lucide-react";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { useCart } from "@/lib/cart";
 import { SmartImage } from "@/components/ausvape/SmartImage";
+import { createOrder, getOrderByReference } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -65,11 +67,36 @@ function Checkout() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [reference, setReference] = useState<string | null>(null);
   const [pay, setPay] = useState<null | { ref: string; total: number; name: string; email: string }>(null);
-  const [checking, setChecking] = useState(false);
+  const [placing, setPlacing] = useState(false);
+  const [lastChecked, setLastChecked] = useState<Date | null>(null);
+  const placeOrder = useServerFn(createOrder);
+  const lookupOrder = useServerFn(getOrderByReference);
+  const clearedRef = useRef(false);
   const shipping = subtotal > 80 ? 0 : 9.95;
   const total = subtotal + shipping;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  // Poll the backend so the order confirms itself as soon as the transfer is
+  // matched to the reference — no reliance on the customer clicking anything.
+  useEffect(() => {
+    if (!pay || reference) return;
+    let cancelled = false;
+    async function check() {
+      try {
+        const order = await lookupOrder({ data: { reference: pay!.ref } });
+        if (cancelled) return;
+        setLastChecked(new Date());
+        if (order && order.status !== "awaiting_payment" && order.status !== "cancelled") {
+          setReference(pay!.ref);
+          if (!clearedRef.current) { clearedRef.current = true; clear(); }
+        }
+      } catch { /* keep polling */ }
+    }
+    check();
+    const id = window.setInterval(check, 15_000);
+    return () => { cancelled = true; window.clearInterval(id); };
+  }, [pay, reference, lookupOrder, clear]);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -87,19 +114,33 @@ function Checkout() {
       return;
     }
     setErrors({});
-    const ref = `AV-${Date.now().toString(36).toUpperCase().slice(-6)}`;
-    setPay({ ref, total, name: parsed.data["full-name"], email: parsed.data.email });
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function confirmPaid() {
-    if (!pay) return;
-    setChecking(true);
-    setTimeout(() => {
-      setChecking(false);
-      setReference(pay.ref);
-      clear();
-    }, 2600);
+    setPlacing(true);
+    try {
+      const created = await placeOrder({
+        data: {
+          email: parsed.data.email,
+          phone: parsed.data.phone,
+          customer_name: parsed.data["full-name"],
+          address: parsed.data.address,
+          suburb: parsed.data.suburb,
+          postcode: parsed.data.postcode,
+          state: parsed.data.state,
+          country: parsed.data.country,
+          items: items.map((i) => ({
+            slug: i.product.slug,
+            name: i.product.name,
+            qty: i.qty,
+            price: i.product.salePrice ?? i.product.price,
+          })),
+        },
+      });
+      setPay({ ref: created.reference, total: created.total, name: parsed.data["full-name"], email: parsed.data.email });
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setErrors({ form: "We couldn't place your order just now. Please try again." });
+    } finally {
+      setPlacing(false);
+    }
   }
 
   if (reference) {
@@ -110,10 +151,13 @@ function Checkout() {
             <CheckCircle2 className="w-10 h-10 text-gold mx-auto" aria-hidden="true" />
             <h1 className="mt-6 font-display font-black text-4xl md:text-5xl">Payment <span className="text-gold">received.</span></h1>
             <p className="mt-4 text-[color:var(--color-smoke)]">
-              Congratulations — your order <span className="font-spec text-gold">{reference}</span> has been received and your bank transfer is being matched.
-              You&apos;ll get a confirmation email shortly. Orders ship within 24 hours once payment clears, with adult signature required on delivery.
+              Congratulations — your bank transfer was matched to order <span className="font-spec text-gold">{reference}</span> and your order is confirmed.
+              Orders ship within 24 hours, with adult signature required on delivery. Follow every step on your order status page.
             </p>
-            <Link to="/shop" className="inline-block mt-8 bg-gold text-[#0A0A0C] font-semibold px-8 py-3 rounded">Continue shopping</Link>
+            <div className="mt-8 flex flex-wrap gap-3 justify-center">
+              <Link to="/order/$reference" params={{ reference }} className="bg-gold text-[#0A0A0C] font-semibold px-8 py-3 rounded">View order status</Link>
+              <Link to="/shop" className="border border-[#A9791F]/30 px-8 py-3 rounded hover:border-[#F0CD6E]">Continue shopping</Link>
+            </div>
           </div>
         </section>
       </SiteLayout>
@@ -166,16 +210,26 @@ function Checkout() {
               <strong className="text-gold">Fast dispatch:</strong> Orders ship within 24 hours once payment is received.
             </p>
 
-            <button
-              onClick={confirmPaid}
-              disabled={checking}
-              className="mt-8 w-full bg-gold text-[#0A0A0C] font-semibold py-4 rounded hover:shadow-[0_0_28px_rgba(240,205,110,0.4)] transition-shadow disabled:opacity-70 inline-flex items-center justify-center gap-2"
-            >
-              {checking ? (<><Loader2 className="w-4 h-4 animate-spin" /> Detecting your payment…</>) : "I've made the transfer"}
-            </button>
-            <button onClick={() => setPay(null)} className="mt-3 w-full text-xs text-[color:var(--color-smoke)] hover:text-gold">
-              ← Back to details
-            </button>
+            <div className="mt-8 border border-[#A9791F]/25 rounded-lg p-5 bg-[#0A0A0C]">
+              <div className="flex items-center gap-2 text-sm font-semibold">
+                <Loader2 className="w-4 h-4 animate-spin text-gold" aria-hidden="true" />
+                Watching for a transfer matching {pay.ref}
+              </div>
+              <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
+                Your order is saved. This page checks automatically and confirms itself the moment the payment is matched to your reference — you don&apos;t need to click anything. Bank transfers usually land within minutes.
+                {lastChecked && <> Last checked {lastChecked.toLocaleTimeString("en-AU")}.</>}
+              </p>
+              <Link
+                to="/order/$reference"
+                params={{ reference: pay.ref }}
+                className="inline-block mt-4 border border-[#A9791F]/30 px-5 py-2.5 rounded text-xs hover:border-[#F0CD6E]"
+              >
+                Track this order →
+              </Link>
+              <p className="mt-3 text-[11px] text-[color:var(--color-smoke)]">
+                Already paid and still waiting? Email your reference to support@ausvape.co and we&apos;ll match it manually.
+              </p>
+            </div>
           </div>
         </section>
       </SiteLayout>
@@ -219,8 +273,8 @@ function Checkout() {
                 <span>I confirm I am 18 years or older and have read the Age-Restricted Sales Policy.</span>
               </label>
               {errors['form'] && <p className="text-xs text-red-400">{errors['form']}</p>}
-              <button className="w-full bg-gold text-[#0A0A0C] font-semibold py-4 rounded hover:shadow-[0_0_28px_rgba(240,205,110,0.4)] transition-shadow">
-                Continue to Bank Transfer — ${total.toFixed(2)}
+              <button disabled={placing} className="w-full bg-gold text-[#0A0A0C] font-semibold py-4 rounded hover:shadow-[0_0_28px_rgba(240,205,110,0.4)] transition-shadow disabled:opacity-70 inline-flex items-center justify-center gap-2">
+                {placing ? (<><Loader2 className="w-4 h-4 animate-spin" /> Creating your order…</>) : `Continue to Bank Transfer — $${total.toFixed(2)}`}
               </button>
             </form>
             <aside className="border border-[#A9791F]/20 rounded-lg p-6 bg-[#18181B] h-fit sticky top-24">
