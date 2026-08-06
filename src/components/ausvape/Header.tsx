@@ -7,7 +7,6 @@ import { Logo } from "./Logo";
 const nav = [
   { to: "/shop", label: "Shop" },
   { to: "/category/$slug", params: { slug: "disposables" }, label: "Disposables" },
-  { to: "/category/$slug", params: { slug: "devices" }, label: "Devices" },
   { to: "/category/$slug", params: { slug: "accessories" }, label: "Accessories" },
   { to: "/about", label: "About" },
   { to: "/blog", label: "Journal" },

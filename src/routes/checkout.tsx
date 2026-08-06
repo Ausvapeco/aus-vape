@@ -228,7 +228,9 @@ function Checkout() {
                 Track this order →
               </Link>
               <p className="mt-3 text-[11px] text-[color:var(--color-smoke)]">
-                Already paid and still waiting? Email your reference to support@ausvape.co and we&apos;ll match it manually.
+                Already paid and still waiting? Send your reference to us on{" "}
+                <a href="https://wa.me/2349014313605" target="_blank" rel="noopener noreferrer" className="text-gold">WhatsApp</a>{" "}
+                and we&apos;ll match it manually.
               </p>
             </div>
           </div>

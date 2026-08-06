@@ -122,7 +122,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "@type": "Organization",
               name: "AUSVAPE CO",
               url: "https://aus-vape.lovable.app/",
-              email: "support@ausvape.co",
+              telephone: "+2349014313605",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Level 3, 100 Flinders Ln",

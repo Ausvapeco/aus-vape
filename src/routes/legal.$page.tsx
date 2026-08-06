@@ -11,7 +11,7 @@ const pages: Record<string, { title: string; eyebrow: string; description: strin
       { p: "AUSVAPE CO sells vapour and nicotine-containing products intended strictly for adults aged 18 years or older. It is unlawful in Australia to sell these products to anyone under 18." },
       { h: "Verification", p: "We operate a mandatory age gate on every visit to this site and may request government-issued photo ID at checkout or on delivery. Our couriers are instructed to obtain a signature from a person of legal age at the delivery address." },
       { h: "Refusal of sale", p: "We reserve the right to refuse or cancel any order where we cannot verify the customer's age or where there is reasonable suspicion the product is intended for a minor." },
-      { h: "Reporting", p: "If you believe an order has been placed on behalf of a minor, contact support@ausvape.co immediately. All reports are treated confidentially." },
+      { h: "Reporting", p: "If you believe an order has been placed on behalf of a minor, message us on WhatsApp at +2349014313605 immediately. All reports are treated confidentially." },
     ],
   },
   "privacy": {
@@ -23,7 +23,7 @@ const pages: Record<string, { title: string; eyebrow: string; description: strin
       { h: "Information we collect", p: "Contact and shipping details you provide at checkout; order history; and technical data such as IP address and browser type collected via cookies for site performance and fraud prevention." },
       { h: "How we use it", p: "To process and ship orders, verify age, communicate about your order, prevent fraud, and — with your consent — send marketing emails you can unsubscribe from at any time." },
       { h: "Sharing", p: "We share data only with the service providers required to fulfil your order (payment processor, shipping carrier). We do not sell your data." },
-      { h: "Your rights", p: "You may request access, correction, or deletion of your personal data by emailing privacy@ausvape.co." },
+      { h: "Your rights", p: "You may request access, correction, or deletion of your personal data by messaging us on WhatsApp at +2349014313605." },
     ],
   },
   "shipping": {

@@ -84,7 +84,6 @@ function Filters({ cat, setCat, maxPrice, setMaxPrice }: { cat: string; setCat: 
   const cats = [
     { v: "all", l: "All" },
     { v: "disposables", l: "Disposables" },
-    { v: "devices", l: "Devices" },
     { v: "accessories", l: "Accessories" },
   ];
   return (
