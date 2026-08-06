@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Loader2, ShieldCheck, RefreshCw } from "lucide-react";
+import { Loader2, ShieldCheck, RefreshCw, Download } from "lucide-react";
+import { toCsv, downloadCsv, stamp } from "@/lib/csv";
 import { supabase } from "@/integrations/supabase/client";
 import {
   listOrders, updateOrderStatus, claimAdmin, listAuditLog,
@@ -114,6 +115,23 @@ function SignIn() {
 }
 
 function Dashboard() {
+  return <DashboardInner />;
+}
+
+function ExportButton({ label, onExport, disabled }: { label: string; onExport: () => void; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onExport}
+      disabled={disabled}
+      className="inline-flex items-center gap-2 text-xs border border-[#A9791F]/30 rounded px-3 py-2 hover:border-[#F0CD6E] disabled:opacity-40 disabled:hover:border-[#A9791F]/30"
+    >
+      <Download className="w-3.5 h-3.5" aria-hidden="true" /> {label}
+    </button>
+  );
+}
+
+function DashboardInner() {
   const qc = useQueryClient();
   const check = useServerFn(getMyAccess);
   const claim = useServerFn(claimAdmin);
@@ -214,8 +232,35 @@ function Dashboard() {
           {isOwner && <StaffManager />}
 
           <div className="mt-14">
-            <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Abandoned carts</p>
-            <h2 className="mt-3 font-display font-black text-2xl">Left in the <span className="text-gold">cart.</span></h2>
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Abandoned carts</p>
+                <h2 className="mt-3 font-display font-black text-2xl">Left in the <span className="text-gold">cart.</span></h2>
+              </div>
+              <ExportButton
+                label="Export carts CSV"
+                disabled={!carts.data?.length}
+                onExport={() =>
+                  downloadCsv(
+                    `ausvape-abandoned-carts-${stamp()}.csv`,
+                    toCsv(
+                      ["Session ID", "Items", "Item count", "Cart total (AUD)", "Customer name", "Email", "Products", "Created at", "Last active"],
+                      (carts.data ?? []).map((c: any) => [
+                        c.session_id,
+                        (c.items as any[]).length,
+                        c.item_count,
+                        Number(c.cart_total).toFixed(2),
+                        c.customer_name ?? "",
+                        c.email ?? "",
+                        (c.items as any[]).map((i) => `${i.qty}x ${i.name}`).join("; "),
+                        new Date(c.created_at).toLocaleString("en-AU"),
+                        new Date(c.updated_at).toLocaleString("en-AU"),
+                      ]),
+                    ),
+                  )
+                }
+              />
+            </div>
             <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
               Live carts that never reached checkout. They disappear automatically once the shopper empties the cart or places an order.
             </p>
@@ -241,8 +286,36 @@ function Dashboard() {
           </div>
 
           <div className="mt-14">
-            <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Audit trail</p>
-            <h2 className="mt-3 font-display font-black text-2xl">Admin <span className="text-gold">activity log.</span></h2>
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Audit trail</p>
+                <h2 className="mt-3 font-display font-black text-2xl">Admin <span className="text-gold">activity log.</span></h2>
+              </div>
+              <ExportButton
+                label="Export activity CSV"
+                disabled={!audit.data?.length}
+                onExport={() =>
+                  downloadCsv(
+                    `ausvape-activity-log-${stamp()}.csv`,
+                    toCsv(
+                      ["Timestamp", "Order reference", "Action", "Previous status", "New status", "Carrier", "Tracking number", "Note", "Actor email", "Actor user ID"],
+                      (audit.data ?? []).map((a: any) => [
+                        new Date(a.created_at).toLocaleString("en-AU"),
+                        a.order_reference,
+                        a.action,
+                        a.previous_status ? (LABEL[a.previous_status] ?? a.previous_status) : "",
+                        LABEL[a.new_status] ?? a.new_status,
+                        a.carrier ?? "",
+                        a.tracking_number ?? "",
+                        a.note ?? "",
+                        a.actor_email ?? "",
+                        a.actor_user_id ?? "",
+                      ]),
+                    ),
+                  )
+                }
+              />
+            </div>
             <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
               Every payment and shipping status change, with the exact time and the staff account that made it.
             </p>
