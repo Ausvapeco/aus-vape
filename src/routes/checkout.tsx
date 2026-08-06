@@ -173,7 +173,7 @@ function Checkout() {
             <Eyebrow>Bank Transfer</Eyebrow>
             <h1 className="mt-6 font-display font-black text-4xl">Pay by <span className="text-gold">bank transfer.</span></h1>
             <p className="mt-4 text-sm text-[color:var(--color-smoke)]">
-              Card payments are temporarily unavailable. Please pay by bank transfer — it only takes a minute.
+              Pay securely by bank transfer — it only takes a minute.
             </p>
 
             <div className="mt-8 border border-[#A9791F]/20 rounded-lg p-6 bg-[#18181B]">
@@ -261,8 +261,7 @@ function Checkout() {
                 <div className="sm:col-span-2 border border-[#A9791F]/25 rounded p-4 bg-[#0A0A0C]">
                   <div className="flex items-center gap-2 font-semibold text-sm"><Landmark className="w-4 h-4 text-gold" /> Bank Transfer</div>
                   <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
-                    Card payments are temporarily unavailable. Please pay by bank transfer — it only takes a minute.
-                    Our account details appear on the next step once you continue.
+                    Pay securely by bank transfer — it only takes a minute. Our account details appear on the next step once you continue.
                   </p>
                 </div>
                 <div className="sm:col-span-2 flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-[color:var(--color-smoke)]">
