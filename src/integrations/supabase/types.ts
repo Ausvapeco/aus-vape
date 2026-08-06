@@ -14,6 +14,59 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_log: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_user_id: string | null
+          carrier: string | null
+          created_at: string
+          id: string
+          new_status: Database["public"]["Enums"]["order_status"] | null
+          note: string | null
+          order_id: string | null
+          order_reference: string
+          previous_status: Database["public"]["Enums"]["order_status"] | null
+          tracking_number: string | null
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_user_id?: string | null
+          carrier?: string | null
+          created_at?: string
+          id?: string
+          new_status?: Database["public"]["Enums"]["order_status"] | null
+          note?: string | null
+          order_id?: string | null
+          order_reference: string
+          previous_status?: Database["public"]["Enums"]["order_status"] | null
+          tracking_number?: string | null
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_user_id?: string | null
+          carrier?: string | null
+          created_at?: string
+          id?: string
+          new_status?: Database["public"]["Enums"]["order_status"] | null
+          note?: string | null
+          order_id?: string | null
+          order_reference?: string
+          previous_status?: Database["public"]["Enums"]["order_status"] | null
+          tracking_number?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_audit_log_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_events: {
         Row: {
           created_at: string
