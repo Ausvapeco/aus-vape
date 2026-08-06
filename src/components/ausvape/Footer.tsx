@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Facebook, Twitter } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { Logo } from "./Logo";
 import { WispDivider } from "./SmokeWisp";
 import { WHATSAPP_NUMBER, WhatsAppFloatingButton, whatsappLink } from "./WhatsApp";
@@ -15,9 +15,15 @@ export function Footer() {
             Australia's premium vapour retailer. Authentic devices, curated for the discerning adult consumer.
           </p>
           <div className="mt-5 flex gap-3 text-[color:var(--color-smoke)]">
-            <a aria-label="Instagram" href="#" className="hover:text-gold"><Instagram className="w-4 h-4" /></a>
-            <a aria-label="Facebook" href="#" className="hover:text-gold"><Facebook className="w-4 h-4" /></a>
-            <a aria-label="Twitter" href="#" className="hover:text-gold"><Twitter className="w-4 h-4" /></a>
+            <a
+              aria-label="AUSVAPE CO on Instagram"
+              href="https://www.instagram.com/ausvape.co1/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gold"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
           </div>
         </div>
         <FooterCol title="Shop">
