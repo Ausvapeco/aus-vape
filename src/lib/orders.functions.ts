@@ -219,7 +219,14 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => updateSchema.parse(data))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: {
+      status: typeof data.status;
+      paid_at?: string;
+      shipped_at?: string;
+      tracking_number?: string;
+      carrier?: string;
+      admin_note?: string;
+    } = { status: data.status };
     if (data.status === "payment_received") patch['paid_at'] = new Date().toISOString();
     if (data.status === "shipped") patch['shipped_at'] = new Date().toISOString();
     if (data.tracking_number) patch['tracking_number'] = data.tracking_number;
