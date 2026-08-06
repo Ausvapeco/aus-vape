@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Product } from "./products";
+import { syncCart } from "./carts.functions";
 
 export type CartItem = { product: Product; qty: number; variant?: string };
 
@@ -17,6 +18,21 @@ type CartContextValue = {
 
 const CartContext = createContext<CartContextValue | null>(null);
 const STORAGE_KEY = "ausvape-cart-v1";
+const SESSION_KEY = "ausvape-sid-v1";
+
+export function getCartSessionId() {
+  if (typeof window === "undefined") return null;
+  try {
+    let id = window.localStorage.getItem(SESSION_KEY);
+    if (!id) {
+      id = crypto.randomUUID();
+      window.localStorage.setItem(SESSION_KEY, id);
+    }
+    return id;
+  } catch {
+    return null;
+  }
+}
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
@@ -34,6 +50,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!hydrated) return;
     try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch {}
+  }, [items, hydrated]);
+
+  // Snapshot the cart server-side (debounced) so staff can see carts left behind.
+  useEffect(() => {
+    if (!hydrated) return;
+    const session_id = getCartSessionId();
+    if (!session_id) return;
+    const t = setTimeout(() => {
+      void syncCart({
+        data: {
+          session_id,
+          items: items.map(i => ({
+            slug: i.product.slug,
+            name: i.product.name,
+            qty: i.qty,
+            price: i.product.salePrice ?? i.product.price,
+          })),
+        },
+      }).catch(() => {});
+    }, 2500);
+    return () => clearTimeout(t);
   }, [items, hydrated]);
 
   const value = useMemo<CartContextValue>(() => ({
