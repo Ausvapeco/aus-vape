@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Lock, ShieldCheck, CheckCircle2, Copy, Check, Loader2, Landmark, AlertTriangle } from "lucide-react";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
-import { useCart } from "@/lib/cart";
+import { useCart, getCartSessionId } from "@/lib/cart";
 import { SmartImage } from "@/components/ausvape/SmartImage";
 import { createOrder, getOrderByReference } from "@/lib/orders.functions";
 
@@ -132,6 +132,7 @@ function Checkout() {
             qty: i.qty,
             price: i.product.salePrice ?? i.product.price,
           })),
+          ...(getCartSessionId() ? { session_id: getCartSessionId()! } : {}),
         },
       });
       setPay({ ref: created.reference, total: created.total, name: parsed.data["full-name"], email: parsed.data.email });
