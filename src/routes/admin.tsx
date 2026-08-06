@@ -3,10 +3,26 @@ import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2, ShieldCheck, RefreshCw } from "lucide-react";
-import { SiteLayout } from "@/components/ausvape/SiteLayout";
-import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { supabase } from "@/integrations/supabase/client";
-import { listOrders, updateOrderStatus, isAdmin, claimAdmin, listAuditLog } from "@/lib/orders.functions";
+import {
+  listOrders, updateOrderStatus, claimAdmin, listAuditLog,
+  getMyAccess, listStaff, grantStaff, revokeStaff,
+} from "@/lib/orders.functions";
+
+function Console({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen bg-[#0A0A0C] text-[#F5F5F4]">
+      <header className="border-b border-[#A9791F]/20 bg-[#101012]">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center gap-3">
+          <ShieldCheck className="w-5 h-5 text-gold" aria-hidden="true" />
+          <span className="font-display font-black tracking-wide">AUSVAPE <span className="text-gold">CONSOLE</span></span>
+          <span className="ml-auto text-[10px] tracking-[0.3em] uppercase text-[color:var(--color-smoke)]">Internal</span>
+        </div>
+      </header>
+      <main>{children}</main>
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -42,7 +58,7 @@ function Admin() {
   }, []);
 
   if (session === null) {
-    return <SiteLayout><div className="px-4 py-24 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-gold" /></div></SiteLayout>;
+    return <Console><div className="px-4 py-24 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-gold" /></div></Console>;
   }
   return session ? <Dashboard /> : <SignIn />;
 }
@@ -67,11 +83,12 @@ function SignIn() {
   }
 
   return (
-    <SiteLayout>
+    <Console>
       <section className="px-4 py-20">
         <div className="max-w-sm mx-auto">
-          <Eyebrow>Staff</Eyebrow>
-          <h1 className="mt-6 font-display font-black text-3xl">Order <span className="text-gold">admin.</span></h1>
+          <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Staff access</p>
+          <h1 className="mt-4 font-display font-black text-3xl">Sign in to the <span className="text-gold">console.</span></h1>
+          <p className="mt-3 text-xs text-[color:var(--color-smoke)]">Staff accounts need to be approved by the owner before the order queue appears.</p>
           <form className="mt-8 space-y-4" onSubmit={submit}>
             <div>
               <label htmlFor="admin-email" className="text-xs text-[color:var(--color-smoke)]">Email</label>
@@ -87,17 +104,17 @@ function SignIn() {
             </button>
           </form>
           <button onClick={() => setMode(mode === "in" ? "up" : "in")} className="mt-4 text-xs text-[color:var(--color-smoke)] hover:text-gold">
-            {mode === "in" ? "First time? Create the owner account →" : "← Back to sign in"}
+            {mode === "in" ? "New staff member? Create an account →" : "← Back to sign in"}
           </button>
         </div>
       </section>
-    </SiteLayout>
+    </Console>
   );
 }
 
 function Dashboard() {
   const qc = useQueryClient();
-  const check = useServerFn(isAdmin);
+  const check = useServerFn(getMyAccess);
   const claim = useServerFn(claimAdmin);
   const fetchOrders = useServerFn(listOrders);
   const update = useServerFn(updateOrderStatus);
@@ -105,30 +122,31 @@ function Dashboard() {
   const [claiming, setClaiming] = useState(false);
 
   const admin = useQuery({ queryKey: ["is-admin"], queryFn: () => check({ data: undefined as never }) });
+  const isOwner = admin.data?.admin === true;
   const orders = useQuery({
     queryKey: ["admin-orders"],
     queryFn: () => fetchOrders({ data: undefined as never }),
-    enabled: admin.data?.admin === true,
+    enabled: admin.data?.staff === true,
     refetchInterval: 30_000,
   });
   const audit = useQuery({
     queryKey: ["admin-audit"],
     queryFn: () => fetchAudit({ data: {} }),
-    enabled: admin.data?.admin === true,
+    enabled: isOwner,
     refetchInterval: 60_000,
   });
 
   if (admin.isPending) {
-    return <SiteLayout><div className="px-4 py-24 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-gold" /></div></SiteLayout>;
+    return <Console><div className="px-4 py-24 text-center"><Loader2 className="w-5 h-5 animate-spin mx-auto text-gold" /></div></Console>;
   }
 
-  if (!admin.data?.admin) {
+  if (!admin.data?.staff) {
     return (
-      <SiteLayout>
+      <Console>
         <section className="px-4 py-20 max-w-md mx-auto text-center">
           <ShieldCheck className="w-8 h-8 text-gold mx-auto" aria-hidden="true" />
-          <h1 className="mt-6 font-display font-black text-3xl">Not an <span className="text-gold">admin.</span></h1>
-          <p className="mt-4 text-sm text-[color:var(--color-smoke)]">If you&apos;re the store owner setting this up for the first time, claim admin access below. This only works while no admin exists.</p>
+          <h1 className="mt-6 font-display font-black text-3xl">Awaiting <span className="text-gold">approval.</span></h1>
+          <p className="mt-4 text-sm text-[color:var(--color-smoke)]">Your account isn&apos;t authorised yet. Ask the owner to add {admin.data?.email ?? "your email"} as staff in the console. If you&apos;re the store owner setting this up for the first time, claim owner access below — it only works while no owner exists.</p>
           <button
             disabled={claiming}
             onClick={async () => {
@@ -140,21 +158,21 @@ function Dashboard() {
             }}
             className="mt-6 bg-gold text-[#0A0A0C] font-semibold px-6 py-3 rounded disabled:opacity-60"
           >
-            {claiming ? "Claiming…" : "Claim admin access"}
+            {claiming ? "Claiming…" : "Claim owner access"}
           </button>
           <button onClick={() => supabase.auth.signOut()} className="block mx-auto mt-4 text-xs text-[color:var(--color-smoke)] hover:text-gold">Sign out</button>
         </section>
-      </SiteLayout>
+      </Console>
     );
   }
 
   return (
-    <SiteLayout>
+    <Console>
       <section className="px-4 md:px-8 py-14">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <Eyebrow>Staff</Eyebrow>
+              <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">{isOwner ? "Owner" : "Staff"} · {admin.data?.email}</p>
               <h1 className="mt-4 font-display font-black text-3xl md:text-4xl">Orders &amp; <span className="text-gold">payments.</span></h1>
             </div>
             <div className="flex items-center gap-3">
@@ -185,8 +203,10 @@ function Dashboard() {
             ))}
           </div>
 
+          {isOwner && <StaffManager />}
+
           <div className="mt-14">
-            <Eyebrow>Audit trail</Eyebrow>
+            <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Audit trail</p>
             <h2 className="mt-3 font-display font-black text-2xl">Admin <span className="text-gold">activity log.</span></h2>
             <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
               Every payment and shipping status change, with the exact time and the staff account that made it.
@@ -214,7 +234,7 @@ function Dashboard() {
           </div>
         </div>
       </section>
-    </SiteLayout>
+    </Console>
   );
 }
 
@@ -276,6 +296,76 @@ function OrderRow({ order, onUpdate }: { order: any; onUpdate: (p: any) => Promi
           <li key={idx}>{i.qty}× {i.name}</li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function StaffManager() {
+  const qc = useQueryClient();
+  const fetchStaff = useServerFn(listStaff);
+  const grant = useServerFn(grantStaff);
+  const revoke = useServerFn(revokeStaff);
+  const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const staff = useQuery({ queryKey: ["staff-list"], queryFn: () => fetchStaff({ data: undefined as never }) });
+
+  return (
+    <div className="mt-14">
+      <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Team</p>
+      <h2 className="mt-3 font-display font-black text-2xl">Staff <span className="text-gold">access.</span></h2>
+      <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
+        Staff sign in at the same address and can update order status. Only you hold owner access — staff cannot manage the team or see this log.
+      </p>
+
+      <form
+        className="mt-5 flex flex-wrap gap-2"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setBusy(true); setMsg("");
+          try {
+            const r = await grant({ data: { email } });
+            setMsg(r.message);
+            if (r.ok) { setEmail(""); qc.invalidateQueries({ queryKey: ["staff-list"] }); }
+          } catch { setMsg("Could not add that staff member."); }
+          setBusy(false);
+        }}
+      >
+        <label htmlFor="staff-email" className="sr-only">Staff email</label>
+        <input
+          id="staff-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+          placeholder="staff@email.com"
+          className="flex-1 min-w-[220px] bg-[#0A0A0C] border border-[#A9791F]/25 rounded p-2.5 text-sm outline-none focus:border-[#F0CD6E]"
+        />
+        <button disabled={busy} className="bg-gold text-[#0A0A0C] font-semibold px-5 rounded text-sm disabled:opacity-60">
+          {busy ? "Adding…" : "Add staff"}
+        </button>
+      </form>
+      {msg && <p className="mt-2 text-xs text-[color:var(--color-smoke)]">{msg}</p>}
+
+      <div className="mt-5 border border-[#A9791F]/20 rounded-lg bg-[#18181B] divide-y divide-[#A9791F]/10">
+        {staff.isPending && <p className="p-4 text-sm text-[color:var(--color-smoke)]">Loading team…</p>}
+        {staff.data?.map((m: any) => (
+          <div key={m.id} className="p-4 flex items-center justify-between gap-3 text-xs">
+            <span>
+              {m.email}{" "}
+              <span className="text-gold uppercase tracking-[0.2em] text-[10px]">{m.role === "admin" ? "Owner" : "Staff"}</span>
+            </span>
+            {m.role === "staff" && (
+              <button
+                onClick={async () => {
+                  await revoke({ data: { user_id: m.user_id } });
+                  qc.invalidateQueries({ queryKey: ["staff-list"] });
+                }}
+                className="border border-[#A9791F]/25 rounded px-3 py-1.5 hover:border-[#F0CD6E]"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
