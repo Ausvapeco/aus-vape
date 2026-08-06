@@ -115,6 +115,23 @@ function SignIn() {
 }
 
 function Dashboard() {
+  return <DashboardInner />;
+}
+
+function ExportButton({ label, onExport, disabled }: { label: string; onExport: () => void; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onExport}
+      disabled={disabled}
+      className="inline-flex items-center gap-2 text-xs border border-[#A9791F]/30 rounded px-3 py-2 hover:border-[#F0CD6E] disabled:opacity-40 disabled:hover:border-[#A9791F]/30"
+    >
+      <Download className="w-3.5 h-3.5" aria-hidden="true" /> {label}
+    </button>
+  );
+}
+
+function DashboardInner() {
   const qc = useQueryClient();
   const check = useServerFn(getMyAccess);
   const claim = useServerFn(claimAdmin);
