@@ -141,12 +141,18 @@ export const getOrderByReference = createServerFn({ method: "POST" })
     };
   });
 
+async function checkAdmin(context: { supabase: any; userId: string }) {
+  const { data, error } = await context.supabase
+    .from("user_roles")
+    .select("id")
+    .eq("user_id", context.userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  return !error && Boolean(data);
+}
+
 async function assertAdmin(context: { supabase: any; userId: string }) {
-  const { data, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
-  if (error || !data) throw new Error("Forbidden");
+  if (!(await checkAdmin(context))) throw new Error("Forbidden");
 }
 
 export const claimAdmin = createServerFn({ method: "POST" })
@@ -168,11 +174,7 @@ export const claimAdmin = createServerFn({ method: "POST" })
 export const isAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
-    return { admin: Boolean(data) };
+    return { admin: await checkAdmin(context) };
   });
 
 export const listOrders = createServerFn({ method: "POST" })
