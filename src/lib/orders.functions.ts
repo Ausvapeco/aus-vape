@@ -21,6 +21,8 @@ const createSchema = z.object({
   items: z.array(itemSchema).min(1).max(60),
 });
 
+const sessionIdSchema = z.string().trim().min(8).max(64).optional();
+
 const refSchema = z.string().trim().toUpperCase().regex(/^AV-[A-Z0-9]{8}$/);
 
 export const STATUS_STEPS = [
