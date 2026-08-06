@@ -21,7 +21,9 @@ const createSchema = z.object({
   items: z.array(itemSchema).min(1).max(60),
 });
 
-const sessionIdSchema = z.string().trim().min(8).max(64).optional();
+const createWithSessionSchema = createSchema.extend({
+  session_id: z.string().trim().min(8).max(64).optional(),
+});
 
 const refSchema = z.string().trim().toUpperCase().regex(/^AV-[A-Z0-9]{8}$/);
 
@@ -61,7 +63,7 @@ function makeReference() {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => createSchema.parse(data))
+  .inputValidator((data: unknown) => createWithSessionSchema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const subtotal = Number(
