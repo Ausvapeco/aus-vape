@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      abandoned_carts: {
+        Row: {
+          cart_total: number
+          converted: boolean
+          created_at: string
+          customer_name: string | null
+          email: string | null
+          id: string
+          item_count: number
+          items: Json
+          order_reference: string | null
+          session_id: string
+          updated_at: string
+        }
+        Insert: {
+          cart_total?: number
+          converted?: boolean
+          created_at?: string
+          customer_name?: string | null
+          email?: string | null
+          id?: string
+          item_count?: number
+          items?: Json
+          order_reference?: string | null
+          session_id: string
+          updated_at?: string
+        }
+        Update: {
+          cart_total?: number
+          converted?: boolean
+          created_at?: string
+          customer_name?: string | null
+          email?: string | null
+          id?: string
+          item_count?: number
+          items?: Json
+          order_reference?: string | null
+          session_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       admin_audit_log: {
         Row: {
           action: string
