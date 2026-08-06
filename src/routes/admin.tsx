@@ -6,7 +6,7 @@ import { Loader2, ShieldCheck, RefreshCw } from "lucide-react";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { supabase } from "@/integrations/supabase/client";
-import { listOrders, updateOrderStatus, isAdmin, claimAdmin } from "@/lib/orders.functions";
+import { listOrders, updateOrderStatus, isAdmin, claimAdmin, listAuditLog } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -101,6 +101,7 @@ function Dashboard() {
   const claim = useServerFn(claimAdmin);
   const fetchOrders = useServerFn(listOrders);
   const update = useServerFn(updateOrderStatus);
+  const fetchAudit = useServerFn(listAuditLog);
   const [claiming, setClaiming] = useState(false);
 
   const admin = useQuery({ queryKey: ["is-admin"], queryFn: () => check({ data: undefined as never }) });
@@ -109,6 +110,12 @@ function Dashboard() {
     queryFn: () => fetchOrders({ data: undefined as never }),
     enabled: admin.data?.admin === true,
     refetchInterval: 30_000,
+  });
+  const audit = useQuery({
+    queryKey: ["admin-audit"],
+    queryFn: () => fetchAudit({ data: {} }),
+    enabled: admin.data?.admin === true,
+    refetchInterval: 60_000,
   });
 
   if (admin.isPending) {
@@ -172,9 +179,38 @@ function Dashboard() {
                 onUpdate={async (payload) => {
                   await update({ data: { reference: o.reference, ...payload } });
                   qc.invalidateQueries({ queryKey: ["admin-orders"] });
+                  qc.invalidateQueries({ queryKey: ["admin-audit"] });
                 }}
               />
             ))}
+          </div>
+
+          <div className="mt-14">
+            <Eyebrow>Audit trail</Eyebrow>
+            <h2 className="mt-3 font-display font-black text-2xl">Admin <span className="text-gold">activity log.</span></h2>
+            <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
+              Every payment and shipping status change, with the exact time and the staff account that made it.
+            </p>
+            <div className="mt-5 border border-[#A9791F]/20 rounded-lg bg-[#18181B] divide-y divide-[#A9791F]/10">
+              {audit.isPending && <p className="p-4 text-sm text-[color:var(--color-smoke)]">Loading activity…</p>}
+              {audit.data?.length === 0 && <p className="p-4 text-sm text-[color:var(--color-smoke)]">No admin changes recorded yet.</p>}
+              {audit.data?.map((a: any) => (
+                <div key={a.id} className="p-4 flex flex-wrap items-baseline justify-between gap-2 text-xs">
+                  <div>
+                    <span className="font-spec text-gold">{a.order_reference}</span>
+                    <span className="text-[color:var(--color-smoke)]">
+                      {" "}— {a.previous_status ? `${LABEL[a.previous_status] ?? a.previous_status} → ` : ""}
+                      {LABEL[a.new_status] ?? a.new_status}
+                      {a.carrier || a.tracking_number ? ` · ${[a.carrier, a.tracking_number].filter(Boolean).join(" ")}` : ""}
+                      {a.note ? ` · ${a.note}` : ""}
+                    </span>
+                  </div>
+                  <div className="text-[color:var(--color-smoke)]">
+                    {a.actor_email ?? a.actor_user_id ?? "unknown"} · {new Date(a.created_at).toLocaleString("en-AU")}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
