@@ -264,8 +264,9 @@ export const isAdmin = createServerFn({ method: "POST" })
 export const listOrders = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context);
-    const { data, error } = await context.supabase
+    await assertStaff(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
       .from("orders")
       .select(
         "id, reference, customer_name, email, phone, status, total, created_at, paid_at, shipped_at, tracking_number, carrier, admin_note, items",
@@ -304,7 +305,8 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => updateSchema.parse(data))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context);
+    const actorRole = await assertStaff(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const patch: {
       status: typeof data.status;
       paid_at?: string;
@@ -319,14 +321,14 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
     if (data.carrier) patch['carrier'] = data.carrier;
     if (data.note) patch['admin_note'] = data.note;
 
-    const { data: prior } = await context.supabase
+    const { data: prior } = await supabaseAdmin
       .from("orders")
       .select("status")
       .eq("reference", data.reference)
       .maybeSingle();
     const previousStatus = (prior?.status ?? null) as OrderStatus | null;
 
-    const { data: order, error } = await context.supabase
+    const { data: order, error } = await supabaseAdmin
       .from("orders")
       .update(patch)
       .eq("reference", data.reference)
@@ -334,18 +336,17 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
       .single();
     if (error || !order) throw new Error(error?.message ?? "Order not found");
 
-    await context.supabase.from("order_events").insert({
+    await supabaseAdmin.from("order_events").insert({
       order_id: order.id,
       status: data.status,
       label: LABELS[data.status] ?? data.status,
       note: data.note ?? null,
     });
 
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     await supabaseAdmin.from("admin_audit_log").insert({
       order_id: order.id,
       order_reference: data.reference,
-      action: `status:${data.status}`,
+      action: `${actorRole}:status:${data.status}`,
       previous_status: previousStatus,
       new_status: data.status,
       tracking_number: data.tracking_number ?? null,
