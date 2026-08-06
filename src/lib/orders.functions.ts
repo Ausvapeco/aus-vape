@@ -239,9 +239,15 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
       .from("orders")
       .update(patch)
       .eq("reference", data.reference)
-      .select("id")
+      .select("id, status")
       .single();
     if (error || !order) throw new Error(error?.message ?? "Order not found");
+
+    const { data: before } = await context.supabase
+      .from("orders")
+      .select("status")
+      .eq("reference", data.reference)
+      .maybeSingle();
 
     await context.supabase.from("order_events").insert({
       order_id: order.id,
@@ -249,5 +255,39 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
       label: LABELS[data.status] ?? data.status,
       note: data.note ?? null,
     });
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin.from("admin_audit_log").insert({
+      order_id: order.id,
+      order_reference: data.reference,
+      action: `status:${data.status}`,
+      previous_status: previousStatus,
+      new_status: data.status,
+      tracking_number: data.tracking_number ?? null,
+      carrier: data.carrier ?? null,
+      note: data.note ?? null,
+      actor_user_id: context.userId,
+      actor_email: (context.claims as { email?: string } | null)?.email ?? null,
+    });
     return { ok: true as const };
+  });
+
+export const listAuditLog = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({ reference: refSchema.optional() }).parse(data ?? {}),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context);
+    let q = context.supabase
+      .from("admin_audit_log")
+      .select(
+        "id, order_reference, action, previous_status, new_status, tracking_number, carrier, note, actor_email, actor_user_id, created_at",
+      )
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (data.reference) q = q.eq("order_reference", data.reference);
+    const { data: rows, error } = await q;
+    if (error) throw new Error(error.message);
+    return rows ?? [];
   });
