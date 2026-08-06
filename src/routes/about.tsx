@@ -1,9 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
-import { SmartImage } from "@/components/ausvape/SmartImage";
-const brandStory = { url: "/products-opt/double-happiness-hype-flat-white-12000-puffs.webp" };
-const aboutBanner = { url: "/banners/about-banner.jpg" };
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -22,17 +19,15 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <SiteLayout>
-      <section className="relative h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden">
-        <SmartImage src={brandStory.url} alt="Double Happiness Hype Flat White disposable vape from the AUSVAPE CO range" sizes="100vw" className="absolute inset-0 w-full h-full object-cover object-[center_right] opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/60 via-[#0A0A0C]/40 to-[#0A0A0C]" />
-        <div className="relative text-center px-4">
+      <section className="px-4 md:px-8 pt-28 pb-6">
+        <div className="max-w-3xl mx-auto text-center">
           <Eyebrow>Our Story</Eyebrow>
           <h1 className="mt-6 font-display font-black text-5xl md:text-7xl">
             A quieter kind of <span className="text-gold">vapour.</span>
           </h1>
         </div>
       </section>
-      <section className="px-4 md:px-8 py-24">
+      <section className="px-4 md:px-8 py-16">
         <div className="max-w-3xl mx-auto space-y-8 text-lg text-[color:var(--color-platinum)]/85 leading-relaxed">
           <p>AUSVAPE CO started in a small Melbourne office in 2022. We were adult consumers ourselves, tired of buying vapour products from anonymous overseas sellers and never quite trusting what showed up.</p>
           <p className="text-[color:var(--color-smoke)]">So we built the store we wanted to shop from: authentic devices only, a warehouse we actually run, a curated flavour library, and packaging that doesn't announce itself on your doorstep.</p>
@@ -49,18 +44,6 @@ function About() {
               <p className="mt-4 text-[color:var(--color-platinum)]/80">{x.v}</p>
             </div>
           ))}
-        </div>
-      </section>
-      <section className="px-4 md:px-8 pb-24">
-        <div className="max-w-6xl mx-auto rounded-lg overflow-hidden aspect-[16/7]">
-          <img
-            src={aboutBanner.url}
-            alt="Matte black and champagne gold AUSVAPE CO vape on dark stone with gold vapour"
-            width={1920}
-            height={848}
-            loading="lazy"
-            className="w-full h-full object-cover"
-          />
         </div>
       </section>
     </SiteLayout>
