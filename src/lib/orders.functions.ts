@@ -21,6 +21,10 @@ const createSchema = z.object({
   items: z.array(itemSchema).min(1).max(60),
 });
 
+const createWithSessionSchema = createSchema.extend({
+  session_id: z.string().trim().min(8).max(64).optional(),
+});
+
 const refSchema = z.string().trim().toUpperCase().regex(/^AV-[A-Z0-9]{8}$/);
 
 export const STATUS_STEPS = [
@@ -59,7 +63,7 @@ function makeReference() {
 }
 
 export const createOrder = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => createSchema.parse(data))
+  .inputValidator((data: unknown) => createWithSessionSchema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const subtotal = Number(
@@ -96,6 +100,13 @@ export const createOrder = createServerFn({ method: "POST" })
       label: "Order placed",
       note: "Waiting for your bank transfer to arrive.",
     });
+
+    if (data.session_id) {
+      await supabaseAdmin
+        .from("abandoned_carts")
+        .update({ converted: true, order_reference: order.reference })
+        .eq("session_id", data.session_id);
+    }
 
     return { reference: order.reference, total: Number(order.total) };
   });
