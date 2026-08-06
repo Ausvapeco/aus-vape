@@ -151,8 +151,8 @@ function Checkout() {
             <CheckCircle2 className="w-10 h-10 text-gold mx-auto" aria-hidden="true" />
             <h1 className="mt-6 font-display font-black text-4xl md:text-5xl">Payment <span className="text-gold">received.</span></h1>
             <p className="mt-4 text-[color:var(--color-smoke)]">
-              Congratulations — your order <span className="font-spec text-gold">{reference}</span> has been received and your bank transfer is being matched.
-              You&apos;ll get a confirmation email shortly. Orders ship within 24 hours once payment clears, with adult signature required on delivery.
+              Congratulations — your bank transfer was matched to order <span className="font-spec text-gold">{reference}</span> and your order is confirmed.
+              Orders ship within 24 hours, with adult signature required on delivery. Follow every step on your order status page.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 justify-center">
               <Link to="/order/$reference" params={{ reference }} className="bg-gold text-[#0A0A0C] font-semibold px-8 py-3 rounded">View order status</Link>
