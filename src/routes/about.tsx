@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmartImage } from "@/components/ausvape/SmartImage";
-const brandStory = { url: "/products-opt/hqd-slick-raspberry-grape-6000-puffs.webp" };
+const brandStory = { url: "/products-opt/double-happiness-hype-flat-white-12000-puffs.webp" };
 const aboutBanner = { url: "/banners/about-banner.jpg" };
 
 export const Route = createFileRoute("/about")({
@@ -23,7 +23,7 @@ function About() {
   return (
     <SiteLayout>
       <section className="relative h-[60vh] min-h-[420px] flex items-center justify-center overflow-hidden">
-        <SmartImage src={brandStory.url} alt="HQD Slick Raspberry Grape disposable vape from the AUSVAPE CO range" sizes="100vw" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+        <SmartImage src={brandStory.url} alt="Double Happiness Hype Flat White disposable vape from the AUSVAPE CO range" sizes="100vw" className="absolute inset-0 w-full h-full object-cover object-[center_right] opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/60 via-[#0A0A0C]/40 to-[#0A0A0C]" />
         <div className="relative text-center px-4">
           <Eyebrow>Our Story</Eyebrow>
