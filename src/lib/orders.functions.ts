@@ -151,9 +151,93 @@ async function checkAdmin(context: { supabase: any; userId: string }) {
   return !error && Boolean(data);
 }
 
+async function currentRole(context: { supabase: any; userId: string }) {
+  const { data } = await context.supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", context.userId);
+  const roles = (data ?? []).map((r: any) => r.role as string);
+  if (roles.includes("admin")) return "admin" as const;
+  if (roles.includes("staff")) return "staff" as const;
+  return "none" as const;
+}
+
+async function assertStaff(context: { supabase: any; userId: string }) {
+  const role = await currentRole(context);
+  if (role === "none") throw new Error("Forbidden");
+  return role;
+}
+
 async function assertAdmin(context: { supabase: any; userId: string }) {
   if (!(await checkAdmin(context))) throw new Error("Forbidden");
 }
+
+export const getMyAccess = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const role = await currentRole(context);
+    return {
+      role,
+      admin: role === "admin",
+      staff: role !== "none",
+      email: (context.claims as { email?: string } | null)?.email ?? null,
+    };
+  });
+
+export const listStaff = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: roles } = await supabaseAdmin
+      .from("user_roles")
+      .select("id, user_id, role, created_at")
+      .order("created_at", { ascending: true });
+    const { data: users } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 200 });
+    const emails = new Map((users?.users ?? []).map((u) => [u.id, u.email ?? ""]));
+    return (roles ?? []).map((r) => ({
+      id: r.id,
+      user_id: r.user_id,
+      role: r.role as "admin" | "staff",
+      created_at: r.created_at,
+      email: emails.get(r.user_id) ?? "unknown",
+    }));
+  });
+
+export const grantStaff = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({ email: z.string().trim().toLowerCase().email().max(255) }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: users } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 200 });
+    const match = (users?.users ?? []).find((u) => (u.email ?? "").toLowerCase() === data.email);
+    if (!match) {
+      return { ok: false as const, message: "No account with that email. Ask them to create an account at /admin first." };
+    }
+    const { error } = await supabaseAdmin
+      .from("user_roles")
+      .insert({ user_id: match.id, role: "staff" });
+    if (error && !error.message.includes("duplicate")) throw new Error(error.message);
+    return { ok: true as const, message: `${data.email} can now access the dashboard as staff.` };
+  });
+
+export const revokeStaff = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ user_id: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("user_roles")
+      .delete()
+      .eq("user_id", data.user_id)
+      .eq("role", "staff");
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
 
 export const claimAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -180,8 +264,9 @@ export const isAdmin = createServerFn({ method: "POST" })
 export const listOrders = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context);
-    const { data, error } = await context.supabase
+    await assertStaff(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
       .from("orders")
       .select(
         "id, reference, customer_name, email, phone, status, total, created_at, paid_at, shipped_at, tracking_number, carrier, admin_note, items",
@@ -220,7 +305,8 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => updateSchema.parse(data))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context);
+    const actorRole = await assertStaff(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const patch: {
       status: typeof data.status;
       paid_at?: string;
@@ -235,14 +321,14 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
     if (data.carrier) patch['carrier'] = data.carrier;
     if (data.note) patch['admin_note'] = data.note;
 
-    const { data: prior } = await context.supabase
+    const { data: prior } = await supabaseAdmin
       .from("orders")
       .select("status")
       .eq("reference", data.reference)
       .maybeSingle();
     const previousStatus = (prior?.status ?? null) as OrderStatus | null;
 
-    const { data: order, error } = await context.supabase
+    const { data: order, error } = await supabaseAdmin
       .from("orders")
       .update(patch)
       .eq("reference", data.reference)
@@ -250,18 +336,17 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
       .single();
     if (error || !order) throw new Error(error?.message ?? "Order not found");
 
-    await context.supabase.from("order_events").insert({
+    await supabaseAdmin.from("order_events").insert({
       order_id: order.id,
       status: data.status,
       label: LABELS[data.status] ?? data.status,
       note: data.note ?? null,
     });
 
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     await supabaseAdmin.from("admin_audit_log").insert({
       order_id: order.id,
       order_reference: data.reference,
-      action: `status:${data.status}`,
+      action: `${actorRole}:status:${data.status}`,
       previous_status: previousStatus,
       new_status: data.status,
       tracking_number: data.tracking_number ?? null,
