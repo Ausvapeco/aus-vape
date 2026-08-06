@@ -119,6 +119,7 @@ function Dashboard() {
   const fetchOrders = useServerFn(listOrders);
   const update = useServerFn(updateOrderStatus);
   const fetchAudit = useServerFn(listAuditLog);
+  const fetchCarts = useServerFn(listAbandonedCarts);
   const [claiming, setClaiming] = useState(false);
 
   const admin = useQuery({ queryKey: ["is-admin"], queryFn: () => check({ data: undefined as never }) });
@@ -133,6 +134,12 @@ function Dashboard() {
     queryKey: ["admin-audit"],
     queryFn: () => fetchAudit({ data: {} }),
     enabled: isOwner,
+    refetchInterval: 60_000,
+  });
+  const carts = useQuery({
+    queryKey: ["admin-carts"],
+    queryFn: () => fetchCarts({ data: {} }),
+    enabled: admin.data?.staff === true,
     refetchInterval: 60_000,
   });
 
@@ -204,6 +211,33 @@ function Dashboard() {
           </div>
 
           {isOwner && <StaffManager />}
+
+          <div className="mt-14">
+            <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Abandoned carts</p>
+            <h2 className="mt-3 font-display font-black text-2xl">Left in the <span className="text-gold">cart.</span></h2>
+            <p className="mt-2 text-xs text-[color:var(--color-smoke)]">
+              Live carts that never reached checkout. They disappear automatically once the shopper empties the cart or places an order.
+            </p>
+            <div className="mt-5 border border-[#A9791F]/20 rounded-lg bg-[#18181B] divide-y divide-[#A9791F]/10">
+              {carts.isPending && <p className="p-4 text-sm text-[color:var(--color-smoke)]">Loading carts…</p>}
+              {carts.data?.length === 0 && <p className="p-4 text-sm text-[color:var(--color-smoke)]">No carts left behind right now.</p>}
+              {carts.data?.map((c: any) => (
+                <div key={c.id} className="p-4 text-xs">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <span className="text-gold font-spec">
+                      {c.item_count} item{c.item_count === 1 ? "" : "s"} · ${Number(c.cart_total).toFixed(2)}
+                    </span>
+                    <span className="text-[color:var(--color-smoke)]">
+                      {c.email ?? "guest"} · last active {new Date(c.updated_at).toLocaleString("en-AU")}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-[color:var(--color-smoke)]">
+                    {(c.items as any[]).map((i) => `${i.qty}× ${i.name}`).join(", ")}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="mt-14">
             <p className="text-[10px] tracking-[0.35em] uppercase text-[color:var(--color-smoke)]">Audit trail</p>
