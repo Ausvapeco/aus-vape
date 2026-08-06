@@ -235,6 +235,13 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
     if (data.carrier) patch['carrier'] = data.carrier;
     if (data.note) patch['admin_note'] = data.note;
 
+    const { data: prior } = await context.supabase
+      .from("orders")
+      .select("status")
+      .eq("reference", data.reference)
+      .maybeSingle();
+    const previousStatus = (prior?.status ?? null) as OrderStatus | null;
+
     const { data: order, error } = await context.supabase
       .from("orders")
       .update(patch)
@@ -242,12 +249,6 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
       .select("id, status")
       .single();
     if (error || !order) throw new Error(error?.message ?? "Order not found");
-
-    const { data: before } = await context.supabase
-      .from("orders")
-      .select("status")
-      .eq("reference", data.reference)
-      .maybeSingle();
 
     await context.supabase.from("order_events").insert({
       order_id: order.id,
