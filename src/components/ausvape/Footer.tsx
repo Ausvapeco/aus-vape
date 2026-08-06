@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Facebook, Twitter, MessageCircle } from "lucide-react";
+import { Instagram, Facebook, Twitter } from "lucide-react";
 import { Logo } from "./Logo";
 import { WispDivider } from "./SmokeWisp";
+import { WHATSAPP_NUMBER, WhatsAppFloatingButton, whatsappLink } from "./WhatsApp";
 
 export function Footer() {
   return (
@@ -22,7 +23,6 @@ export function Footer() {
         <FooterCol title="Shop">
           <FooterLink to="/shop">All Products</FooterLink>
           <FooterLink to="/category/disposables">Disposables</FooterLink>
-          <FooterLink to="/category/devices">Devices</FooterLink>
           <FooterLink to="/category/accessories">Accessories</FooterLink>
         </FooterCol>
         <FooterCol title="Company">
@@ -40,15 +40,14 @@ export function Footer() {
       </div>
       <div className="max-w-7xl mx-auto mt-14 pt-6 border-t border-[#A9791F]/15 flex flex-col md:flex-row justify-between gap-3 text-xs text-[color:var(--color-smoke)]">
         <div>© {new Date().getFullYear()} AUSVAPE CO. Nicotine is addictive. Sold to 18+ only in Australia.</div>
-        <div>Melbourne, Australia · support@ausvape.co</div>
+        <div>
+          Melbourne, Australia ·{" "}
+          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="text-gold">
+            WhatsApp {WHATSAPP_NUMBER}
+          </a>
+        </div>
       </div>
-      <a
-        href="mailto:support@ausvape.co"
-        aria-label="Email AUSVAPE CO support at support@ausvape.co"
-        className="fixed bottom-5 right-5 z-40 h-12 w-12 rounded-full bg-gold text-[#0A0A0C] grid place-items-center shadow-[0_10px_30px_rgba(240,205,110,0.35)] hover:scale-105 transition-transform"
-      >
-        <MessageCircle className="w-5 h-5" aria-hidden="true" />
-      </a>
+      <WhatsAppFloatingButton />
     </footer>
   );
 }

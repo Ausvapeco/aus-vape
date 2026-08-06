@@ -1,7 +1,7 @@
 export type Product = {
   slug: string;
   name: string;
-  category: "disposables" | "devices" | "accessories";
+  category: "disposables" | "accessories";
   categoryLabel: string;
   price: number;
   salePrice?: number;
@@ -448,7 +448,7 @@ export const products: Product[] = [
   {
     slug: "fisco-xpod-8000-puffs-device-only",
     name: "Fisco Xpod 8000 Puffs (device Only)",
-    category: "devices",
+    category: "accessories",
     categoryLabel: "Fisco Xpod",
     price: 59.95,
     image: "/products-opt/fisco-xpod-8000-puffs-device-only.webp",
@@ -1316,7 +1316,6 @@ export const byCategory = (c: string) => {
 
 export const categories = [
   { slug: "disposables", label: "Disposables", blurb: "Pocket-ready pods, no refills." },
-  { slug: "devices", label: "Devices", blurb: "Refillable mods and pens." },
   { slug: "accessories", label: "Accessories", blurb: "Replacement pods and add-ons." },
   { slug: "best-sellers", label: "Best Sellers", blurb: "This month's top rated." },
   ...brands.map(b => ({ slug: b.slug, label: b.label, blurb: `The complete ${b.label} range.` })),
