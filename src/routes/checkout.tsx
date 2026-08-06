@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
 import { Lock, ShieldCheck, CheckCircle2, Copy, Check, Loader2, Landmark, AlertTriangle } from "lucide-react";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
@@ -171,7 +171,7 @@ function Checkout() {
               disabled={checking}
               className="mt-8 w-full bg-gold text-[#0A0A0C] font-semibold py-4 rounded hover:shadow-[0_0_28px_rgba(240,205,110,0.4)] transition-shadow disabled:opacity-70 inline-flex items-center justify-center gap-2"
             >
-              {checking ? (<><Loader2 className="w-4 h-4 animate-spin" /> Detecting your payment…</>) : "I&apos;ve made the transfer"}
+              {checking ? (<><Loader2 className="w-4 h-4 animate-spin" /> Detecting your payment…</>) : "I've made the transfer"}
             </button>
             <button onClick={() => setPay(null)} className="mt-3 w-full text-xs text-[color:var(--color-smoke)] hover:text-gold">
               ← Back to details
