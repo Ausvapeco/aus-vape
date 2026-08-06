@@ -8,6 +8,7 @@ import {
   listOrders, updateOrderStatus, claimAdmin, listAuditLog,
   getMyAccess, listStaff, grantStaff, revokeStaff,
 } from "@/lib/orders.functions";
+import { listAbandonedCarts } from "@/lib/carts.functions";
 
 function Console({ children }: { children: React.ReactNode }) {
   return (
