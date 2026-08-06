@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { SmartImage } from "@/components/ausvape/SmartImage";
 const brandStory = { url: "/products-opt/hqd-slick-raspberry-grape-6000-puffs.webp" };
-const heroDevice = { url: "/products-opt/double-happiness-hype-love-66-12000-puffs.webp" };
+const aboutBanner = { url: "/banners/about-banner.jpg" };
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -53,7 +53,14 @@ function About() {
       </section>
       <section className="px-4 md:px-8 pb-24">
         <div className="max-w-6xl mx-auto rounded-lg overflow-hidden aspect-[16/7]">
-          <SmartImage src={heroDevice.url} alt="Double Happiness Hype Love 66 12000-puff device stocked by AUSVAPE CO" sizes="(max-width: 768px) 100vw, 50vw" className="w-full h-full object-cover" />
+          <img
+            src={aboutBanner.url}
+            alt="Matte black and champagne gold AUSVAPE CO vape on dark stone with gold vapour"
+            width={1920}
+            height={848}
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
         </div>
       </section>
     </SiteLayout>
