@@ -101,6 +101,13 @@ export const createOrder = createServerFn({ method: "POST" })
       note: "Waiting for your bank transfer to arrive.",
     });
 
+    if (data.session_id) {
+      await supabaseAdmin
+        .from("abandoned_carts")
+        .update({ converted: true, order_reference: order.reference })
+        .eq("session_id", data.session_id);
+    }
+
     return { reference: order.reference, total: Number(order.total) };
   });
 
