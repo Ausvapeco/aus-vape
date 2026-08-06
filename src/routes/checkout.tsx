@@ -154,7 +154,10 @@ function Checkout() {
               Congratulations — your order <span className="font-spec text-gold">{reference}</span> has been received and your bank transfer is being matched.
               You&apos;ll get a confirmation email shortly. Orders ship within 24 hours once payment clears, with adult signature required on delivery.
             </p>
-            <Link to="/shop" className="inline-block mt-8 bg-gold text-[#0A0A0C] font-semibold px-8 py-3 rounded">Continue shopping</Link>
+            <div className="mt-8 flex flex-wrap gap-3 justify-center">
+              <Link to="/order/$reference" params={{ reference }} className="bg-gold text-[#0A0A0C] font-semibold px-8 py-3 rounded">View order status</Link>
+              <Link to="/shop" className="border border-[#A9791F]/30 px-8 py-3 rounded hover:border-[#F0CD6E]">Continue shopping</Link>
+            </div>
           </div>
         </section>
       </SiteLayout>
@@ -270,8 +273,8 @@ function Checkout() {
                 <span>I confirm I am 18 years or older and have read the Age-Restricted Sales Policy.</span>
               </label>
               {errors['form'] && <p className="text-xs text-red-400">{errors['form']}</p>}
-              <button className="w-full bg-gold text-[#0A0A0C] font-semibold py-4 rounded hover:shadow-[0_0_28px_rgba(240,205,110,0.4)] transition-shadow">
-                Continue to Bank Transfer — ${total.toFixed(2)}
+              <button disabled={placing} className="w-full bg-gold text-[#0A0A0C] font-semibold py-4 rounded hover:shadow-[0_0_28px_rgba(240,205,110,0.4)] transition-shadow disabled:opacity-70 inline-flex items-center justify-center gap-2">
+                {placing ? (<><Loader2 className="w-4 h-4 animate-spin" /> Creating your order…</>) : `Continue to Bank Transfer — $${total.toFixed(2)}`}
               </button>
             </form>
             <aside className="border border-[#A9791F]/20 rounded-lg p-6 bg-[#18181B] h-fit sticky top-24">
