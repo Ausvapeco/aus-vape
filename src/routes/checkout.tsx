@@ -2,12 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { Lock, ShieldCheck, CheckCircle2, Copy, Check, Loader2, Landmark, AlertTriangle } from "lucide-react";
+import { Lock, ShieldCheck, CheckCircle2, Copy, Check, Loader2, Landmark, AlertTriangle, Upload } from "lucide-react";
 import { SiteLayout } from "@/components/ausvape/SiteLayout";
 import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { useCart, getCartSessionId } from "@/lib/cart";
 import { SmartImage } from "@/components/ausvape/SmartImage";
-import { createOrder, getOrderByReference } from "@/lib/orders.functions";
+import { createOrder, getOrderByReference, claimPayment } from "@/lib/orders.functions";
 import { syncCart } from "@/lib/carts.functions";
 
 export const Route = createFileRoute("/checkout")({
@@ -73,6 +73,11 @@ function Checkout() {
   const placeOrder = useServerFn(createOrder);
   const lookupOrder = useServerFn(getOrderByReference);
   const saveLead = useServerFn(syncCart);
+  const sendClaim = useServerFn(claimPayment);
+  const [claimed, setClaimed] = useState(false);
+  const [claiming, setClaiming] = useState(false);
+  const [receipt, setReceipt] = useState<{ name: string; dataUrl: string } | null>(null);
+  const [claimError, setClaimError] = useState<string | null>(null);
   const clearedRef = useRef(false);
   const shipping = subtotal > 80 ? 0 : 9.95;
   const total = subtotal + shipping;
@@ -234,6 +239,73 @@ function Checkout() {
                 <a href="https://wa.me/2349014313605" target="_blank" rel="noopener noreferrer" className="text-gold">WhatsApp</a>{" "}
                 and we&apos;ll match it manually.
               </p>
+            </div>
+
+            <div className="mt-6 border border-[#A9791F]/25 rounded-lg p-5 bg-[#18181B]">
+              {claimed ? (
+                <div className="flex gap-3 items-start">
+                  <CheckCircle2 className="w-5 h-5 text-gold shrink-0" aria-hidden="true" />
+                  <p className="text-sm text-[color:var(--color-smoke)]">
+                    Thanks — we&apos;ve flagged <span className="font-spec text-gold">{pay.ref}</span> as paid and our team is
+                    verifying it against the account now. This page updates the moment it&apos;s confirmed.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="text-[10px] tracking-[0.35em] uppercase text-gold">Finished the transfer?</div>
+                  <p className="mt-3 text-xs text-[color:var(--color-smoke)]">
+                    Let us know and attach your receipt — it gets your order verified and dispatched much faster.
+                  </p>
+                  <label className="mt-4 flex items-center gap-3 text-xs cursor-pointer border border-dashed border-[#A9791F]/30 rounded p-3 hover:border-[#F0CD6E]">
+                    <Upload className="w-4 h-4 text-gold shrink-0" aria-hidden="true" />
+                    <span className="truncate text-[color:var(--color-smoke)]">
+                      {receipt ? receipt.name : "Attach payment receipt (optional)"}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="sr-only"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        if (file.size > 5_000_000) {
+                          setClaimError("That image is over 5MB — please attach a smaller screenshot.");
+                          return;
+                        }
+                        setClaimError(null);
+                        const fr = new FileReader();
+                        fr.onload = () => setReceipt({ name: file.name, dataUrl: String(fr.result) });
+                        fr.readAsDataURL(file);
+                      }}
+                    />
+                  </label>
+                  {claimError && <p className="mt-2 text-xs text-red-400">{claimError}</p>}
+                  <button
+                    type="button"
+                    disabled={claiming}
+                    onClick={async () => {
+                      setClaiming(true);
+                      setClaimError(null);
+                      try {
+                        await sendClaim({
+                          data: {
+                            reference: pay.ref,
+                            ...(receipt ? { receipt: receipt.dataUrl } : {}),
+                          },
+                        });
+                        setClaimed(true);
+                      } catch {
+                        setClaimError("Couldn't send that just now — please try again or message us on WhatsApp.");
+                      } finally {
+                        setClaiming(false);
+                      }
+                    }}
+                    className="mt-4 w-full bg-gold text-[#0A0A0C] font-semibold px-6 py-3 rounded disabled:opacity-60"
+                  >
+                    {claiming ? "Sending…" : "Yes, I've sent the money"}
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </section>

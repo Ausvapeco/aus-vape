@@ -6,7 +6,7 @@ import { Loader2, ShieldCheck, RefreshCw, Download } from "lucide-react";
 import { toCsv, downloadCsv, stamp } from "@/lib/csv";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  listOrders, updateOrderStatus, claimAdmin, listAuditLog,
+  listOrders, updateOrderStatus, claimAdmin, listAuditLog, getReceiptUrl,
   getMyAccess, listStaff, grantStaff, revokeStaff,
 } from "@/lib/orders.functions";
 import { listAbandonedCarts } from "@/lib/carts.functions";
@@ -350,6 +350,9 @@ function OrderRow({ order, onUpdate }: { order: any; onUpdate: (p: any) => Promi
   const [tracking, setTracking] = useState(order.tracking_number ?? "");
   const [carrier, setCarrier] = useState(order.carrier ?? "");
   const [busy, setBusy] = useState<string | null>(null);
+  const signReceipt = useServerFn(getReceiptUrl);
+  const [receiptUrl, setReceiptUrl] = useState<string | null>(null);
+  const claimPending = Boolean(order.payment_claimed_at) && order.status === "awaiting_payment";
 
   async function run(status: string) {
     setBusy(status);
@@ -372,6 +375,36 @@ function OrderRow({ order, onUpdate }: { order: any; onUpdate: (p: any) => Promi
           <div className="text-[10px] tracking-[0.25em] uppercase text-[color:var(--color-smoke)]">{LABEL[order.status]}</div>
         </div>
       </div>
+
+      {claimPending && (
+        <div className="mt-4 border border-amber-500/40 bg-amber-500/10 rounded p-3 text-xs">
+          <span className="text-amber-300 font-semibold">Customer says they&apos;ve paid</span>
+          <span className="text-[color:var(--color-smoke)]">
+            {" "}· {new Date(order.payment_claimed_at).toLocaleString("en-AU")} — check your bank for {order.reference} before confirming.
+          </span>
+          {order.payment_claim_note && (
+            <p className="mt-1 text-[color:var(--color-smoke)]">Note: {order.payment_claim_note}</p>
+          )}
+          {order.payment_receipt_path && (
+            receiptUrl ? (
+              <a href={receiptUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-gold underline">
+                Open receipt
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={async () => {
+                  const res = await signReceipt({ data: { path: order.payment_receipt_path } });
+                  setReceiptUrl(res.url);
+                }}
+                className="mt-2 inline-block border border-[#A9791F]/40 rounded px-3 py-1.5 hover:border-[#F0CD6E]"
+              >
+                View receipt
+              </button>
+            )
+          )}
+        </div>
+      )}
 
       <div className="mt-4 flex flex-wrap gap-2">
         {STATUSES.map((s) => (
