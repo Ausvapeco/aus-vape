@@ -49,6 +49,7 @@ export type PublicOrder = {
   shipped_at: string | null;
   tracking_number: string | null;
   carrier: string | null;
+  payment_claimed_at: string | null;
   items: { slug: string; name: string; qty: number; price: number }[];
   events: { status: OrderStatus; label: string; note: string | null; created_at: string }[];
 };
@@ -109,6 +110,75 @@ export const createOrder = createServerFn({ method: "POST" })
     }
 
     return { reference: order.reference, total: Number(order.total) };
+  });
+
+const claimSchema = z.object({
+  reference: refSchema,
+  note: z.string().trim().max(300).optional(),
+  // Data URL of a receipt screenshot, capped so a phone photo fits but nothing huge does.
+  receipt: z
+    .string()
+    .regex(/^data:image\/(png|jpeg|jpg|webp|heic);base64,[A-Za-z0-9+/=]+$/)
+    .max(7_000_000)
+    .optional(),
+});
+
+export const claimPayment = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => claimSchema.parse(data))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: order } = await supabaseAdmin
+      .from("orders")
+      .select("id, status, payment_claimed_at")
+      .eq("reference", data.reference)
+      .maybeSingle();
+    if (!order) throw new Error("Order not found");
+    if (order.payment_claimed_at) return { ok: true as const, alreadyClaimed: true };
+
+    let receiptPath: string | null = null;
+    if (data.receipt) {
+      const [header, b64] = data.receipt.split(",");
+      const mime = header?.slice(5, header.indexOf(";")) ?? "image/jpeg";
+      const ext = mime.split("/")[1] ?? "jpg";
+      const bytes = Uint8Array.from(atob(b64 ?? ""), (c) => c.charCodeAt(0));
+      const path = `${data.reference}/${Date.now()}.${ext}`;
+      const { error: upErr } = await supabaseAdmin.storage
+        .from("payment-receipts")
+        .upload(path, bytes, { contentType: mime, upsert: false });
+      if (!upErr) receiptPath = path;
+    }
+
+    await supabaseAdmin
+      .from("orders")
+      .update({
+        payment_claimed_at: new Date().toISOString(),
+        payment_claim_note: data.note ?? null,
+        ...(receiptPath ? { payment_receipt_path: receiptPath } : {}),
+      })
+      .eq("id", order.id);
+
+    await supabaseAdmin.from("order_events").insert({
+      order_id: order.id,
+      status: (order.status as OrderStatus) ?? "awaiting_payment",
+      label: "Customer confirmed transfer sent",
+      note: receiptPath
+        ? "Receipt attached. Awaiting verification against the bank account."
+        : "Awaiting verification against the bank account.",
+    });
+
+    return { ok: true as const, alreadyClaimed: false };
+  });
+
+export const getReceiptUrl = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ path: z.string().max(300) }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertStaff(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: signed } = await supabaseAdmin.storage
+      .from("payment-receipts")
+      .createSignedUrl(data.path, 60 * 30);
+    return { url: signed?.signedUrl ?? null };
   });
 
 export const getOrderByReference = createServerFn({ method: "POST" })
