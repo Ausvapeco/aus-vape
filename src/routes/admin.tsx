@@ -406,6 +406,18 @@ function OrderRow({ order, onUpdate }: { order: any; onUpdate: (p: any) => Promi
         </div>
       )}
 
+      {order.status === "awaiting_payment" && (
+        <button
+          type="button"
+          disabled={busy !== null}
+          onClick={() => run("payment_received")}
+          className="mt-4 w-full inline-flex items-center justify-center gap-2 bg-gold text-[#0A0A0C] font-semibold text-sm py-3 rounded disabled:opacity-60"
+        >
+          <ShieldCheck className="w-4 h-4" aria-hidden="true" />
+          {busy === "payment_received" ? "Confirming…" : `Confirm payment received — $${Number(order.total).toFixed(2)}`}
+        </button>
+      )}
+
       <div className="mt-4 flex flex-wrap gap-2">
         {STATUSES.map((s) => (
           <button
