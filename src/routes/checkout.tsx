@@ -8,6 +8,7 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { useCart, getCartSessionId } from "@/lib/cart";
 import { SmartImage } from "@/components/ausvape/SmartImage";
 import { createOrder, getOrderByReference } from "@/lib/orders.functions";
+import { syncCart } from "@/lib/carts.functions";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -71,6 +72,7 @@ function Checkout() {
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
   const placeOrder = useServerFn(createOrder);
   const lookupOrder = useServerFn(getOrderByReference);
+  const saveLead = useServerFn(syncCart);
   const clearedRef = useRef(false);
   const shipping = subtotal > 80 ? 0 : 9.95;
   const total = subtotal + shipping;
