@@ -8,6 +8,7 @@ import { Eyebrow } from "@/components/ausvape/Eyebrow";
 import { useCart, getCartSessionId } from "@/lib/cart";
 import { SmartImage } from "@/components/ausvape/SmartImage";
 import { createOrder, getOrderByReference } from "@/lib/orders.functions";
+import { syncCart } from "@/lib/carts.functions";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -71,6 +72,7 @@ function Checkout() {
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
   const placeOrder = useServerFn(createOrder);
   const lookupOrder = useServerFn(getOrderByReference);
+  const saveLead = useServerFn(syncCart);
   const clearedRef = useRef(false);
   const shipping = subtotal > 80 ? 0 : 9.95;
   const total = subtotal + shipping;
@@ -246,7 +248,37 @@ function Checkout() {
           <Eyebrow>Checkout</Eyebrow>
           <h1 className="mt-6 font-display font-black text-4xl md:text-5xl">Almost <span className="text-gold">yours.</span></h1>
           <div className="mt-10 grid lg:grid-cols-[1fr_420px] gap-10">
-            <form className="space-y-8" onSubmit={handleSubmit} noValidate>
+            <form
+              className="space-y-8"
+              onSubmit={handleSubmit}
+              noValidate
+              onBlur={(e) => {
+                // Capture the lead as soon as contact details are entered, so the
+                // dashboard keeps the shopper even if they never finish checkout.
+                const form = e.currentTarget;
+                const sessionId = getCartSessionId();
+                if (!sessionId || items.length === 0) return;
+                const fd = new FormData(form);
+                const name = String(fd.get("checkout-full-name") ?? "").trim();
+                const mail = String(fd.get("checkout-email") ?? "").trim();
+                const tel = String(fd.get("checkout-phone") ?? "").trim();
+                if (!name && !mail && !tel) return;
+                saveLead({
+                  data: {
+                    session_id: sessionId,
+                    items: items.map((i) => ({
+                      slug: i.product.slug,
+                      name: i.product.name,
+                      qty: i.qty,
+                      price: i.product.salePrice ?? i.product.price,
+                    })),
+                    ...(name ? { customer_name: name } : {}),
+                    ...(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail) ? { email: mail } : {}),
+                    ...(tel ? { phone: tel } : {}),
+                  },
+                }).catch(() => {});
+              }}
+            >
               <Section title="Contact">
                 <Field label="Email" type="email" error={errors['email']} />
                 <Field label="Phone" error={errors['phone']} />

@@ -14,6 +14,7 @@ const syncSchema = z.object({
   items: z.array(itemSchema).max(60),
   customer_name: z.string().trim().max(100).optional(),
   email: z.string().trim().email().max(255).optional(),
+  phone: z.string().trim().max(30).optional(),
 });
 
 /** Public: called from the storefront when a cart changes. Stores a snapshot so staff can see carts left behind. */
@@ -41,6 +42,7 @@ export const syncCart = createServerFn({ method: "POST" })
         cart_total: cartTotal,
         customer_name: data.customer_name ?? null,
         email: data.email ?? null,
+        phone: data.phone ?? null,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "session_id" },
@@ -62,7 +64,7 @@ export const listAbandonedCarts = createServerFn({ method: "POST" })
 
     const { data, error } = await context.supabase
       .from("abandoned_carts")
-      .select("id, session_id, items, item_count, cart_total, customer_name, email, converted, order_reference, created_at, updated_at")
+      .select("id, session_id, items, item_count, cart_total, customer_name, email, phone, converted, order_reference, created_at, updated_at")
       .eq("converted", false)
       .order("updated_at", { ascending: false })
       .limit(100);

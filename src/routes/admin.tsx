@@ -243,7 +243,7 @@ function DashboardInner() {
                   downloadCsv(
                     `ausvape-abandoned-carts-${stamp()}.csv`,
                     toCsv(
-                      ["Session ID", "Items", "Item count", "Cart total (AUD)", "Customer name", "Email", "Products", "Created at", "Last active"],
+                      ["Session ID", "Items", "Item count", "Cart total (AUD)", "Customer name", "Email", "Phone", "Products", "Created at", "Last active"],
                       (carts.data ?? []).map((c: any) => [
                         c.session_id,
                         (c.items as any[]).length,
@@ -251,6 +251,7 @@ function DashboardInner() {
                         Number(c.cart_total).toFixed(2),
                         c.customer_name ?? "",
                         c.email ?? "",
+                        c.phone ?? "",
                         (c.items as any[]).map((i) => `${i.qty}x ${i.name}`).join("; "),
                         new Date(c.created_at).toLocaleString("en-AU"),
                         new Date(c.updated_at).toLocaleString("en-AU"),
@@ -273,7 +274,7 @@ function DashboardInner() {
                       {c.item_count} item{c.item_count === 1 ? "" : "s"} · ${Number(c.cart_total).toFixed(2)}
                     </span>
                     <span className="text-[color:var(--color-smoke)]">
-                      {c.email ?? "guest"} · last active {new Date(c.updated_at).toLocaleString("en-AU")}
+                      {c.customer_name ?? "unknown"} · {c.email ?? "no email"}{c.phone ? ` · ${c.phone}` : ""} · last active {new Date(c.updated_at).toLocaleString("en-AU")}
                     </span>
                   </div>
                   <p className="mt-2 text-[color:var(--color-smoke)]">
