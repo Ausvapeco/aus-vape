@@ -27,7 +27,6 @@ function Console({ children }: { children: React.ReactNode }) {
 }
 
 export const Route = createFileRoute("/admin")({
-  ssr: false,
   head: () => ({
     meta: [
       { title: "Order admin — AUSVAPE CO" },
