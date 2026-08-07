@@ -159,6 +159,9 @@ export type Database = {
           id: string
           items: Json
           paid_at: string | null
+          payment_claim_note: string | null
+          payment_claimed_at: string | null
+          payment_receipt_path: string | null
           phone: string
           postcode: string
           reference: string
@@ -183,6 +186,9 @@ export type Database = {
           id?: string
           items?: Json
           paid_at?: string | null
+          payment_claim_note?: string | null
+          payment_claimed_at?: string | null
+          payment_receipt_path?: string | null
           phone: string
           postcode: string
           reference: string
@@ -207,6 +213,9 @@ export type Database = {
           id?: string
           items?: Json
           paid_at?: string | null
+          payment_claim_note?: string | null
+          payment_claimed_at?: string | null
+          payment_receipt_path?: string | null
           phone?: string
           postcode?: string
           reference?: string
