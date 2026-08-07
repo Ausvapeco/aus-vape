@@ -25,6 +25,7 @@ export type Database = {
           item_count: number
           items: Json
           order_reference: string | null
+          phone: string | null
           session_id: string
           updated_at: string
         }
@@ -38,6 +39,7 @@ export type Database = {
           item_count?: number
           items?: Json
           order_reference?: string | null
+          phone?: string | null
           session_id: string
           updated_at?: string
         }
@@ -51,6 +53,7 @@ export type Database = {
           item_count?: number
           items?: Json
           order_reference?: string | null
+          phone?: string | null
           session_id?: string
           updated_at?: string
         }
