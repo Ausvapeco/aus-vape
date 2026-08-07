@@ -93,7 +93,10 @@ export const createOrder = createServerFn({ method: "POST" })
       })
       .select("id, reference, total")
       .single();
-    if (error || !order) throw new Error("Could not create your order. Please try again.");
+    if (error || !order) {
+      console.error("createOrder failed", error);
+      throw new Error("Could not create your order. Please try again.");
+    }
 
     await supabaseAdmin.from("order_events").insert({
       order_id: order.id,
