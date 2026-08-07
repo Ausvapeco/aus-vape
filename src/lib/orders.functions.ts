@@ -188,7 +188,7 @@ export const getOrderByReference = createServerFn({ method: "POST" })
     const { data: order } = await supabaseAdmin
       .from("orders")
       .select(
-        "id, reference, status, total, subtotal, shipping, customer_name, created_at, paid_at, shipped_at, tracking_number, carrier, items",
+        "id, reference, status, total, subtotal, shipping, customer_name, created_at, paid_at, shipped_at, tracking_number, carrier, payment_claimed_at, items",
       )
       .eq("reference", data.reference)
       .maybeSingle();
@@ -212,6 +212,7 @@ export const getOrderByReference = createServerFn({ method: "POST" })
       shipped_at: order.shipped_at,
       tracking_number: order.tracking_number,
       carrier: order.carrier,
+      payment_claimed_at: order.payment_claimed_at,
       items: (order.items as PublicOrder["items"]) ?? [],
       events: (events ?? []).map((e) => ({
         status: e.status as OrderStatus,
@@ -350,7 +351,7 @@ export const listOrders = createServerFn({ method: "POST" })
     const { data, error } = await supabaseAdmin
       .from("orders")
       .select(
-        "id, reference, customer_name, email, phone, status, total, created_at, paid_at, shipped_at, tracking_number, carrier, admin_note, items",
+        "id, reference, customer_name, email, phone, status, total, created_at, paid_at, shipped_at, tracking_number, carrier, admin_note, payment_claimed_at, payment_receipt_path, payment_claim_note, items",
       )
       .order("created_at", { ascending: false })
       .limit(200);
